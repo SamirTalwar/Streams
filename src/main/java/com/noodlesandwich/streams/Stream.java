@@ -15,6 +15,18 @@ public abstract class Stream<T> implements Iterable<T> {
         return new Nil<T>();
     }
 
+    public static <T> Stream<T> from(Iterable<T> iterable) {
+        return from(iterable.iterator());
+    }
+
+    private static <T> Stream<T> from(Iterator<T> iterator) {
+        if (!iterator.hasNext()) {
+            return nil();
+        }
+
+        return cons(iterator.next(), from(iterator));
+    }
+
     public abstract boolean isNil();
 
     public abstract T head();
