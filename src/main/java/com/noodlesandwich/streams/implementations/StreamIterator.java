@@ -13,7 +13,7 @@ public final class StreamIterator<T> implements Iterator<T> {
 
     @Override
     public boolean hasNext() {
-        return stream == Stream.nil();
+        return !stream.isNil();
     }
 
     @Override

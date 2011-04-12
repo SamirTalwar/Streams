@@ -12,6 +12,11 @@ public final class Cons<T> extends Stream<T> {
     }
 
     @Override
+    public boolean isNil() {
+        return false;
+    }
+
+    @Override
     public T head() {
         return head;
     }

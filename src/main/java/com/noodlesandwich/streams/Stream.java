@@ -7,16 +7,15 @@ import com.noodlesandwich.streams.implementations.Nil;
 import com.noodlesandwich.streams.implementations.StreamIterator;
 
 public abstract class Stream<T> implements Iterable<T> {
-    private static final Stream<Object> NIL = new Nil<Object>();
-
     public static <T> Stream<T> cons(T head, Stream<T> tail) {
         return new Cons<T>(head, tail);
     }
 
-    @SuppressWarnings("unchecked")
     public static <T> Stream<T> nil() {
-        return (Stream<T>) NIL;
+        return new Nil<T>();
     }
+
+    public abstract boolean isNil();
 
     public abstract T head();
 
