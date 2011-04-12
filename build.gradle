@@ -1,0 +1,17 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+sourceCompatibility = '1.6'
+targetCompatibility = '1.6'
+
+dependencies {
+    testCompile (group: 'junit',        name: 'junit',            version: '4.8+') {
+        exclude module: 'hamcrest-core'
+    }
+    testCompile  group: 'org.hamcrest', name: 'hamcrest-library', version: '1.2+'
+}
+
+repositories {
+    mavenCentral()
+    mavenRepo urls: "https://repository.sonatype.org/"
+}
