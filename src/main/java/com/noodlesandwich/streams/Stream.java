@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import com.noodlesandwich.streams.implementations.Cons;
 import com.noodlesandwich.streams.implementations.Nil;
-import com.noodlesandwich.streams.implementations.StreamIterator;
+import com.noodlesandwich.streams.iterators.StreamIterator;
 
 public abstract class Stream<T> implements Iterable<T> {
     public static <T> Stream<T> cons(T head, Stream<T> tail) {

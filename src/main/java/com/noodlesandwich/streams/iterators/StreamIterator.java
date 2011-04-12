@@ -1,4 +1,4 @@
-package com.noodlesandwich.streams.implementations;
+package com.noodlesandwich.streams.iterators;
 
 import java.util.Iterator;
 
