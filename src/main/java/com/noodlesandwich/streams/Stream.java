@@ -9,8 +9,8 @@ import com.noodlesandwich.streams.implementations.StreamIterator;
 public abstract class Stream<T> implements Iterable<T> {
     private static final Stream<Object> NIL = new Nil<Object>();
 
-    public static <T> Stream<T> cons(T first, Stream<T> rest) {
-        return new Cons<T>(first, rest);
+    public static <T> Stream<T> cons(T head, Stream<T> tail) {
+        return new Cons<T>(head, tail);
     }
 
     @SuppressWarnings("unchecked")
@@ -18,9 +18,9 @@ public abstract class Stream<T> implements Iterable<T> {
         return (Stream<T>) NIL;
     }
 
-    public abstract T first();
+    public abstract T head();
 
-    public abstract Stream<T> rest();
+    public abstract Stream<T> tail();
 
     @Override
     public Iterator<T> iterator() {

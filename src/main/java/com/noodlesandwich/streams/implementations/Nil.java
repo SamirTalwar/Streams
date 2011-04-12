@@ -5,12 +5,12 @@ import com.noodlesandwich.streams.Stream;
 
 public final class Nil<T> extends Stream<T> {
     @Override
-    public T first() {
+    public T head() {
         throw new EndOfStreamException();
     }
 
     @Override
-    public Stream<T> rest() {
+    public Stream<T> tail() {
         throw new EndOfStreamException();
     }
 }

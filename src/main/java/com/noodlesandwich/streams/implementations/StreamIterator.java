@@ -18,9 +18,9 @@ public final class StreamIterator<T> implements Iterator<T> {
 
     @Override
     public T next() {
-        T first = stream.first();
-        stream = stream.rest();
-        return first;
+        T head = stream.head();
+        stream = stream.tail();
+        return head;
     }
 
     @Override
