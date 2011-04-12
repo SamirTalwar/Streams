@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import com.noodlesandwich.streams.implementations.Cons;
 import com.noodlesandwich.streams.implementations.Nil;
+import com.noodlesandwich.streams.implementations.StreamIterator;
 
 public abstract class Stream<T> implements Iterable<T> {
     private static final Stream<Object> NIL = new Nil<Object>();

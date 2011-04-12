@@ -1,8 +1,10 @@
-package com.noodlesandwich.streams;
+package com.noodlesandwich.streams.implementations;
 
 import java.util.Iterator;
 
-final class StreamIterator<T> implements Iterator<T> {
+import com.noodlesandwich.streams.Stream;
+
+public final class StreamIterator<T> implements Iterator<T> {
     private Stream<T> stream;
 
     public StreamIterator(Stream<T> stream) {
