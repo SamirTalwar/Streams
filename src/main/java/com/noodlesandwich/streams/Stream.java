@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import com.noodlesandwich.streams.implementations.Cons;
 import com.noodlesandwich.streams.implementations.Nil;
+import com.noodlesandwich.streams.implementations.Wrapper;
 import com.noodlesandwich.streams.iterators.StreamIterator;
 
 public abstract class Stream<T> implements Iterable<T> {
@@ -25,6 +26,10 @@ public abstract class Stream<T> implements Iterable<T> {
         }
 
         return cons(iterator.next(), from(iterator));
+    }
+
+    public static <T> Stream<T> wrap(Iterable<T> iterable) {
+        return new Wrapper<T>(iterable);
     }
 
     public abstract boolean isNil();
