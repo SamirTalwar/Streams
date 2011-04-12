@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import com.noodlesandwich.streams.Stream;
 
-import static com.noodlesandwich.streams.Stream.nil;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.emptyIterable;
@@ -13,7 +12,7 @@ import static org.hamcrest.Matchers.is;
 public class StreamIteratorTest {
     @Test public void
     stops_immediately_if_the_stream_is_nil() {
-        assertThat(nil(), is(emptyIterable()));
+        assertThat(Stream.nil(), is(emptyIterable()));
     }
 
     @Test public void
