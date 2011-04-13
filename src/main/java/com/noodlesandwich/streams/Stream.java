@@ -46,8 +46,8 @@ public abstract class Stream<T> implements Iterable<T> {
         return new Filter<T>(predicate, this);
     }
 
-    public <U> Fold<T, U> fold(FoldFunction<T, U> foldFunction) {
-        return new Fold<T, U>(foldFunction, this);
+    public <U> U fold(FoldFunction<T, U> foldFunction, U initializer) {
+        return new Fold<T, U>(foldFunction, initializer).apply(this);
     }
 
     public abstract boolean isNil();

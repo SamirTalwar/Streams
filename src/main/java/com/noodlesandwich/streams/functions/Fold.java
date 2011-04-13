@@ -3,18 +3,19 @@ package com.noodlesandwich.streams.functions;
 import com.noodlesandwich.streams.Stream;
 
 public class Fold<T, A> {
-    private final Stream<T> stream;
     private final FoldFunction<T, A> foldFunction;
+    private final A initializer;
 
-    public Fold(FoldFunction<T, A> foldFunction, Stream<T> stream) {
+    public Fold(FoldFunction<T, A> foldFunction, A initializer) {
         this.foldFunction = foldFunction;
-        this.stream = stream;
+        this.initializer = initializer;
     }
 
-    public A apply(A initializer) {
+    public A apply(Stream<T> stream) {
+        A result = initializer;
         for (T value : stream) {
-            initializer = foldFunction.apply(initializer, value);
+            result = foldFunction.apply(result, value);
         }
-        return initializer;
+        return result;
     }
 }
