@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
+import com.noodlesandwich.streams.functions.Drop;
 import com.noodlesandwich.streams.functions.Filter;
 import com.noodlesandwich.streams.functions.Fold;
 import com.noodlesandwich.streams.functions.FoldFunction;
@@ -49,6 +50,10 @@ public abstract class Stream<T> implements Iterable<T> {
 
     public Stream<T> take(int n) {
         return new Take<T>(n, this);
+    }
+
+    public Stream<T> drop(int n) {
+        return new Drop<T>(n, this);
     }
 
     public <U> U fold(FoldFunction<T, U> foldFunction, U initializer) {
