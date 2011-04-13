@@ -11,6 +11,7 @@ import com.noodlesandwich.streams.functions.Fold;
 import com.noodlesandwich.streams.functions.FoldFunction;
 import com.noodlesandwich.streams.functions.Map;
 import com.noodlesandwich.streams.functions.Take;
+import com.noodlesandwich.streams.functions.Zip;
 import com.noodlesandwich.streams.implementations.Cons;
 import com.noodlesandwich.streams.implementations.Nil;
 import com.noodlesandwich.streams.implementations.Wrapper;
@@ -55,6 +56,10 @@ public abstract class Stream<T> implements Iterable<T> {
 
     public Stream<T> concat(Stream<T> nextStream) {
         return Concat.concat(this, nextStream);
+    }
+
+    public <U> Stream<Pair<T, U>> zip(Stream<U> pairedStream) {
+        return new Zip<T, U>(this, pairedStream);
     }
 
     public Stream<T> take(int n) {
