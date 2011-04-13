@@ -8,6 +8,7 @@ import com.noodlesandwich.streams.functions.Filter;
 import com.noodlesandwich.streams.functions.Fold;
 import com.noodlesandwich.streams.functions.FoldFunction;
 import com.noodlesandwich.streams.functions.Map;
+import com.noodlesandwich.streams.functions.Take;
 import com.noodlesandwich.streams.implementations.Cons;
 import com.noodlesandwich.streams.implementations.Nil;
 import com.noodlesandwich.streams.implementations.Wrapper;
@@ -44,6 +45,10 @@ public abstract class Stream<T> implements Iterable<T> {
 
     public Stream<T> filter(Predicate<T> predicate) {
         return new Filter<T>(predicate, this);
+    }
+
+    public Stream<T> take(int n) {
+        return new Take<T>(n, this);
     }
 
     public <U> U fold(FoldFunction<T, U> foldFunction, U initializer) {
