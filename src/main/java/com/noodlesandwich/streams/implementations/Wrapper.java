@@ -15,11 +15,7 @@ public final class Wrapper<T> extends Stream<T> {
     private Stream<T> tail;
     private boolean fetchedTail = false;
 
-    public Wrapper(Iterable<T> iterable) {
-        this(iterable.iterator());
-    }
-
-    private Wrapper(Iterator<T> iterator) {
+    public Wrapper(Iterator<T> iterator) {
         this.iterator = iterator;
         this.isNil = !iterator.hasNext();
     }

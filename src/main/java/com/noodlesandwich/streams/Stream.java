@@ -39,7 +39,11 @@ public abstract class Stream<T> implements Iterable<T> {
     }
 
     public static <T> Stream<T> wrap(Iterable<T> iterable) {
-        return new Wrapper<T>(iterable);
+        return wrap(iterable.iterator());
+    }
+
+    public static <T> Stream<T> wrap(Iterator<T> iterator) {
+        return new Wrapper<T>(iterator);
     }
 
     public <U> Stream<U> map(Function<T, U> function) {

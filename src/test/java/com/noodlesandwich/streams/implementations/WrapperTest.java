@@ -2,11 +2,12 @@ package com.noodlesandwich.streams.implementations;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
+
+import org.junit.Test;
 
 import com.noodlesandwich.streams.EndOfStreamException;
 import com.noodlesandwich.streams.Stream;
-
-import org.junit.Test;
 
 import static com.noodlesandwich.streams.matchers.HeadMatcher.has_a_head_of;
 import static com.noodlesandwich.streams.matchers.NilMatcher.nil;
@@ -36,17 +37,21 @@ public class WrapperTest {
     }
 
     @Test public void
+    wraps_an_iterator() {
+        Iterator<Integer> iterator = Arrays.asList(1, 2, 3).iterator();
+        assertThat(Stream.wrap(iterator), contains(1, 2, 3));
+    }
+
+    @Test public void
     the_head_does_not_change() {
-        Iterable<Integer> iterable = Arrays.asList(1, 2, 3);
-        Stream<Integer> stream = Stream.wrap(iterable);
+        Stream<Integer> stream = Stream.wrap(Arrays.asList(1, 2, 3));
         Integer head = stream.head();
         assertThat(stream, has_a_head_of(head));
     }
 
     @Test public void
     the_tail_does_not_change() {
-        Iterable<Integer> iterable = Arrays.asList(1, 2, 3);
-        Stream<Integer> stream = Stream.wrap(iterable);
+        Stream<Integer> stream = Stream.wrap(Arrays.asList(1, 2, 3));
         Stream<Integer> tail = stream.tail();
         assertThat(stream, has_a_tail_of(tail));
     }
