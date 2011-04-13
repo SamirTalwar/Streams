@@ -5,6 +5,8 @@ import java.util.Iterator;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.noodlesandwich.streams.functions.Filter;
+import com.noodlesandwich.streams.functions.Fold;
+import com.noodlesandwich.streams.functions.FoldFunction;
 import com.noodlesandwich.streams.functions.Map;
 import com.noodlesandwich.streams.implementations.Cons;
 import com.noodlesandwich.streams.implementations.Nil;
@@ -42,6 +44,10 @@ public abstract class Stream<T> implements Iterable<T> {
 
     public Stream<T> filter(Predicate<T> predicate) {
         return new Filter<T>(predicate, this);
+    }
+
+    public <U> Fold<T, U> fold(FoldFunction<T, U> foldFunction) {
+        return new Fold<T, U>(foldFunction, this);
     }
 
     public abstract boolean isNil();
