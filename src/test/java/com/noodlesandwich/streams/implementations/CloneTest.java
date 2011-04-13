@@ -13,6 +13,6 @@ public class CloneTest {
     @Test public void
     clones_an_existing_iterable() {
         Iterable<Integer> iterable = Arrays.asList(1, 2, 3);
-        assertThat(Stream.from(iterable), contains(1, 2, 3));
+        assertThat(Stream.clone(iterable), contains(1, 2, 3));
     }
 }

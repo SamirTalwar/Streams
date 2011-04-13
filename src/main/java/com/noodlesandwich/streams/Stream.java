@@ -26,16 +26,16 @@ public abstract class Stream<T> implements Iterable<T> {
         return new Nil<T>();
     }
 
-    public static <T> Stream<T> from(Iterable<T> iterable) {
-        return from(iterable.iterator());
+    public static <T> Stream<T> clone(Iterable<T> iterable) {
+        return clone(iterable.iterator());
     }
 
-    private static <T> Stream<T> from(Iterator<T> iterator) {
+    private static <T> Stream<T> clone(Iterator<T> iterator) {
         if (!iterator.hasNext()) {
             return nil();
         }
 
-        return cons(iterator.next(), from(iterator));
+        return cons(iterator.next(), clone(iterator));
     }
 
     public static <T> Stream<T> wrap(Iterable<T> iterable) {
