@@ -2,6 +2,10 @@ package com.noodlesandwich.streams;
 
 import java.util.Iterator;
 
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
+import com.noodlesandwich.streams.functions.Filter;
+import com.noodlesandwich.streams.functions.Map;
 import com.noodlesandwich.streams.implementations.Cons;
 import com.noodlesandwich.streams.implementations.Nil;
 import com.noodlesandwich.streams.implementations.Wrapper;
@@ -30,6 +34,14 @@ public abstract class Stream<T> implements Iterable<T> {
 
     public static <T> Stream<T> wrap(Iterable<T> iterable) {
         return new Wrapper<T>(iterable);
+    }
+
+    public <U> Stream<U> map(Function<T, U> function) {
+        return new Map<T, U>(function, this);
+    }
+
+    public Stream<T> filter(Predicate<T> predicate) {
+        return new Filter<T>(predicate, this);
     }
 
     public abstract boolean isNil();

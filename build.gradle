@@ -4,10 +4,12 @@ apply plugin: 'eclipse'
 sourceCompatibility = '1.6'
 
 dependencies {
-    testCompile (group: 'junit',        name: 'junit-dep',        version: '4.8+') {
+    compile      group: 'com.google.guava', name: 'guava',            version: 'r09'
+
+    testCompile (group: 'junit',            name: 'junit-dep',        version: '4.8+') {
         exclude module: 'hamcrest-core'
     }
-    testCompile  group: 'org.hamcrest', name: 'hamcrest-library', version: '1.2+'
+    testCompile  group: 'org.hamcrest',     name: 'hamcrest-library', version: '1.2+'
 }
 
 repositories {
