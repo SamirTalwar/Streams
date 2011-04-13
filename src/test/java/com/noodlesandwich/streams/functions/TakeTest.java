@@ -24,6 +24,12 @@ public class TakeTest {
         assertThat(stream.take(3), contains(1, 2, 3));
     }
 
+    @Test public void
+    taking_more_than_the_size_of_the_stream_does_nothing() {
+        Stream<Integer> stream = Stream.wrap(Arrays.asList(1, 2, 3, 4, 5));
+        assertThat(stream.take(7), contains(1, 2, 3, 4, 5));
+    }
+
     @Test(expected=IllegalArgumentException.class) public void
     cannot_take_a_negative_number_of_elements() {
         Stream<Integer> stream = Stream.wrap(Arrays.asList(1, 2, 3, 4, 5));

@@ -18,7 +18,7 @@ public class Take<T> extends Stream<T> {
 
     @Override
     public boolean isNil() {
-        return n == 0;
+        return n == 0 || stream.isNil();
     }
 
     @Override
