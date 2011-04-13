@@ -45,9 +45,7 @@ public final class Wrapper<T> extends Stream<T> {
 
     @Override
     public Stream<T> tail() {
-        if (isNil) {
-            throw new EndOfStreamException();
-        }
+        head();
 
         if (!fetchedTail) {
             tail = new Wrapper<T>(iterator);

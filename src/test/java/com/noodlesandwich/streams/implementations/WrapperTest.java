@@ -3,10 +3,10 @@ package com.noodlesandwich.streams.implementations;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.junit.Test;
-
 import com.noodlesandwich.streams.EndOfStreamException;
 import com.noodlesandwich.streams.Stream;
+
+import org.junit.Test;
 
 import static com.noodlesandwich.streams.matchers.HeadMatcher.has_a_head_of;
 import static com.noodlesandwich.streams.matchers.NilMatcher.nil;
@@ -49,6 +49,13 @@ public class WrapperTest {
         Stream<Integer> stream = Stream.wrap(iterable);
         Stream<Integer> tail = stream.tail();
         assertThat(stream, has_a_tail_of(tail));
+    }
+
+    @Test public void
+    can_call_tail_before_head() {
+        Stream<Integer> stream = Stream.wrap(Arrays.asList(1, 2, 3));
+        assertThat(stream.tail(), contains(2, 3));
+        assertThat(stream.head(), is(1));
     }
 
     @Test(expected=EndOfStreamException.class) public void
