@@ -2,11 +2,11 @@ package com.noodlesandwich.streams.functions;
 
 import java.util.Arrays;
 
-import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import com.noodlesandwich.streams.Stream;
 
+import static com.noodlesandwich.streams.matchers.NilMatcher.nil;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
@@ -14,8 +14,8 @@ import static org.hamcrest.Matchers.is;
 public class TakeTest {
     @Test public void
     taking_zero_elements_returns_nil() {
-        Stream<Integer> stream = Stream.wrap(Arrays.asList(1, 2, 3, 4, 5));
-        assertThat(stream.take(0), is(Matchers.<Integer>emptyIterable()));
+        Stream<Object> stream = Stream.wrap(Arrays.asList(new Object(), new Object(), new Object()));
+        assertThat(stream.take(0), is(nil()));
     }
 
     @Test public void
