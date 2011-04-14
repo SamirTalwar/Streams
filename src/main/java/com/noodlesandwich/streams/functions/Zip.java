@@ -7,7 +7,7 @@ public class Zip<F, S, R> extends Stream<R> {
     private final Stream<S> second;
     private final ZipWithFunction<? super F, ? super S, R> zipWithFunction;
 
-    public Zip(Stream<F> first, Stream<S> second, ZipWithFunction<? super F, ? super S, R> zipWithFunction) {
+    public Zip(ZipWithFunction<? super F, ? super S, R> zipWithFunction, Stream<F> first, Stream<S> second) {
         this.first = first;
         this.second = second;
         this.zipWithFunction = zipWithFunction;
@@ -25,6 +25,6 @@ public class Zip<F, S, R> extends Stream<R> {
 
     @Override
     public Stream<R> tail() {
-        return new Zip<F, S, R>(first.tail(), second.tail(), zipWithFunction);
+        return new Zip<F, S, R>(zipWithFunction, first.tail(), second.tail());
     }
 }

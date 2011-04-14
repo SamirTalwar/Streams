@@ -76,7 +76,7 @@ public abstract class Stream<T> implements Iterable<T> {
     }
 
     public <U, V> Stream<V> zipWith(Stream<U> pairedStream, ZipWithFunction<? super T, ? super U, V> zipWithFunction) {
-        return new Zip<T, U, V>(this, pairedStream, zipWithFunction);
+        return new Zip<T, U, V>(zipWithFunction, this, pairedStream);
     }
 
     public abstract boolean isNil();
