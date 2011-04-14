@@ -1,15 +1,16 @@
 package com.noodlesandwich.streams.functions;
 
-import com.noodlesandwich.streams.Pair;
 import com.noodlesandwich.streams.Stream;
 
-public class Zip<F, S> extends Stream<Pair<F, S>> {
+public class Zip<F, S, R> extends Stream<R> {
     private final Stream<F> first;
     private final Stream<S> second;
+    private final ZipWithFunction<? super F, ? super S, R> zipWithFunction;
 
-    public Zip(Stream<F> first, Stream<S> second) {
+    public Zip(Stream<F> first, Stream<S> second, ZipWithFunction<? super F, ? super S, R> zipWithFunction) {
         this.first = first;
         this.second = second;
+        this.zipWithFunction = zipWithFunction;
     }
 
     @Override
@@ -18,12 +19,12 @@ public class Zip<F, S> extends Stream<Pair<F, S>> {
     }
 
     @Override
-    public Pair<F, S> head() {
-        return new Pair<F, S>(first.head(), second.head());
+    public R head() {
+        return zipWithFunction.apply(first.head(), second.head());
     }
 
     @Override
-    public Stream<Pair<F, S>> tail() {
-        return new Zip<F, S>(first.tail(), second.tail());
+    public Stream<R> tail() {
+        return new Zip<F, S, R>(first.tail(), second.tail(), zipWithFunction);
     }
 }
