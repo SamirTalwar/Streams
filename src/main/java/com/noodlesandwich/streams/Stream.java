@@ -59,6 +59,14 @@ public abstract class Stream<T> implements Iterable<T> {
         return new Fold<T, U>(foldFunction, initializer).apply(this);
     }
 
+    public Stream<T> take(int n) {
+        return new Take<T>(n, this);
+    }
+
+    public Stream<T> drop(int n) {
+        return new Drop<T>(n, this);
+    }
+
     public Stream<T> concat(Stream<T> nextStream) {
         return Concat.concat(this, nextStream);
     }
@@ -69,14 +77,6 @@ public abstract class Stream<T> implements Iterable<T> {
 
     public <U, V> Stream<V> zipWith(Stream<U> pairedStream, ZipWithFunction<? super T, ? super U, V> zipWithFunction) {
         return new Zip<T, U, V>(this, pairedStream, zipWithFunction);
-    }
-
-    public Stream<T> take(int n) {
-        return new Take<T>(n, this);
-    }
-
-    public Stream<T> drop(int n) {
-        return new Drop<T>(n, this);
     }
 
     public abstract boolean isNil();
