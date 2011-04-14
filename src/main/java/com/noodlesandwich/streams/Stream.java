@@ -72,7 +72,12 @@ public abstract class Stream<T> implements Iterable<T> {
     }
 
     public <U> Stream<Pair<T, U>> zip(Stream<U> pairedStream) {
-        return zipWith(pairedStream, Stream.<T, U>pairFunction());
+        return zipWith(pairedStream, new ZipWithFunction<T, U, Pair<T, U>>() {
+            @Override
+            public Pair<T, U> apply(T a, U b) {
+                return new Pair<T, U>(a, b);
+            }
+        });
     }
 
     public <U, V> Stream<V> zipWith(Stream<U> pairedStream, ZipWithFunction<? super T, ? super U, V> zipWithFunction) {
@@ -88,14 +93,5 @@ public abstract class Stream<T> implements Iterable<T> {
     @Override
     public Iterator<T> iterator() {
         return new StreamIterator<T>(this);
-    }
-
-    private static <T, U> ZipWithFunction<T, U, Pair<T, U>> pairFunction() {
-        return new ZipWithFunction<T, U, Pair<T, U>>() {
-            @Override
-            public Pair<T, U> apply(T a, U b) {
-                return new Pair<T, U>(a, b);
-            }
-        };
     }
 }
