@@ -2,6 +2,7 @@ package com.noodlesandwich.streams.functions;
 
 import org.junit.Test;
 
+import com.noodlesandwich.streams.FoldFunction;
 import com.noodlesandwich.streams.Stream;
 
 import static org.hamcrest.MatcherAssert.assertThat;

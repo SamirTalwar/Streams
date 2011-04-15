@@ -1,5 +1,6 @@
 package com.noodlesandwich.streams.functions;
 
+import com.noodlesandwich.streams.FoldFunction;
 import com.noodlesandwich.streams.Stream;
 
 public final class Fold<T, A> {

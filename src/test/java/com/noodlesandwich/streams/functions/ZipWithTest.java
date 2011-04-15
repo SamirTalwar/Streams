@@ -3,6 +3,7 @@ package com.noodlesandwich.streams.functions;
 import org.junit.Test;
 
 import com.noodlesandwich.streams.Stream;
+import com.noodlesandwich.streams.ZipWithFunction;
 import com.noodlesandwich.streams.matchers.NilMatcher;
 
 import static org.hamcrest.MatcherAssert.assertThat;

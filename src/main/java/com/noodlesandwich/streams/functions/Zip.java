@@ -1,6 +1,7 @@
 package com.noodlesandwich.streams.functions;
 
 import com.noodlesandwich.streams.Stream;
+import com.noodlesandwich.streams.ZipWithFunction;
 
 public final class Zip<F, S, R> extends Stream<R> {
     private final Stream<F> first;
