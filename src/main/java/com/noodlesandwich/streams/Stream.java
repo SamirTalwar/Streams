@@ -104,6 +104,15 @@ public abstract class Stream<T> implements Iterable<T> {
         return new All<T>(predicate).apply(this);
     }
 
+    public int size() {
+        return fold(new FoldFunction<T, Integer>() {
+            @Override
+            public Integer apply(Integer accumulator, T input) {
+                return accumulator + 1;
+            }
+        }, 0);
+    }
+
     public abstract boolean isNil();
 
     public abstract T head();
