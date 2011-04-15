@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.hasEntry;
 import static org.hamcrest.Matchers.is;
 
-public class ToMapTest {
+public final class ToMapTest {
     @Test public void
     converts_nil_to_an_empty_map() {
         assertThat(Stream.nil().toMap(null).isEmpty(), is(true));

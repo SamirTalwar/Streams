@@ -11,7 +11,7 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
 
-public class ToListTest {
+public final class ToListTest {
     @Test public void
     converts_nil_to_an_empty_list() {
         assertThat(Stream.nil().toList(), is(empty()));

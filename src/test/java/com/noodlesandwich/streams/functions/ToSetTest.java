@@ -11,7 +11,7 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
 
-public class ToSetTest {
+public final class ToSetTest {
     @Test public void
     converts_nil_to_an_empty_set() {
         assertThat(Stream.nil().toSet(), is(empty()));

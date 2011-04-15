@@ -11,7 +11,7 @@ import static org.hamcrest.Matchers.arrayContaining;
 import static org.hamcrest.Matchers.emptyArray;
 import static org.hamcrest.Matchers.is;
 
-public class ToArrayTest {
+public final class ToArrayTest {
     @Test public void
     converts_nil_to_an_empty_array() {
         assertThat(Stream.nil().toArray(Object.class), is(emptyArray()));
