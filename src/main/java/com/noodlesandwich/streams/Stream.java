@@ -15,6 +15,7 @@ import com.noodlesandwich.streams.functions.FoldFunction;
 import com.noodlesandwich.streams.functions.Map;
 import com.noodlesandwich.streams.functions.Take;
 import com.noodlesandwich.streams.functions.TakeWhile;
+import com.noodlesandwich.streams.functions.Unique;
 import com.noodlesandwich.streams.functions.Zip;
 import com.noodlesandwich.streams.functions.ZipWithFunction;
 import com.noodlesandwich.streams.implementations.Cons;
@@ -102,6 +103,10 @@ public abstract class Stream<T> implements Iterable<T> {
 
     public boolean all(Predicate<T> predicate) {
         return new All<T>(predicate).apply(this);
+    }
+
+    public Stream<T> unique() {
+        return new Unique<T>(this);
     }
 
     public int size() {
