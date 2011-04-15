@@ -1,12 +1,14 @@
 package com.noodlesandwich.streams;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Lists;
 import com.noodlesandwich.streams.functions.All;
 import com.noodlesandwich.streams.functions.Any;
 import com.noodlesandwich.streams.functions.Concat;
@@ -173,6 +175,10 @@ public abstract class Stream<T> implements Iterable<T> {
                 return cons(input, accumulator);
             }
         }, Stream.<T>nil());
+    }
+
+    public List<T> toList() {
+        return Lists.newArrayList(this);
     }
 
     public abstract boolean isNil();
