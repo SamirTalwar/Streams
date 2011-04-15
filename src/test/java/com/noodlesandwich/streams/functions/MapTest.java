@@ -13,7 +13,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 
-public class MapTest {
+public final class MapTest {
     @Test public void
     a_mapping_of_nil_to_anything_is_nil() {
         assertThat(Stream.nil().map(Functions.constant(new Object())), is(nil()));

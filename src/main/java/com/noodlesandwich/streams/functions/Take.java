@@ -3,7 +3,7 @@ package com.noodlesandwich.streams.functions;
 import com.noodlesandwich.streams.EndOfStreamException;
 import com.noodlesandwich.streams.Stream;
 
-public class Take<T> extends Stream<T> {
+public final class Take<T> extends Stream<T> {
     private final int n;
     private final Stream<T> stream;
 

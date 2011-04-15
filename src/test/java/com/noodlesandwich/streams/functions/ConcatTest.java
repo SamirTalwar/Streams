@@ -11,7 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 
-public class ConcatTest {
+public final class ConcatTest {
     @Test public void
     concatenates_two_nil_streams_into_one() {
         Stream<Object> streamOne = Stream.nil();

@@ -11,7 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 
-public class DropTest {
+public final class DropTest {
     @Test public void
     dropping_zero_elements_does_nothing() {
         Stream<Integer> stream = Stream.wrap(Arrays.asList(1, 2, 3, 4, 5));

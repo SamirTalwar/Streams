@@ -12,7 +12,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 
-public class ZipTest {
+public final class ZipTest {
     @Test public void
     zipping_anything_with_nil_returns_nil() {
         Stream<Integer> streamOne = Stream.wrap(Arrays.asList(1, 2, 3, 4, 5));

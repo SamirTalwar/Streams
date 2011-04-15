@@ -10,7 +10,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.emptyIterable;
 import static org.hamcrest.Matchers.is;
 
-public class NilTest {
+public final class NilTest {
     @Test public void
     nil_is_nil() {
         assertThat(Stream.nil(), is(nil()));

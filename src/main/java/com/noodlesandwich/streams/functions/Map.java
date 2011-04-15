@@ -3,7 +3,7 @@ package com.noodlesandwich.streams.functions;
 import com.google.common.base.Function;
 import com.noodlesandwich.streams.Stream;
 
-public class Map<F, T> extends Stream<T> {
+public final class Map<F, T> extends Stream<T> {
     private final Stream<F> stream;
     private final Function<F, T> function;
 

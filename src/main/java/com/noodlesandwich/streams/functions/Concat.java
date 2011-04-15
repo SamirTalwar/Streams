@@ -2,7 +2,7 @@ package com.noodlesandwich.streams.functions;
 
 import com.noodlesandwich.streams.Stream;
 
-public class Concat<T> extends Stream<T> {
+public final class Concat<T> extends Stream<T> {
     private final Stream<T> one;
     private final Stream<T> two;
 

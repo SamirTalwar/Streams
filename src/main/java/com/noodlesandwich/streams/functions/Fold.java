@@ -2,7 +2,7 @@ package com.noodlesandwich.streams.functions;
 
 import com.noodlesandwich.streams.Stream;
 
-public class Fold<T, A> {
+public final class Fold<T, A> {
     private final FoldFunction<T, A> foldFunction;
     private final A initializer;
 

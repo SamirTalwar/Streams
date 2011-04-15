@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 
-public class ConsTest {
+public final class ConsTest {
     @Test public void
     is_not_nil() {
         assertThat(Stream.cons(new Object(), Stream.nil()), is(not(nil())));

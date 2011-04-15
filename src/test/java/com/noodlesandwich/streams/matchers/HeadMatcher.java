@@ -5,7 +5,7 @@ import org.hamcrest.TypeSafeDiagnosingMatcher;
 
 import com.noodlesandwich.streams.Stream;
 
-public class HeadMatcher<T> extends TypeSafeDiagnosingMatcher<Stream<T>> {
+public final class HeadMatcher<T> extends TypeSafeDiagnosingMatcher<Stream<T>> {
     private final T head;
 
     private HeadMatcher(T head) {

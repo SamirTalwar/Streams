@@ -5,7 +5,7 @@ import org.hamcrest.TypeSafeDiagnosingMatcher;
 
 import com.noodlesandwich.streams.Stream;
 
-public class TailMatcher<T> extends TypeSafeDiagnosingMatcher<Stream<T>> {
+public final class TailMatcher<T> extends TypeSafeDiagnosingMatcher<Stream<T>> {
     private final Stream<T> tail;
 
     private TailMatcher(Stream<T> tail) {

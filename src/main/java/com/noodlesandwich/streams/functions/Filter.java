@@ -4,7 +4,7 @@ import com.google.common.base.Predicate;
 import com.noodlesandwich.streams.EndOfStreamException;
 import com.noodlesandwich.streams.Stream;
 
-public class Filter<T> extends Stream<T> {
+public final class Filter<T> extends Stream<T> {
     private Stream<T> stream;
     private final Predicate<T> predicate;
 
