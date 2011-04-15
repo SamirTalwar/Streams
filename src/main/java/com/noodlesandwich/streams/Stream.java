@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableSet;
 import com.noodlesandwich.streams.functions.All;
 import com.noodlesandwich.streams.functions.Any;
@@ -105,6 +106,10 @@ public abstract class Stream<T> implements Iterable<T> {
 
     public boolean all(Predicate<T> predicate) {
         return new All<T>(predicate).apply(this);
+    }
+
+    public boolean contains(T object) {
+        return any(Predicates.equalTo(object));
     }
 
     public Stream<T> unique() {
