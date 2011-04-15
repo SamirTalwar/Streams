@@ -166,6 +166,15 @@ public abstract class Stream<T> implements Iterable<T> {
         }, 0);
     }
 
+    public Stream<T> reverse() {
+        return fold(new FoldFunction<T, Stream<T>>() {
+            @Override
+            public Stream<T> apply(Stream<T> accumulator, T input) {
+                return cons(input, accumulator);
+            }
+        }, Stream.<T>nil());
+    }
+
     public abstract boolean isNil();
 
     public abstract T head();
