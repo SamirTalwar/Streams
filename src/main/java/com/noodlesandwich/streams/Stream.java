@@ -6,11 +6,13 @@ import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.noodlesandwich.streams.functions.Concat;
 import com.noodlesandwich.streams.functions.Drop;
+import com.noodlesandwich.streams.functions.DropWhile;
 import com.noodlesandwich.streams.functions.Filter;
 import com.noodlesandwich.streams.functions.Fold;
 import com.noodlesandwich.streams.functions.FoldFunction;
 import com.noodlesandwich.streams.functions.Map;
 import com.noodlesandwich.streams.functions.Take;
+import com.noodlesandwich.streams.functions.TakeWhile;
 import com.noodlesandwich.streams.functions.Zip;
 import com.noodlesandwich.streams.functions.ZipWithFunction;
 import com.noodlesandwich.streams.implementations.Cons;
@@ -65,6 +67,14 @@ public abstract class Stream<T> implements Iterable<T> {
 
     public Stream<T> drop(int n) {
         return new Drop<T>(n, this);
+    }
+
+    public Stream<T> takeWhile(Predicate<T> predicate) {
+        return new TakeWhile<T>(predicate, this);
+    }
+
+    public Stream<T> dropWhile(Predicate<T> predicate) {
+        return new DropWhile<T>(predicate, this);
     }
 
     public Stream<T> concat(Stream<T> nextStream) {
