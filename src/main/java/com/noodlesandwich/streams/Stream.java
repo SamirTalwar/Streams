@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.google.common.base.Function;
+import com.google.common.base.Functions;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableSet;
@@ -68,6 +69,10 @@ public abstract class Stream<T> implements Iterable<T> {
 
     public static <T> Stream<T> generate(Function<T, T> iteratingFunction, T start) {
         return new Generator<T>(iteratingFunction, start);
+    }
+
+    public static <T> Stream<T> repeat(T value) {
+        return generate(Functions.<T>identity(), value);
     }
 
     public <U> Stream<U> map(Function<T, U> function) {
