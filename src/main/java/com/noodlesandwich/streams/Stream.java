@@ -10,6 +10,7 @@ import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.noodlesandwich.streams.functions.All;
 import com.noodlesandwich.streams.functions.Any;
 import com.noodlesandwich.streams.functions.Concat;
@@ -180,6 +181,10 @@ public abstract class Stream<T> implements Iterable<T> {
 
     public List<T> toList() {
         return Lists.newArrayList(this);
+    }
+
+    public Set<T> toSet() {
+        return Sets.newHashSet(this);
     }
 
     public T[] toArray(Class<T> type) {
