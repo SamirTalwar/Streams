@@ -125,6 +125,16 @@ public abstract class Stream<T> implements Iterable<T> {
         });
     }
 
+    public Stream<T> except(Stream<T> exceptionStream) {
+        final Set<T> exceptedElements = ImmutableSet.copyOf(exceptionStream);
+        return unique().filter(new Predicate<T>() {
+            @Override
+            public boolean apply(T input) {
+                return !exceptedElements.contains(input);
+            }
+        });
+    }
+
     public int size() {
         return fold(new FoldFunction<T, Integer>() {
             @Override
