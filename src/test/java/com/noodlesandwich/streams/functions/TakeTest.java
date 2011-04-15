@@ -1,6 +1,7 @@
 package com.noodlesandwich.streams.functions;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
 import org.junit.Test;
 
@@ -30,9 +31,38 @@ public final class TakeTest {
         assertThat(stream.take(7), contains(1, 2, 3, 4, 5));
     }
 
+    @Test public void
+    can_take_from_an_infinite_stream() {
+        Stream<Integer> stream = Stream.wrap(new Repeater(5));
+        assertThat(stream.take(7), contains(5, 5, 5, 5, 5, 5, 5));
+    }
+
     @Test(expected=IllegalArgumentException.class) public void
     cannot_take_a_negative_number_of_elements() {
         Stream<Integer> stream = Stream.wrap(Arrays.asList(1, 2, 3, 4, 5));
         stream.take(-1);
+    }
+
+    private static final class Repeater implements Iterator<Integer> {
+        private final int n;
+
+        public Repeater(final int n) {
+            this.n = n;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return true;
+        }
+
+        @Override
+        public Integer next() {
+            return n;
+        }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
     }
 }
