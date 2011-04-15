@@ -33,6 +33,13 @@ public final class ExceptTest {
     }
 
     @Test public void
+    does_not_remove_duplicates() {
+        Stream<Integer> streamOne = Stream.wrap(Arrays.asList(1, 2, 3, 2));
+        Stream<Integer> streamTwo = Stream.wrap(Arrays.asList(3, 4));
+        assertThat(streamOne.except(streamTwo), contains(1, 2, 2));
+    }
+
+    @Test public void
     excepting_a_superset_results_in_nil() {
         Stream<Integer> streamOne = Stream.wrap(Arrays.asList(1, 2, 3));
         Stream<Integer> streamTwo = Stream.wrap(Arrays.asList(4, 3, 2, 1));
