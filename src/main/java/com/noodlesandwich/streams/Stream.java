@@ -4,6 +4,8 @@ import java.util.Iterator;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
+import com.noodlesandwich.streams.functions.All;
+import com.noodlesandwich.streams.functions.Any;
 import com.noodlesandwich.streams.functions.Concat;
 import com.noodlesandwich.streams.functions.Drop;
 import com.noodlesandwich.streams.functions.DropWhile;
@@ -92,6 +94,14 @@ public abstract class Stream<T> implements Iterable<T> {
 
     public <U, V> Stream<V> zipWith(Stream<U> pairedStream, ZipWithFunction<? super T, ? super U, V> zipWithFunction) {
         return new Zip<T, U, V>(zipWithFunction, this, pairedStream);
+    }
+
+    public boolean any(Predicate<T> predicate) {
+        return new Any<T>(predicate).apply(this);
+    }
+
+    public boolean all(Predicate<T> predicate) {
+        return new All<T>(predicate).apply(this);
     }
 
     public abstract boolean isNil();
