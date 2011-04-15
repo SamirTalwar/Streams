@@ -17,7 +17,7 @@ Personally, I find this sort of thing is much better explained with an example:
 
     for (String item : htmlStream.take(5)) {
         // This will loop through only the first five values of that horrendously complicated endeavour.
-        // In fact, it will only calculate the first five values.
+        // In fact, it will only evaluate the first five values.
         // No wasted effort.
     }
 
@@ -31,3 +31,15 @@ wherever possible.
             }
         };
     }
+
+Building Streams
+----------------
+
+Streams is built through [Gradle][]. I recommend grabbing the latest version, as the one in the Ubuntu repositories is
+a little out of date. Then just fire up a command line and type:
+
+    gradle build
+
+This will run all the tests and create a JAR in the `build/libs` directory.
+
+  [Gradle]: http://gradle.org/
