@@ -1,7 +1,6 @@
 package com.noodlesandwich.streams.functions;
 
 import com.google.common.base.Predicate;
-import com.noodlesandwich.streams.EndOfStreamException;
 import com.noodlesandwich.streams.Stream;
 
 public final class DropWhile<T> extends Stream<T> {
@@ -15,26 +14,25 @@ public final class DropWhile<T> extends Stream<T> {
 
     @Override
     public boolean isNil() {
-        while (!stream.isNil() && predicate.apply(stream.head())) {
-            stream = stream.tail();
-        }
-
+        dropWhilePredicateApplies();
         return stream.isNil();
     }
 
     @Override
     public T head() {
-        if (isNil()) {
-            throw new EndOfStreamException();
-        }
-
+        dropWhilePredicateApplies();
         return stream.head();
     }
 
     @Override
     public Stream<T> tail() {
-        head();
-
+        dropWhilePredicateApplies();
         return stream.tail();
+    }
+
+    private void dropWhilePredicateApplies() {
+        while (!stream.isNil() && predicate.apply(stream.head())) {
+            stream = stream.tail();
+        }
     }
 }

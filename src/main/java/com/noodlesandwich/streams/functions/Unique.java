@@ -21,22 +21,24 @@ public final class Unique<T> extends Stream<T> {
 
     @Override
     public boolean isNil() {
-        while (!stream.isNil() && before.contains(stream.head())) {
-            stream = stream.tail();
-        }
-
+        removeNonUniques();
         return stream.isNil();
     }
 
     @Override
     public T head() {
-        isNil();
-
+        removeNonUniques();
         return stream.head();
     }
 
     @Override
     public Stream<T> tail() {
         return new Unique<T>(stream.tail(), Sets.union(before, ImmutableSet.of(stream.head())));
+    }
+
+    private void removeNonUniques() {
+        while (!stream.isNil() && before.contains(stream.head())) {
+            stream = stream.tail();
+        }
     }
 }

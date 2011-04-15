@@ -20,17 +20,19 @@ public final class TakeWhile<T> extends Stream<T> {
 
     @Override
     public T head() {
-        if (isNil()) {
-            throw new EndOfStreamException();
-        }
-
+        checkForNil();
         return stream.head();
     }
 
     @Override
     public Stream<T> tail() {
-        head();
-
+        checkForNil();
         return new TakeWhile<T>(predicate, stream.tail());
+    }
+
+    private void checkForNil() {
+        if (isNil()) {
+            throw new EndOfStreamException();
+        }
     }
 }

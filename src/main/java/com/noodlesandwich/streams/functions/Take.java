@@ -23,15 +23,19 @@ public final class Take<T> extends Stream<T> {
 
     @Override
     public T head() {
-        if (n == 0) {
-            throw new EndOfStreamException();
-        }
-
+        checkForNil();
         return stream.head();
     }
 
     @Override
     public Stream<T> tail() {
+        checkForNil();
         return new Take<T>(n - 1, stream.tail());
+    }
+
+    private void checkForNil() {
+        if (n == 0) {
+            throw new EndOfStreamException();
+        }
     }
 }

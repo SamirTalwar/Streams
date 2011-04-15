@@ -1,6 +1,5 @@
 package com.noodlesandwich.streams.functions;
 
-import com.noodlesandwich.streams.EndOfStreamException;
 import com.noodlesandwich.streams.Stream;
 
 public final class Drop<T> extends Stream<T> {
@@ -18,26 +17,26 @@ public final class Drop<T> extends Stream<T> {
 
     @Override
     public boolean isNil() {
-        while (!stream.isNil() && n > 0) {
-            stream = stream.tail();
-            n--;
-        }
-
+        removeFirstN();
         return stream.isNil();
     }
 
     @Override
     public T head() {
-        if (isNil()) {
-            throw new EndOfStreamException();
-        }
-
+        removeFirstN();
         return stream.head();
     }
 
     @Override
     public Stream<T> tail() {
-        head();
+        removeFirstN();
         return stream.tail();
+    }
+
+    private void removeFirstN() {
+        while (n > 0 && !stream.isNil()) {
+            stream = stream.tail();
+            n--;
+        }
     }
 }
