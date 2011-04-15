@@ -8,6 +8,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.noodlesandwich.streams.functions.All;
 import com.noodlesandwich.streams.functions.Any;
@@ -179,6 +180,10 @@ public abstract class Stream<T> implements Iterable<T> {
 
     public List<T> toList() {
         return Lists.newArrayList(this);
+    }
+
+    public T[] toArray(Class<T> type) {
+        return Iterables.toArray(this, type);
     }
 
     public abstract boolean isNil();
