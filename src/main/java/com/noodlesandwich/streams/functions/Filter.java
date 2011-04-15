@@ -6,6 +6,7 @@ import com.noodlesandwich.streams.Stream;
 public final class Filter<T> extends Stream<T> {
     private Stream<T> stream;
     private final Predicate<T> predicate;
+    private boolean filteredNext = false;
 
     public Filter(Predicate<T> predicate, Stream<T> stream) {
         this.predicate = predicate;
@@ -31,8 +32,11 @@ public final class Filter<T> extends Stream<T> {
     }
 
     private void filterNext() {
-        while (!stream.isNil() && !predicate.apply(stream.head())) {
-            stream = stream.tail();
+        if (!filteredNext) {
+            while (!stream.isNil() && !predicate.apply(stream.head())) {
+                stream = stream.tail();
+            }
+            filteredNext = true;
         }
     }
 }
