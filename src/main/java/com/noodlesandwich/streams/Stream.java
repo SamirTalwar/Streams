@@ -109,6 +109,10 @@ public abstract class Stream<T> implements Iterable<T> {
         return new Unique<T>(this);
     }
 
+    public Stream<T> union(Stream<T> unionedStream) {
+        return concat(unionedStream).unique();
+    }
+
     public int size() {
         return fold(new FoldFunction<T, Integer>() {
             @Override
