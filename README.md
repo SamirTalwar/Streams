@@ -10,7 +10,7 @@ Personally, I find this sort of thing is much better explained with an example:
 
     Iterator<Integer> numbers = theIteratorOfAMassivelyLongList();
     Stream<Integer> numberStream = Stream.wrap(numbers);
-    Stream<String> htmlStream = numberStream.map(addOne())
+    Stream<String> htmlStream = numberStream.map(add(3))
                                             .filter(isEven())
                                             .concat(defaults())
                                             .zipWith(definitions(), formatAsHtml());
@@ -24,10 +24,10 @@ Personally, I find this sort of thing is much better explained with an example:
 All you need to do is define those functions. Streams backs onto Google's Guava when it can to allow you to reuse code
 wherever possible.
 
-    private Function<Integer, Integer> addOne() {
+    private Function<Integer, Integer> add(final int n) {
         return new Function<Integer, Integer>() {
             public Integer apply(Integer input) {
-                return input + 1;
+                return input + n;
             }
         };
     }
