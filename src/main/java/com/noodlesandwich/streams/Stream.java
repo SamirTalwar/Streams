@@ -10,6 +10,7 @@ import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.noodlesandwich.streams.functions.All;
 import com.noodlesandwich.streams.functions.Any;
@@ -185,6 +186,14 @@ public abstract class Stream<T> implements Iterable<T> {
 
     public Set<T> toSet() {
         return Sets.newHashSet(this);
+    }
+
+    public <V> java.util.Map<T, V> toMap(Function<T, V> valueFunction) {
+        java.util.Map<T, V> map = Maps.newHashMap();
+        for (T key : toSet()) {
+            map.put(key, valueFunction.apply(key));
+        }
+        return map;
     }
 
     public T[] toArray(Class<T> type) {
