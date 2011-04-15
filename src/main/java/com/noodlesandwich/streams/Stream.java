@@ -28,6 +28,7 @@ import com.noodlesandwich.streams.functions.Unique;
 import com.noodlesandwich.streams.functions.Zip;
 import com.noodlesandwich.streams.functions.ZipWithFunction;
 import com.noodlesandwich.streams.implementations.Cons;
+import com.noodlesandwich.streams.implementations.Generator;
 import com.noodlesandwich.streams.implementations.Nil;
 import com.noodlesandwich.streams.implementations.Wrapper;
 import com.noodlesandwich.streams.iterators.StreamIterator;
@@ -63,6 +64,10 @@ public abstract class Stream<T> implements Iterable<T> {
 
     public static <T> Stream<T> wrap(Iterator<T> iterator) {
         return new Wrapper<T>(iterator);
+    }
+
+    public static <T> Stream<T> generate(Function<T, T> iteratingFunction, T start) {
+        return new Generator<T>(iteratingFunction, start);
     }
 
     public <U> Stream<U> map(Function<T, U> function) {
