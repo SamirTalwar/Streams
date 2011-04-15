@@ -42,4 +42,10 @@ a little out of date. Then just fire up a command line and type:
 
 This will run all the tests and create a JAR in the `build/libs` directory.
 
+To create an Eclipse project and classpath file, type:
+
+    gradle eclipse
+
+This will generate everything you need to jump in and play with the code in your IDE.
+
   [Gradle]: http://gradle.org/
