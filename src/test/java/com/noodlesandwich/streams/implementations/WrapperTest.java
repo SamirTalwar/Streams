@@ -44,21 +44,21 @@ public final class WrapperTest {
 
     @Test public void
     the_head_does_not_change() {
-        Stream<Integer> stream = Stream.wrap(Arrays.asList(1, 2, 3));
+        Stream<Integer> stream = Stream.of(1, 2, 3);
         Integer head = stream.head();
         assertThat(stream, has_a_head_of(head));
     }
 
     @Test public void
     the_tail_does_not_change() {
-        Stream<Integer> stream = Stream.wrap(Arrays.asList(1, 2, 3));
+        Stream<Integer> stream = Stream.of(1, 2, 3);
         Stream<Integer> tail = stream.tail();
         assertThat(stream, has_a_tail_of(tail));
     }
 
     @Test public void
     can_call_tail_before_head() {
-        Stream<Integer> stream = Stream.wrap(Arrays.asList(1, 2, 3));
+        Stream<Integer> stream = Stream.of(1, 2, 3);
         assertThat(stream.tail(), contains(2, 3));
         assertThat(stream.head(), is(1));
     }

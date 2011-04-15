@@ -1,7 +1,5 @@
 package com.noodlesandwich.streams.functions;
 
-import java.util.Arrays;
-
 import org.junit.Test;
 
 import com.noodlesandwich.streams.Stream;
@@ -12,13 +10,13 @@ import static org.hamcrest.Matchers.is;
 public final class FoldTest {
     @Test public void
     works_with_a_single_type() {
-        Stream<Integer> stream = Stream.wrap(Arrays.asList(6, 3, 2, 7));
+        Stream<Integer> stream = Stream.of(6, 3, 2, 7);
         assertThat(stream.fold(summation(), 0), is(18));
     }
 
     @Test public void
     works_with_a_multiple_types() {
-        Stream<Integer> stream = Stream.wrap(Arrays.asList(6, 3, 2, 7));
+        Stream<Integer> stream = Stream.of(6, 3, 2, 7);
         assertThat(stream.fold(joinAsString(), ""), is(", 6, 3, 2, 7"));
     }
 

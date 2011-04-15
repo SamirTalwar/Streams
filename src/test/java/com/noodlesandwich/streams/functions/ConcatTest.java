@@ -1,7 +1,5 @@
 package com.noodlesandwich.streams.functions;
 
-import java.util.Arrays;
-
 import org.junit.Test;
 
 import com.noodlesandwich.streams.Stream;
@@ -21,7 +19,7 @@ public final class ConcatTest {
 
     @Test public void
     concatenates_a_populated_stream_with_a_nil_stream() {
-        Stream<Integer> streamOne = Stream.wrap(Arrays.asList(1, 2, 3, 4, 5));
+        Stream<Integer> streamOne = Stream.of(1, 2, 3, 4, 5);
         Stream<Integer> streamTwo = Stream.nil();
         assertThat(streamOne.concat(streamTwo), contains(1, 2, 3, 4, 5));
     }
@@ -29,14 +27,14 @@ public final class ConcatTest {
     @Test public void
     concatenates_a_nil_stream_with_a_populated_stream() {
         Stream<Integer> streamOne = Stream.nil();
-        Stream<Integer> streamTwo = Stream.wrap(Arrays.asList(7, 6, 5, 4, 3));
+        Stream<Integer> streamTwo = Stream.of(7, 6, 5, 4, 3);
         assertThat(streamOne.concat(streamTwo), contains(7, 6, 5, 4, 3));
     }
 
     @Test public void
     concatenates_two_populated_streams() {
-        Stream<Integer> streamOne = Stream.wrap(Arrays.asList(1, 2, 3, 4, 5));
-        Stream<Integer> streamTwo = Stream.wrap(Arrays.asList(7, 6, 5, 4, 3));
+        Stream<Integer> streamOne = Stream.of(1, 2, 3, 4, 5);
+        Stream<Integer> streamTwo = Stream.of(7, 6, 5, 4, 3);
         assertThat(streamOne.concat(streamTwo), contains(1, 2, 3, 4, 5, 7, 6, 5, 4, 3));
     }
 }

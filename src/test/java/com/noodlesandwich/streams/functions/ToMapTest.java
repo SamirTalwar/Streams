@@ -1,7 +1,5 @@
 package com.noodlesandwich.streams.functions;
 
-import java.util.Arrays;
-
 import org.junit.Test;
 
 import com.google.common.base.Function;
@@ -20,7 +18,7 @@ public final class ToMapTest {
 
     @Test public void
     converts_a_stream_to_a_map_using_the_function_provided_to_generate_values() {
-        Stream<Integer> stream = Stream.wrap(Arrays.asList(1, 2, 3));
+        Stream<Integer> stream = Stream.of(1, 2, 3);
         assertThat(stream.toMap(add(7)), allOf(hasEntry(1, 8),
                                                hasEntry(2, 9),
                                                hasEntry(3, 10)));
@@ -28,7 +26,7 @@ public final class ToMapTest {
 
     @Test public void
     removes_duplicates() {
-        Stream<Integer> stream = Stream.wrap(Arrays.asList(2, 3, 2, 1));
+        Stream<Integer> stream = Stream.of(2, 3, 2, 1);
         assertThat(stream.toMap(add(7)), allOf(hasEntry(1, 8),
                                                hasEntry(2, 9),
                                                hasEntry(3, 10)));

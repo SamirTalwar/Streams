@@ -1,7 +1,5 @@
 package com.noodlesandwich.streams.functions;
 
-import java.util.Arrays;
-
 import org.junit.Test;
 
 import com.google.common.base.Predicate;
@@ -15,7 +13,7 @@ import static org.hamcrest.Matchers.is;
 public final class FilterTest {
     @Test public void
     filters_a_stream_with_a_predicate() {
-        Stream<Integer> stream = Stream.wrap(Arrays.asList(1, 3, 2, 4, 7, 8, 9, 6, 5));
+        Stream<Integer> stream = Stream.of(1, 3, 2, 4, 7, 8, 9, 6, 5);
         assertThat(stream.filter(isEven()), contains(2, 4, 8, 6));
     }
 

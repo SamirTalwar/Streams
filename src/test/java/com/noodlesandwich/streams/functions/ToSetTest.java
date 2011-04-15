@@ -1,7 +1,5 @@
 package com.noodlesandwich.streams.functions;
 
-import java.util.Arrays;
-
 import org.junit.Test;
 
 import com.noodlesandwich.streams.Stream;
@@ -19,13 +17,13 @@ public final class ToSetTest {
 
     @Test public void
     converts_a_stream_to_an_equivalent_set() {
-        Stream<Integer> stream = Stream.wrap(Arrays.asList(1, 2, 3));
+        Stream<Integer> stream = Stream.of(1, 2, 3);
         assertThat(stream.toSet(), containsInAnyOrder(1, 2, 3));
     }
 
     @Test public void
     removes_duplicates() {
-        Stream<Integer> stream = Stream.wrap(Arrays.asList(2, 3, 2, 1));
+        Stream<Integer> stream = Stream.of(2, 3, 2, 1);
         assertThat(stream.toSet(), containsInAnyOrder(1, 2, 3));
     }
 }

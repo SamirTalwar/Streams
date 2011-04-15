@@ -9,6 +9,7 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -38,6 +39,10 @@ public abstract class Stream<T> implements Iterable<T> {
 
     public static <T> Stream<T> nil() {
         return new Nil<T>();
+    }
+
+    public static <T> Stream<T> of(T... items) {
+        return clone(Iterators.forArray(items));
     }
 
     public static <T> Stream<T> clone(Iterable<T> iterable) {
