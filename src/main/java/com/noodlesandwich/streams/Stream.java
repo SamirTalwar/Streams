@@ -135,6 +135,23 @@ public abstract class Stream<T> implements Iterable<T> {
         });
     }
 
+    public Stream<T> symmetricDifference(Stream<T> otherStream) {
+        final Set<T> exceptedElementsForThis = ImmutableSet.copyOf(otherStream);
+        final Set<T> exceptedElementsForOther = ImmutableSet.copyOf(this);
+
+        return filter(new Predicate<T>() {
+            @Override
+            public boolean apply(T input) {
+                return !exceptedElementsForThis.contains(input);
+            }
+        }).union(otherStream.filter(new Predicate<T>() {
+            @Override
+            public boolean apply(T input) {
+                return !exceptedElementsForOther.contains(input);
+            }
+        }));
+    }
+
     public int size() {
         return fold(new FoldFunction<T, Integer>() {
             @Override
