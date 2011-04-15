@@ -1,9 +1,11 @@
 package com.noodlesandwich.streams;
 
 import java.util.Iterator;
+import java.util.Set;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
+import com.google.common.collect.ImmutableSet;
 import com.noodlesandwich.streams.functions.All;
 import com.noodlesandwich.streams.functions.Any;
 import com.noodlesandwich.streams.functions.Concat;
@@ -111,6 +113,16 @@ public abstract class Stream<T> implements Iterable<T> {
 
     public Stream<T> union(Stream<T> unionedStream) {
         return concat(unionedStream).unique();
+    }
+
+    public Stream<T> intersect(Stream<T> intersectedStream) {
+        final Set<T> possibleElements = ImmutableSet.copyOf(intersectedStream);
+        return unique().filter(new Predicate<T>() {
+            @Override
+            public boolean apply(T input) {
+                return possibleElements.contains(input);
+            }
+        });
     }
 
     public int size() {
