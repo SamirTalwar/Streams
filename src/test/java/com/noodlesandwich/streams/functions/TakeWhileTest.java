@@ -2,6 +2,7 @@ package com.noodlesandwich.streams.functions;
 
 import org.junit.Test;
 
+import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.noodlesandwich.streams.Stream;
@@ -37,11 +38,26 @@ public final class TakeWhileTest {
         assertThat(stream.takeWhile(Predicates.<Integer>alwaysTrue()), contains(1, 2, 3, 4, 5));
     }
 
+    @Test public void
+    can_take_from_an_infinite_stream() {
+        Stream<Integer> stream = Stream.generate(addOne(), 1);
+        assertThat(stream.takeWhile(lessThan(10)), contains(1, 2, 3, 4, 5, 6, 7, 8, 9));
+    }
+
     private static Predicate<Integer> lessThan(final int n) {
         return new Predicate<Integer>() {
             @Override
             public boolean apply(Integer input) {
                 return input < n;
+            }
+        };
+    }
+
+    private static Function<Integer, Integer> addOne() {
+        return new Function<Integer, Integer>() {
+            @Override
+            public Integer apply(Integer input) {
+                return input + 1;
             }
         };
     }
