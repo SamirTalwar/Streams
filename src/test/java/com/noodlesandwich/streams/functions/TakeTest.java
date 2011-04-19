@@ -1,7 +1,5 @@
 package com.noodlesandwich.streams.functions;
 
-import java.util.Iterator;
-
 import org.junit.Test;
 
 import com.noodlesandwich.streams.Stream;
@@ -39,7 +37,7 @@ public final class TakeTest {
 
     @Test public void
     can_take_from_an_infinite_stream() {
-        Stream<Integer> stream = Stream.wrap(new Repeater(5));
+        Stream<Integer> stream = Stream.repeat(5);
         assertThat(stream.take(7), contains(5, 5, 5, 5, 5, 5, 5));
     }
 
@@ -47,28 +45,5 @@ public final class TakeTest {
     cannot_take_a_negative_number_of_elements() {
         Stream<Integer> stream = Stream.of(1, 2, 3, 4, 5);
         stream.take(-1);
-    }
-
-    private static final class Repeater implements Iterator<Integer> {
-        private final int n;
-
-        public Repeater(final int n) {
-            this.n = n;
-        }
-
-        @Override
-        public boolean hasNext() {
-            return true;
-        }
-
-        @Override
-        public Integer next() {
-            return n;
-        }
-
-        @Override
-        public void remove() {
-            throw new UnsupportedOperationException();
-        }
     }
 }
