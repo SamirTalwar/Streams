@@ -63,4 +63,11 @@ public final class SymmetricDifferenceTest {
         Stream<Integer> streamTwo = Stream.of(2, 3, 1);
         assertThat(streamOne.symmetricDifference(streamTwo), is(NilMatcher.<Integer>nil()));
     }
+
+    @Test public void
+    is_repeatable() {
+        Stream<Integer> differentiatedStream = Stream.of(1, 2, 3).symmetricDifference(Stream.of(3, 4));
+        assertThat(differentiatedStream, contains(1, 2, 4));
+        assertThat(differentiatedStream, contains(1, 2, 4));
+    }
 }

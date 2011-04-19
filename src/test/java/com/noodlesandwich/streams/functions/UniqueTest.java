@@ -5,7 +5,6 @@ import org.junit.Test;
 import com.noodlesandwich.streams.Stream;
 import com.noodlesandwich.streams.testutils.ThrowingIterator;
 
-import static com.noodlesandwich.streams.matchers.HeadMatcher.has_a_head_of;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 
@@ -29,10 +28,9 @@ public final class UniqueTest {
     }
 
     @Test public void
-    does_not_alter_itself() {
-        Stream<Integer> stream = Stream.of(7, 2, 5, 7, 7, 9, 4, 5, 2);
-        Stream<Integer> uniqueStream = stream.unique();
-        Integer head = uniqueStream.head();
-        assertThat(uniqueStream, has_a_head_of(head));
+    is_repeatable() {
+        Stream<Integer> uniqueStream = Stream.of(7, 2, 5, 7, 7, 9, 4, 5, 2).unique();
+        assertThat(uniqueStream, contains(7, 2, 5, 9, 4));
+        assertThat(uniqueStream, contains(7, 2, 5, 9, 4));
     }
 }

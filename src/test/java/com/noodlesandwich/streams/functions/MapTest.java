@@ -30,6 +30,13 @@ public final class MapTest {
         assertThat(stream.map(toStringFunc()), contains("1", "2", "3"));
     }
 
+    @Test public void
+    is_repeatable() {
+        Stream<String> mappedStream = Stream.of(1, 2, 3).map(toStringFunc());
+        assertThat(mappedStream, contains("1", "2", "3"));
+        assertThat(mappedStream, contains("1", "2", "3"));
+    }
+
     private static Function<Integer, String> toStringFunc() {
         return new Function<Integer, String>() {
             @Override

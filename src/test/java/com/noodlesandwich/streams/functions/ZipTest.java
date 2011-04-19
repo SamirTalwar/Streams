@@ -72,6 +72,15 @@ public final class ZipTest {
         ));
     }
 
+    @SuppressWarnings("unchecked")
+    @Test public void
+    is_repeatable() {
+        Stream<Pair<Integer, String>> zippedStream = Stream.of(1, 2, 3, 4, 5).zip(Stream.of("a", "b", "c", "d", "e"));
+        assertThat(zippedStream, contains(
+                pair(1, "a"), pair(2, "b"), pair(3, "c"), pair(4, "d"), pair(5, "e")
+        ));
+    }
+
     private static <F, S> Pair<F, S> pair(F first, S second) {
         return new Pair<F, S>(first, second);
     }

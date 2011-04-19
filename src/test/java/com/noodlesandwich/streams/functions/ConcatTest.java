@@ -44,4 +44,11 @@ public final class ConcatTest {
         Stream<Integer> streamTwo = Stream.of(7, 6, 5, 4, 3);
         assertThat(streamOne.concat(streamTwo), contains(1, 2, 3, 4, 5, 7, 6, 5, 4, 3));
     }
+
+    @Test public void
+    is_repeatable() {
+        Stream<Integer> concatenatedStream = Stream.of(1, 2, 3, 4, 5).concat(Stream.of(7, 6, 5, 4, 3));
+        assertThat(concatenatedStream, contains(1, 2, 3, 4, 5, 7, 6, 5, 4, 3));
+        assertThat(concatenatedStream, contains(1, 2, 3, 4, 5, 7, 6, 5, 4, 3));
+    }
 }

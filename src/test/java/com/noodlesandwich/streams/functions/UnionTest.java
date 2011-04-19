@@ -54,4 +54,11 @@ public final class UnionTest {
         Stream<Integer> streamTwo = Stream.of(2, 3, 4);
         assertThat(streamOne.union(streamTwo), contains(1, 2, 3, 4));
     }
+
+    @Test public void
+    is_repeatable() {
+        Stream<Integer> unionedStream = Stream.of(1, 2, 3, 2).union(Stream.of(6, 5, 5, 4));
+        assertThat(unionedStream, contains(1, 2, 3, 6, 5, 4));
+        assertThat(unionedStream, contains(1, 2, 3, 6, 5, 4));
+    }
 }

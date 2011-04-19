@@ -37,6 +37,13 @@ public final class DropWhileTest {
         assertThat(stream.dropWhile(Predicates.<Integer>alwaysFalse()), contains(1, 2, 3, 4, 5));
     }
 
+    @Test public void
+    is_repeatable() {
+        Stream<Integer> droppedStream = Stream.of(1, 2, 4, 3, 5).dropWhile(lessThan(4));
+        assertThat(droppedStream, contains(4, 3, 5));
+        assertThat(droppedStream, contains(4, 3, 5));
+    }
+
     private static Predicate<Integer> lessThan(final int n) {
         return new Predicate<Integer>() {
             @Override

@@ -50,4 +50,11 @@ public final class IntersectionTest {
         Stream<Integer> streamTwo = Stream.of(2, 3, 4, 4);
         assertThat(streamOne.intersect(streamTwo), contains(2, 3));
     }
+
+    @Test public void
+    is_repeatable() {
+        Stream<Integer> intersectedStream = Stream.of(1, 2, 3).intersect(Stream.of(4, 3, 2));
+        assertThat(intersectedStream, contains(2, 3));
+        assertThat(intersectedStream, contains(2, 3));
+    }
 }

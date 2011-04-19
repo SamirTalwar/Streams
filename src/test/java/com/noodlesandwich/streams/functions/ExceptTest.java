@@ -50,4 +50,11 @@ public final class ExceptTest {
         Stream<Integer> streamTwo = Stream.of(4, 3, 2, 1);
         assertThat(streamOne.except(streamTwo), is(NilMatcher.<Integer>nil()));
     }
+
+    @Test public void
+    is_repeatable() {
+        Stream<Integer> exceptedStream = Stream.of(1, 2, 3).except(Stream.of(3, 4));
+        assertThat(exceptedStream, contains(1, 2));
+        assertThat(exceptedStream, contains(1, 2));
+    }
 }

@@ -60,6 +60,13 @@ public final class ZipWithTest {
         assertThat(streamOne.zipWith(streamTwo, concat()), contains("1a", "2b", "3c", "4d", "5e"));
     }
 
+    @Test public void
+    is_repeatable() {
+        Stream<String> zippedStream = Stream.of(1, 2, 3, 4, 5).zipWith(Stream.of("a", "b", "c", "d", "e"), concat());
+        assertThat(zippedStream, contains("1a", "2b", "3c", "4d", "5e"));
+        assertThat(zippedStream, contains("1a", "2b", "3c", "4d", "5e"));
+    }
+
     private static ZipWithFunction<Integer, Integer, Integer> add() {
         return new ZipWithFunction<Integer, Integer, Integer>() {
             @Override

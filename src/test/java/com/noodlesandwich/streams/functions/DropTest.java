@@ -40,4 +40,11 @@ public final class DropTest {
         Stream<Integer> stream = Stream.of(1, 2, 3, 4, 5);
         stream.drop(-1);
     }
+
+    @Test public void
+    is_repeatable() {
+        Stream<Integer> droppedStream = Stream.of(1, 2, 3, 4, 5).drop(3);
+        assertThat(droppedStream, contains(4, 5));
+        assertThat(droppedStream, contains(4, 5));
+    }
 }

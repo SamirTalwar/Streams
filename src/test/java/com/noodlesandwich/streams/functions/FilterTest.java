@@ -29,6 +29,13 @@ public final class FilterTest {
         assertThat(Stream.nil().filter(null), is(nil()));
     }
 
+    @Test public void
+    is_repeatable() {
+        Stream<Integer> filteredStream = Stream.of(1, 3, 2, 4, 7, 8, 9, 6, 5).filter(isEven());
+        assertThat(filteredStream, contains(2, 4, 8, 6));
+        assertThat(filteredStream, contains(2, 4, 8, 6));
+    }
+
     private static Predicate<Integer> isEven() {
         return new Predicate<Integer>() {
             @Override

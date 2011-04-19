@@ -46,4 +46,11 @@ public final class TakeTest {
         Stream<Integer> stream = Stream.of(1, 2, 3, 4, 5);
         stream.take(-1);
     }
+
+    @Test public void
+    is_repeatable() {
+        Stream<Integer> takenStream = Stream.of(1, 2, 3, 4, 5).take(3);
+        assertThat(takenStream, contains(1, 2, 3));
+        assertThat(takenStream, contains(1, 2, 3));
+    }
 }

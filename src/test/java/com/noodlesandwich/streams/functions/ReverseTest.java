@@ -20,4 +20,11 @@ public final class ReverseTest {
         Stream<Integer> stream = Stream.of(1, 2, 3);
         assertThat(stream.reverse(), contains(3, 2, 1));
     }
+
+    @Test public void
+    is_repeatable() {
+        Stream<Integer> reversedStream = Stream.of(1, 2, 3).reverse();
+        assertThat(reversedStream, contains(3, 2, 1));
+        assertThat(reversedStream, contains(3, 2, 1));
+    }
 }
