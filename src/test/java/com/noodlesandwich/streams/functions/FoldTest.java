@@ -16,7 +16,7 @@ public final class FoldTest {
     }
 
     @Test public void
-    works_with_a_multiple_types() {
+    works_with_multiple_types() {
         Stream<Integer> stream = Stream.of(6, 3, 2, 7);
         assertThat(stream.fold(joinAsString(), ""), is(", 6, 3, 2, 7"));
     }
