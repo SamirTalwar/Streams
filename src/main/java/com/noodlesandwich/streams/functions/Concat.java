@@ -6,14 +6,6 @@ public final class Concat<T> extends Stream<T> {
     private final Stream<T> one;
     private final Stream<T> two;
 
-    public static <T> Stream<T> concat(Stream<T> one, Stream<T> two) {
-        if (one.isNil()) {
-            return two;
-        }
-
-        return new Concat<T>(one, two);
-    }
-
     public Concat(Stream<T> one, Stream<T> two) {
         this.one = one;
         this.two = two;
@@ -21,16 +13,16 @@ public final class Concat<T> extends Stream<T> {
 
     @Override
     public boolean isNil() {
-        return one.isNil();
+        return one.isNil() && two.isNil();
     }
 
     @Override
     public T head() {
-        return one.head();
+        return !one.isNil() ? one.head() : two.head();
     }
 
     @Override
     public Stream<T> tail() {
-        return concat(one.tail(), two);
+        return !one.isNil() ? new Concat<T>(one.tail(), two) : two.tail();
     }
 }

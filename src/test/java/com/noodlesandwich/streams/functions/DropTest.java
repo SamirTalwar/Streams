@@ -3,6 +3,7 @@ package com.noodlesandwich.streams.functions;
 import org.junit.Test;
 
 import com.noodlesandwich.streams.Stream;
+import com.noodlesandwich.streams.testutils.ThrowingIterator;
 
 import static com.noodlesandwich.streams.matchers.NilMatcher.nil;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -10,6 +11,12 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 
 public final class DropTest {
+    @Test public void
+    is_lazy() {
+        Stream<Object> stream = Stream.wrap(new ThrowingIterator());
+        stream.drop(1);
+    }
+
     @Test public void
     dropping_zero_elements_does_nothing() {
         Stream<Integer> stream = Stream.of(1, 2, 3, 4, 5);

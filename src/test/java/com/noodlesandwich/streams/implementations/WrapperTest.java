@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import com.noodlesandwich.streams.EndOfStreamException;
 import com.noodlesandwich.streams.Stream;
+import com.noodlesandwich.streams.testutils.ThrowingIterator;
 
 import static com.noodlesandwich.streams.matchers.HeadMatcher.has_a_head_of;
 import static com.noodlesandwich.streams.matchers.NilMatcher.nil;
@@ -19,9 +20,20 @@ import static org.hamcrest.Matchers.not;
 
 public final class WrapperTest {
     @Test public void
-    wraps_an_existing_iterable() {
+    wraps_an_iterable() {
         Iterable<Integer> iterable = Arrays.asList(1, 2, 3);
         assertThat(Stream.wrap(iterable), contains(1, 2, 3));
+    }
+
+    @Test public void
+    wraps_an_iterator() {
+        Iterator<Integer> iterator = Arrays.asList(1, 2, 3).iterator();
+        assertThat(Stream.wrap(iterator), contains(1, 2, 3));
+    }
+
+    @Test public void
+    is_lazy() {
+        Stream.wrap(new ThrowingIterator());
     }
 
     @Test public void
@@ -34,12 +46,6 @@ public final class WrapperTest {
     is_not_nil_when_the_iterable_has_items() {
         Iterable<Object> iterable = Arrays.asList(new Object());
         assertThat(Stream.wrap(iterable), is(not(nil())));
-    }
-
-    @Test public void
-    wraps_an_iterator() {
-        Iterator<Integer> iterator = Arrays.asList(1, 2, 3).iterator();
-        assertThat(Stream.wrap(iterator), contains(1, 2, 3));
     }
 
     @Test public void

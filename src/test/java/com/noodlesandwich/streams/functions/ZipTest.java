@@ -5,12 +5,19 @@ import org.junit.Test;
 import com.noodlesandwich.streams.Pair;
 import com.noodlesandwich.streams.Stream;
 import com.noodlesandwich.streams.matchers.NilMatcher;
+import com.noodlesandwich.streams.testutils.ThrowingIterator;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 
 public final class ZipTest {
+    @Test public void
+    is_lazy() {
+        Stream<Object> stream = Stream.wrap(new ThrowingIterator());
+        stream.zip(null);
+    }
+
     @Test public void
     zipping_anything_with_nil_returns_nil() {
         Stream<Integer> streamOne = Stream.of(1, 2, 3, 4, 5);

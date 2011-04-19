@@ -7,7 +7,9 @@ import com.noodlesandwich.streams.Stream;
 
 public final class Wrapper<T> extends Stream<T> {
     private final Iterator<T> iterator;
-    private final boolean isNil;
+
+    private boolean isNil;
+    private boolean fetchedIsNil = false;
 
     private T head;
     private boolean fetchedHead = false;
@@ -17,17 +19,21 @@ public final class Wrapper<T> extends Stream<T> {
 
     public Wrapper(Iterator<T> iterator) {
         this.iterator = iterator;
-        this.isNil = !iterator.hasNext();
     }
 
     @Override
     public boolean isNil() {
+        if (!fetchedIsNil) {
+            isNil = !iterator.hasNext();
+            fetchedIsNil = true;
+        }
+
         return isNil;
     }
 
     @Override
     public T head() {
-        if (isNil) {
+        if (isNil()) {
             throw new EndOfStreamException();
         }
 

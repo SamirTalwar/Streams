@@ -3,12 +3,19 @@ package com.noodlesandwich.streams.functions;
 import org.junit.Test;
 
 import com.noodlesandwich.streams.Stream;
+import com.noodlesandwich.streams.testutils.ThrowingIterator;
 
 import static com.noodlesandwich.streams.matchers.HeadMatcher.has_a_head_of;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 
 public final class UniqueTest {
+    @Test public void
+    is_lazy() {
+        Stream<Object> stream = Stream.wrap(new ThrowingIterator());
+        stream.unique();
+    }
+
     @Test public void
     makes_no_changes_to_an_already_unique_stream() {
         Stream<Integer> stream = Stream.of(7, 2, 5, 9, 4);

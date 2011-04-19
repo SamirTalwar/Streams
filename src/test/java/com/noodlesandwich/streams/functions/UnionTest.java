@@ -3,6 +3,7 @@ package com.noodlesandwich.streams.functions;
 import org.junit.Test;
 
 import com.noodlesandwich.streams.Stream;
+import com.noodlesandwich.streams.testutils.ThrowingIterator;
 
 import static com.noodlesandwich.streams.matchers.NilMatcher.nil;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -10,6 +11,12 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 
 public final class UnionTest {
+    @Test public void
+    is_lazy() {
+        Stream<Object> stream = Stream.wrap(new ThrowingIterator());
+        stream.union(null);
+    }
+
     @Test public void
     unioning_nil_with_nil_returns_nil() {
         assertThat(Stream.nil().union(Stream.nil()), is(nil()));

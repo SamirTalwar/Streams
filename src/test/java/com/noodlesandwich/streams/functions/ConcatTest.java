@@ -3,6 +3,7 @@ package com.noodlesandwich.streams.functions;
 import org.junit.Test;
 
 import com.noodlesandwich.streams.Stream;
+import com.noodlesandwich.streams.testutils.ThrowingIterator;
 
 import static com.noodlesandwich.streams.matchers.NilMatcher.nil;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -10,6 +11,12 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 
 public final class ConcatTest {
+    @Test public void
+    is_lazy() {
+        Stream<Object> stream = Stream.wrap(new ThrowingIterator());
+        stream.concat(null);
+    }
+
     @Test public void
     concatenates_two_nil_streams_into_one() {
         Stream<Object> streamOne = Stream.nil();

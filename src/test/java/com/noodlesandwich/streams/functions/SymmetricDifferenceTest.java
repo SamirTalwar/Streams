@@ -4,12 +4,19 @@ import org.junit.Test;
 
 import com.noodlesandwich.streams.Stream;
 import com.noodlesandwich.streams.matchers.NilMatcher;
+import com.noodlesandwich.streams.testutils.ThrowingIterator;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 
 public final class SymmetricDifferenceTest {
+    @Test public void
+    is_lazy() {
+        Stream<Object> stream = Stream.wrap(new ThrowingIterator());
+        stream.symmetricDifference(stream);
+    }
+
     @Test public void
     a_symmetric_difference_of_anything_with_nil_results_in_the_first_stream() {
         Stream<Integer> stream = Stream.of(1, 2, 3);

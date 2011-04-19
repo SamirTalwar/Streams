@@ -1,9 +1,9 @@
 package com.noodlesandwich.streams.functions;
 
-import org.junit.Test;
-
 import com.google.common.base.Predicates;
 import com.noodlesandwich.streams.Stream;
+
+import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;

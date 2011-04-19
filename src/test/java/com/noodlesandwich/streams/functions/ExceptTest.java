@@ -4,12 +4,19 @@ import org.junit.Test;
 
 import com.noodlesandwich.streams.Stream;
 import com.noodlesandwich.streams.matchers.NilMatcher;
+import com.noodlesandwich.streams.testutils.ThrowingIterator;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 
 public final class ExceptTest {
+    @Test public void
+    is_lazy() {
+        Stream<Object> stream = Stream.wrap(new ThrowingIterator());
+        stream.except(null);
+    }
+
     @Test public void
     anything_except_nil_results_in_no_change() {
         Stream<Integer> stream = Stream.of(1, 2, 3);

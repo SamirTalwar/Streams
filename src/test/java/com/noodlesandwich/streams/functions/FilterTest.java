@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import com.google.common.base.Predicate;
 import com.noodlesandwich.streams.Stream;
+import com.noodlesandwich.streams.testutils.ThrowingIterator;
 
 import static com.noodlesandwich.streams.matchers.NilMatcher.nil;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -11,6 +12,12 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 
 public final class FilterTest {
+    @Test public void
+    is_lazy() {
+        Stream<Object> stream = Stream.wrap(new ThrowingIterator());
+        stream.filter(null);
+    }
+
     @Test public void
     filters_a_stream_with_a_predicate() {
         Stream<Integer> stream = Stream.of(1, 3, 2, 4, 7, 8, 9, 6, 5);

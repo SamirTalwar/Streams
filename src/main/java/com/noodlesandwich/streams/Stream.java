@@ -8,7 +8,6 @@ import com.google.common.base.Function;
 import com.google.common.base.Functions;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
@@ -17,6 +16,7 @@ import com.google.common.collect.Sets;
 import com.noodlesandwich.streams.functions.All;
 import com.noodlesandwich.streams.functions.Any;
 import com.noodlesandwich.streams.functions.Concat;
+import com.noodlesandwich.streams.functions.ContainmentPredicate;
 import com.noodlesandwich.streams.functions.Drop;
 import com.noodlesandwich.streams.functions.DropWhile;
 import com.noodlesandwich.streams.functions.Filter;
@@ -102,7 +102,7 @@ public abstract class Stream<T> implements Iterable<T> {
     }
 
     public Stream<T> concat(Stream<T> nextStream) {
-        return Concat.concat(this, nextStream);
+        return new Concat<T>(this, nextStream);
     }
 
     public <U> Stream<Pair<T, U>> zip(Stream<U> pairedStream) {
@@ -138,39 +138,34 @@ public abstract class Stream<T> implements Iterable<T> {
         return concat(unionedStream).unique();
     }
 
-    public Stream<T> intersect(Stream<T> intersectedStream) {
-        final Set<T> possibleElements = ImmutableSet.copyOf(intersectedStream);
-        return unique().filter(new Predicate<T>() {
+    public Stream<T> intersect(final Stream<T> intersectedStream) {
+        return unique().filter(new ContainmentPredicate<T>(intersectedStream) {
             @Override
             public boolean apply(T input) {
-                return possibleElements.contains(input);
+                return contains(input);
             }
         });
     }
 
-    public Stream<T> except(Stream<T> exceptionStream) {
-        final Set<T> exceptedElements = ImmutableSet.copyOf(exceptionStream);
-        return filter(new Predicate<T>() {
+    public Stream<T> except(final Stream<T> exceptedStream) {
+        return filter(new ContainmentPredicate<T>(exceptedStream) {
             @Override
             public boolean apply(T input) {
-                return !exceptedElements.contains(input);
+                return !contains(input);
             }
         });
     }
 
     public Stream<T> symmetricDifference(Stream<T> otherStream) {
-        final Set<T> exceptedElementsForThis = ImmutableSet.copyOf(otherStream);
-        final Set<T> exceptedElementsForOther = ImmutableSet.copyOf(this);
-
-        return filter(new Predicate<T>() {
+        return filter(new ContainmentPredicate<T>(otherStream) {
             @Override
             public boolean apply(T input) {
-                return !exceptedElementsForThis.contains(input);
+                return !contains(input);
             }
-        }).union(otherStream.filter(new Predicate<T>() {
+        }).union(otherStream.filter(new ContainmentPredicate<T>(this) {
             @Override
             public boolean apply(T input) {
-                return !exceptedElementsForOther.contains(input);
+                return !contains(input);
             }
         }));
     }

@@ -5,6 +5,7 @@ import java.util.Iterator;
 import org.junit.Test;
 
 import com.noodlesandwich.streams.Stream;
+import com.noodlesandwich.streams.testutils.ThrowingIterator;
 
 import static com.noodlesandwich.streams.matchers.NilMatcher.nil;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -12,6 +13,12 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 
 public final class TakeTest {
+    @Test public void
+    is_lazy() {
+        Stream<Object> stream = Stream.wrap(new ThrowingIterator());
+        stream.take(5);
+    }
+
     @Test public void
     taking_zero_elements_returns_nil() {
         Stream<Object> stream = Stream.of(new Object(), new Object(), new Object());

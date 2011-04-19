@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import com.noodlesandwich.streams.Stream;
 import com.noodlesandwich.streams.matchers.NilMatcher;
+import com.noodlesandwich.streams.testutils.ThrowingIterator;
 
 import static com.noodlesandwich.streams.matchers.NilMatcher.nil;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -11,6 +12,12 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 
 public final class IntersectionTest {
+    @Test public void
+    is_lazy() {
+        Stream<Object> stream = Stream.wrap(new ThrowingIterator());
+        stream.intersect(null);
+    }
+
     @Test public void
     intersecting_anything_with_nil_returns_nil() {
         Stream<Object> stream = Stream.of(new Object(), new Object(), new Object());
