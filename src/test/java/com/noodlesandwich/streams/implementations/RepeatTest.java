@@ -1,4 +1,4 @@
-package com.noodlesandwich.streams.functions;
+package com.noodlesandwich.streams.implementations;
 
 import org.junit.Test;
 
