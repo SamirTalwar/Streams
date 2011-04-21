@@ -62,9 +62,9 @@ public final class ZipWithTest {
 
     @Test public void
     is_repeatable() {
-        Stream<String> zippedStream = Stream.of(1, 2, 3, 4, 5).zipWith(Stream.of("a", "b", "c", "d", "e"), concat());
-        assertThat(zippedStream, contains("1a", "2b", "3c", "4d", "5e"));
-        assertThat(zippedStream, contains("1a", "2b", "3c", "4d", "5e"));
+        Stream<Integer> zippedStream = Stream.of(1, 2, 3, 4, 5).zipWith(Stream.of(6, 7, 8, 9, 10), mutable());
+        assertThat(zippedStream, contains(8, 11, 14, 17, 20));
+        assertThat(zippedStream, contains(8, 11, 14, 17, 20));
     }
 
     private static ZipWithFunction<Integer, Integer, Integer> add() {
@@ -81,6 +81,16 @@ public final class ZipWithTest {
             @Override
             public String apply(Object a, Object b) {
                 return a.toString() + b.toString();
+            }
+        };
+    }
+
+    private static ZipWithFunction<Integer, Integer, Integer> mutable() {
+        return new ZipWithFunction<Integer, Integer, Integer>() {
+            private int i = 0;
+            @Override
+            public Integer apply(Integer a, Integer b) {
+                return a + b + (++i);
             }
         };
     }

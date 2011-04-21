@@ -32,9 +32,9 @@ public final class MapTest {
 
     @Test public void
     is_repeatable() {
-        Stream<String> mappedStream = Stream.of(1, 2, 3).map(toStringFunc());
-        assertThat(mappedStream, contains("1", "2", "3"));
-        assertThat(mappedStream, contains("1", "2", "3"));
+        Stream<Integer> mappedStream = Stream.of(9, 7, 2).map(toIncrementingNumbers());
+        assertThat(mappedStream, contains(1, 2, 3));
+        assertThat(mappedStream, contains(1, 2, 3));
     }
 
     private static Function<Integer, String> toStringFunc() {
@@ -42,6 +42,16 @@ public final class MapTest {
             @Override
             public String apply(Integer input) {
                 return input.toString();
+            }
+        };
+    }
+
+    private static Function<Integer, Integer> toIncrementingNumbers() {
+        return new Function<Integer, Integer>() {
+            private int i = 0;
+            @Override
+            public Integer apply(Integer input) {
+                return ++i;
             }
         };
     }

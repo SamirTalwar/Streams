@@ -46,9 +46,9 @@ public final class TakeWhileTest {
 
     @Test public void
     is_repeatable() {
-        Stream<Integer> takenStream = Stream.of(1, 2, 4, 3, 5).takeWhile(lessThan(4));
-        assertThat(takenStream, contains(1, 2));
-        assertThat(takenStream, contains(1, 2));
+        Stream<Integer> takenStream = Stream.of(1, 2, 4, 3, 5).takeWhile(mutable());
+        assertThat(takenStream, contains(1, 2, 4));
+        assertThat(takenStream, contains(1, 2, 4));
     }
 
     private static Predicate<Integer> lessThan(final int n) {
@@ -56,6 +56,16 @@ public final class TakeWhileTest {
             @Override
             public boolean apply(Integer input) {
                 return input < n;
+            }
+        };
+    }
+
+    private static Predicate<Integer> mutable() {
+        return new Predicate<Integer>() {
+            private int i = 3;
+            @Override
+            public boolean apply(Integer input) {
+                return i-- > 0;
             }
         };
     }

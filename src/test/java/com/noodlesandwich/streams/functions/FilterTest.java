@@ -31,9 +31,9 @@ public final class FilterTest {
 
     @Test public void
     is_repeatable() {
-        Stream<Integer> filteredStream = Stream.of(1, 3, 2, 4, 7, 8, 9, 6, 5).filter(isEven());
-        assertThat(filteredStream, contains(2, 4, 8, 6));
-        assertThat(filteredStream, contains(2, 4, 8, 6));
+        Stream<Integer> filteredStream = Stream.of(1, 3, 2, 4, 7, 8, 9, 6, 5).filter(everyOtherOne());
+        assertThat(filteredStream, contains(1, 2, 7, 9, 5));
+        assertThat(filteredStream, contains(1, 2, 7, 9, 5));
     }
 
     private static Predicate<Integer> isEven() {
@@ -41,6 +41,17 @@ public final class FilterTest {
             @Override
             public boolean apply(Integer input) {
                 return input % 2 == 0;
+            }
+        };
+    }
+
+    private static Predicate<Integer> everyOtherOne() {
+        return new Predicate<Integer>() {
+            private boolean thisOne = false;
+            @Override
+            public boolean apply(Integer input) {
+                thisOne = !thisOne;
+                return thisOne;
             }
         };
     }

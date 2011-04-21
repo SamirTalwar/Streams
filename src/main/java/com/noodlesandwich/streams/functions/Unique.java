@@ -4,9 +4,10 @@ import java.util.Set;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import com.noodlesandwich.streams.CachedStream;
 import com.noodlesandwich.streams.Stream;
 
-public final class Unique<T> extends Stream<T> {
+public final class Unique<T> extends CachedStream<T> {
     private Stream<T> stream;
     private final Set<T> before;
 
@@ -20,19 +21,19 @@ public final class Unique<T> extends Stream<T> {
     }
 
     @Override
-    public boolean isNil() {
+    public boolean determineIsNil() {
         removeNonUniques();
         return stream.isNil();
     }
 
     @Override
-    public T head() {
+    public T determineHead() {
         removeNonUniques();
         return stream.head();
     }
 
     @Override
-    public Stream<T> tail() {
+    public Stream<T> determineTail() {
         return new Unique<T>(stream.tail(), Sets.union(before, ImmutableSet.of(stream.head())));
     }
 

@@ -1,9 +1,10 @@
 package com.noodlesandwich.streams.functions;
 
+import com.noodlesandwich.streams.CachedStream;
 import com.noodlesandwich.streams.EndOfStreamException;
 import com.noodlesandwich.streams.Stream;
 
-public final class Take<T> extends Stream<T> {
+public final class Take<T> extends CachedStream<T> {
     private final int n;
     private final Stream<T> stream;
 
@@ -17,18 +18,18 @@ public final class Take<T> extends Stream<T> {
     }
 
     @Override
-    public boolean isNil() {
+    public boolean determineIsNil() {
         return n == 0 || stream.isNil();
     }
 
     @Override
-    public T head() {
+    public T determineHead() {
         checkForNil();
         return stream.head();
     }
 
     @Override
-    public Stream<T> tail() {
+    public Stream<T> determineTail() {
         checkForNil();
         return new Take<T>(n - 1, stream.tail());
     }

@@ -39,9 +39,9 @@ public final class DropWhileTest {
 
     @Test public void
     is_repeatable() {
-        Stream<Integer> droppedStream = Stream.of(1, 2, 4, 3, 5).dropWhile(lessThan(4));
-        assertThat(droppedStream, contains(4, 3, 5));
-        assertThat(droppedStream, contains(4, 3, 5));
+        Stream<Integer> droppedStream = Stream.of(1, 2, 4, 3, 5).dropWhile(mutable());
+        assertThat(droppedStream, contains(3, 5));
+        assertThat(droppedStream, contains(3, 5));
     }
 
     private static Predicate<Integer> lessThan(final int n) {
@@ -49,6 +49,16 @@ public final class DropWhileTest {
             @Override
             public boolean apply(Integer input) {
                 return input < n;
+            }
+        };
+    }
+
+    private static Predicate<Integer> mutable() {
+        return new Predicate<Integer>() {
+            private int i = 3;
+            @Override
+            public boolean apply(Integer input) {
+                return i-- > 0;
             }
         };
     }

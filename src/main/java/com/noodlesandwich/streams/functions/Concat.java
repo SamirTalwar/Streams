@@ -1,8 +1,9 @@
 package com.noodlesandwich.streams.functions;
 
+import com.noodlesandwich.streams.CachedStream;
 import com.noodlesandwich.streams.Stream;
 
-public final class Concat<T> extends Stream<T> {
+public final class Concat<T> extends CachedStream<T> {
     private final Stream<T> one;
     private final Stream<T> two;
 
@@ -12,17 +13,17 @@ public final class Concat<T> extends Stream<T> {
     }
 
     @Override
-    public boolean isNil() {
+    public boolean determineIsNil() {
         return one.isNil() && two.isNil();
     }
 
     @Override
-    public T head() {
+    public T determineHead() {
         return !one.isNil() ? one.head() : two.head();
     }
 
     @Override
-    public Stream<T> tail() {
+    public Stream<T> determineTail() {
         return !one.isNil() ? new Concat<T>(one.tail(), two) : two.tail();
     }
 }

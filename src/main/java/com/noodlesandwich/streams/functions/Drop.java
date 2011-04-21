@@ -1,8 +1,9 @@
 package com.noodlesandwich.streams.functions;
 
+import com.noodlesandwich.streams.CachedStream;
 import com.noodlesandwich.streams.Stream;
 
-public final class Drop<T> extends Stream<T> {
+public final class Drop<T> extends CachedStream<T> {
     private int n;
     private Stream<T> stream;
 
@@ -16,19 +17,19 @@ public final class Drop<T> extends Stream<T> {
     }
 
     @Override
-    public boolean isNil() {
+    public boolean determineIsNil() {
         removeFirstN();
         return stream.isNil();
     }
 
     @Override
-    public T head() {
+    public T determineHead() {
         removeFirstN();
         return stream.head();
     }
 
     @Override
-    public Stream<T> tail() {
+    public Stream<T> determineTail() {
         removeFirstN();
         return stream.tail();
     }

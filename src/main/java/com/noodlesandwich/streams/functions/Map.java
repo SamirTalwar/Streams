@@ -1,9 +1,10 @@
 package com.noodlesandwich.streams.functions;
 
 import com.google.common.base.Function;
+import com.noodlesandwich.streams.CachedStream;
 import com.noodlesandwich.streams.Stream;
 
-public final class Map<F, T> extends Stream<T> {
+public final class Map<F, T> extends CachedStream<T> {
     private final Stream<F> stream;
     private final Function<F, T> function;
 
@@ -13,17 +14,17 @@ public final class Map<F, T> extends Stream<T> {
     }
 
     @Override
-    public boolean isNil() {
+    public boolean determineIsNil() {
         return stream.isNil();
     }
 
     @Override
-    public T head() {
+    public T determineHead() {
         return function.apply(stream.head());
     }
 
     @Override
-    public Stream<T> tail() {
+    public Stream<T> determineTail() {
         return new Map<F, T>(function, stream.tail());
     }
 }

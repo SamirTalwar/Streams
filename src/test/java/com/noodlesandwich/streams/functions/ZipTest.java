@@ -79,6 +79,9 @@ public final class ZipTest {
         assertThat(zippedStream, contains(
                 pair(1, "a"), pair(2, "b"), pair(3, "c"), pair(4, "d"), pair(5, "e")
         ));
+        assertThat(zippedStream, contains(
+                pair(1, "a"), pair(2, "b"), pair(3, "c"), pair(4, "d"), pair(5, "e")
+        ));
     }
 
     private static <F, S> Pair<F, S> pair(F first, S second) {

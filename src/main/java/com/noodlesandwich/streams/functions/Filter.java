@@ -1,9 +1,10 @@
 package com.noodlesandwich.streams.functions;
 
 import com.google.common.base.Predicate;
+import com.noodlesandwich.streams.CachedStream;
 import com.noodlesandwich.streams.Stream;
 
-public final class Filter<T> extends Stream<T> {
+public final class Filter<T> extends CachedStream<T> {
     private Stream<T> stream;
     private final Predicate<T> predicate;
     private boolean filteredNext = false;
@@ -14,19 +15,19 @@ public final class Filter<T> extends Stream<T> {
     }
 
     @Override
-    public boolean isNil() {
+    public boolean determineIsNil() {
         filterNext();
         return stream.isNil();
     }
 
     @Override
-    public T head() {
+    public T determineHead() {
         filterNext();
         return stream.head();
     }
 
     @Override
-    public Stream<T> tail() {
+    public Stream<T> determineTail() {
         filterNext();
         return new Filter<T>(predicate, stream.tail());
     }

@@ -1,9 +1,10 @@
 package com.noodlesandwich.streams.functions;
 
+import com.noodlesandwich.streams.CachedStream;
 import com.noodlesandwich.streams.Stream;
 import com.noodlesandwich.streams.ZipWithFunction;
 
-public final class Zip<F, S, R> extends Stream<R> {
+public final class Zip<F, S, R> extends CachedStream<R> {
     private final Stream<F> first;
     private final Stream<S> second;
     private final ZipWithFunction<? super F, ? super S, R> zipWithFunction;
@@ -15,17 +16,17 @@ public final class Zip<F, S, R> extends Stream<R> {
     }
 
     @Override
-    public boolean isNil() {
+    public boolean determineIsNil() {
         return first.isNil() || second.isNil();
     }
 
     @Override
-    public R head() {
+    public R determineHead() {
         return zipWithFunction.apply(first.head(), second.head());
     }
 
     @Override
-    public Stream<R> tail() {
+    public Stream<R> determineTail() {
         return new Zip<F, S, R>(zipWithFunction, first.tail(), second.tail());
     }
 }

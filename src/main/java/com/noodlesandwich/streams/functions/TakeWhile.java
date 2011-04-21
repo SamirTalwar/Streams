@@ -1,10 +1,11 @@
 package com.noodlesandwich.streams.functions;
 
 import com.google.common.base.Predicate;
+import com.noodlesandwich.streams.CachedStream;
 import com.noodlesandwich.streams.EndOfStreamException;
 import com.noodlesandwich.streams.Stream;
 
-public final class TakeWhile<T> extends Stream<T> {
+public final class TakeWhile<T> extends CachedStream<T> {
     private final Stream<T> stream;
     private final Predicate<T> predicate;
 
@@ -14,18 +15,18 @@ public final class TakeWhile<T> extends Stream<T> {
     }
 
     @Override
-    public boolean isNil() {
+    public boolean determineIsNil() {
         return stream.isNil() || !predicate.apply(stream.head());
     }
 
     @Override
-    public T head() {
+    public T determineHead() {
         checkForNil();
         return stream.head();
     }
 
     @Override
-    public Stream<T> tail() {
+    public Stream<T> determineTail() {
         checkForNil();
         return new TakeWhile<T>(predicate, stream.tail());
     }
