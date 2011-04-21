@@ -4,9 +4,9 @@ import com.google.common.base.Predicate;
 import com.noodlesandwich.streams.Stream;
 
 public final class All<T> {
-    private final Predicate<T> predicate;
+    private final Predicate<? super T> predicate;
 
-    public All(Predicate<T> predicate) {
+    public All(Predicate<? super T> predicate) {
         this.predicate = predicate;
     }
 

@@ -4,9 +4,9 @@ import com.google.common.base.Predicate;
 import com.noodlesandwich.streams.Stream;
 
 public final class Any<T> {
-    private final Predicate<T> predicate;
+    private final Predicate<? super T> predicate;
 
-    public Any(Predicate<T> predicate) {
+    public Any(Predicate<? super T> predicate) {
         this.predicate = predicate;
     }
 

@@ -118,11 +118,11 @@ public abstract class Stream<T> implements Iterable<T> {
         return new Zip<T, U, V>(zipWithFunction, this, pairedStream);
     }
 
-    public boolean any(Predicate<T> predicate) {
+    public boolean any(Predicate<? super T> predicate) {
         return new Any<T>(predicate).apply(this);
     }
 
-    public boolean all(Predicate<T> predicate) {
+    public boolean all(Predicate<? super T> predicate) {
         return new All<T>(predicate).apply(this);
     }
 
