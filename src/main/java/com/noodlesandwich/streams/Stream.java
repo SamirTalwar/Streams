@@ -65,7 +65,7 @@ public abstract class Stream<T> implements Iterable<T> {
         return new Wrapper<T>(iterator);
     }
 
-    public static <T> Stream<T> generate(Function<? super T, T> iteratingFunction, T start) {
+    public static <T> Stream<T> generate(Function<? super T, ? extends T> iteratingFunction, T start) {
         return new Generator<T>(iteratingFunction, start);
     }
 
@@ -73,7 +73,7 @@ public abstract class Stream<T> implements Iterable<T> {
         return generate(Functions.<T>identity(), value);
     }
 
-    public <U> Stream<U> map(Function<? super T, U> function) {
+    public <U> Stream<U> map(Function<? super T, ? extends U> function) {
         return new Map<T, U>(function, this);
     }
 
@@ -114,7 +114,7 @@ public abstract class Stream<T> implements Iterable<T> {
         });
     }
 
-    public <U, V> Stream<V> zipWith(Stream<U> pairedStream, ZipWithFunction<? super T, ? super U, V> zipWithFunction) {
+    public <U, V> Stream<V> zipWith(Stream<U> pairedStream, ZipWithFunction<? super T, ? super U, ? extends V> zipWithFunction) {
         return new Zip<T, U, V>(zipWithFunction, this, pairedStream);
     }
 
@@ -196,7 +196,7 @@ public abstract class Stream<T> implements Iterable<T> {
         return Sets.newHashSet(this);
     }
 
-    public <V> java.util.Map<T, V> toMap(Function<? super T, V> valueFunction) {
+    public <V> java.util.Map<T, V> toMap(Function<? super T, ? extends V> valueFunction) {
         java.util.Map<T, V> map = Maps.newHashMap();
         for (T key : toSet()) {
             map.put(key, valueFunction.apply(key));
