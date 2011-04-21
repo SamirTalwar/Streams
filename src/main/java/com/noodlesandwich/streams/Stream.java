@@ -65,7 +65,7 @@ public abstract class Stream<T> implements Iterable<T> {
         return new Wrapper<T>(iterator);
     }
 
-    public static <T> Stream<T> generate(Function<T, T> iteratingFunction, T start) {
+    public static <T> Stream<T> generate(Function<? super T, T> iteratingFunction, T start) {
         return new Generator<T>(iteratingFunction, start);
     }
 
@@ -73,15 +73,15 @@ public abstract class Stream<T> implements Iterable<T> {
         return generate(Functions.<T>identity(), value);
     }
 
-    public <U> Stream<U> map(Function<T, U> function) {
+    public <U> Stream<U> map(Function<? super T, U> function) {
         return new Map<T, U>(function, this);
     }
 
-    public Stream<T> filter(Predicate<T> predicate) {
+    public Stream<T> filter(Predicate<? super T> predicate) {
         return new Filter<T>(predicate, this);
     }
 
-    public <U> U fold(FoldFunction<T, U> foldFunction, U initializer) {
+    public <U> U fold(FoldFunction<? super T, U> foldFunction, U initializer) {
         return new Fold<T, U>(foldFunction, initializer).apply(this);
     }
 
@@ -93,11 +93,11 @@ public abstract class Stream<T> implements Iterable<T> {
         return new Drop<T>(n, this);
     }
 
-    public Stream<T> takeWhile(Predicate<T> predicate) {
+    public Stream<T> takeWhile(Predicate<? super T> predicate) {
         return new TakeWhile<T>(predicate, this);
     }
 
-    public Stream<T> dropWhile(Predicate<T> predicate) {
+    public Stream<T> dropWhile(Predicate<? super T> predicate) {
         return new DropWhile<T>(predicate, this);
     }
 
@@ -196,7 +196,7 @@ public abstract class Stream<T> implements Iterable<T> {
         return Sets.newHashSet(this);
     }
 
-    public <V> java.util.Map<T, V> toMap(Function<T, V> valueFunction) {
+    public <V> java.util.Map<T, V> toMap(Function<? super T, V> valueFunction) {
         java.util.Map<T, V> map = Maps.newHashMap();
         for (T key : toSet()) {
             map.put(key, valueFunction.apply(key));

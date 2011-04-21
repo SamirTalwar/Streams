@@ -6,10 +6,10 @@ import com.noodlesandwich.streams.Stream;
 
 public final class Filter<T> extends CachedStream<T> {
     private Stream<T> stream;
-    private final Predicate<T> predicate;
+    private final Predicate<? super T> predicate;
     private boolean filteredNext = false;
 
-    public Filter(Predicate<T> predicate, Stream<T> stream) {
+    public Filter(Predicate<? super T> predicate, Stream<T> stream) {
         this.predicate = predicate;
         this.stream = stream;
     }

@@ -6,9 +6,9 @@ import com.noodlesandwich.streams.Stream;
 
 public final class DropWhile<T> extends CachedStream<T> {
     private Stream<T> stream;
-    private final Predicate<T> predicate;
+    private final Predicate<? super T> predicate;
 
-    public DropWhile(Predicate<T> predicate, Stream<T> stream) {
+    public DropWhile(Predicate<? super T> predicate, Stream<T> stream) {
         this.predicate = predicate;
         this.stream = stream;
     }

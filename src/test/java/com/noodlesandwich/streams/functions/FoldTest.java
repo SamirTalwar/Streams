@@ -30,10 +30,10 @@ public final class FoldTest {
         };
     }
 
-    private static FoldFunction<Integer, String> joinAsString() {
-        return new FoldFunction<Integer, String>() {
+    private static FoldFunction<Object, String> joinAsString() {
+        return new FoldFunction<Object, String>() {
             @Override
-            public String apply(String accumulator, Integer input) {
+            public String apply(String accumulator, Object input) {
                 return accumulator + ", " + input;
             }
         };

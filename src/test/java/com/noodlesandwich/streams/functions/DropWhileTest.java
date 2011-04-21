@@ -53,11 +53,11 @@ public final class DropWhileTest {
         };
     }
 
-    private static Predicate<Integer> mutable() {
-        return new Predicate<Integer>() {
+    private static Predicate<Object> mutable() {
+        return new Predicate<Object>() {
             private int i = 3;
             @Override
-            public boolean apply(Integer input) {
+            public boolean apply(Object input) {
                 return i-- > 0;
             }
         };

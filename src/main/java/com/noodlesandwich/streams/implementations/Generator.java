@@ -5,13 +5,13 @@ import com.noodlesandwich.streams.EndOfStreamException;
 import com.noodlesandwich.streams.Stream;
 
 public final class Generator<T> extends Stream<T> {
-    private final Function<T, T> iteratingFunction;
+    private final Function<? super T, T> iteratingFunction;
     private final T value;
 
     private boolean fetchedTail = false;
     private Stream<T> tail;
 
-    public Generator(Function<T, T> iteratingFunction, T value) {
+    public Generator(Function<? super T, T> iteratingFunction, T value) {
         this.iteratingFunction = iteratingFunction;
         this.value = value;
     }

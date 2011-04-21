@@ -45,11 +45,11 @@ public final class FilterTest {
         };
     }
 
-    private static Predicate<Integer> everyOtherOne() {
-        return new Predicate<Integer>() {
+    private static Predicate<Object> everyOtherOne() {
+        return new Predicate<Object>() {
             private boolean thisOne = false;
             @Override
-            public boolean apply(Integer input) {
+            public boolean apply(Object input) {
                 thisOne = !thisOne;
                 return thisOne;
             }

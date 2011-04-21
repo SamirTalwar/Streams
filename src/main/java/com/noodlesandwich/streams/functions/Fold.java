@@ -4,10 +4,10 @@ import com.noodlesandwich.streams.FoldFunction;
 import com.noodlesandwich.streams.Stream;
 
 public final class Fold<T, A> {
-    private final FoldFunction<T, A> foldFunction;
+    private final FoldFunction<? super T, A> foldFunction;
     private final A initializer;
 
-    public Fold(FoldFunction<T, A> foldFunction, A initializer) {
+    public Fold(FoldFunction<? super T, A> foldFunction, A initializer) {
         this.foldFunction = foldFunction;
         this.initializer = initializer;
     }

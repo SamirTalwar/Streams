@@ -25,6 +25,14 @@ public final class ToMapTest {
     }
 
     @Test public void
+    keys_and_values_can_be_different_types() {
+        Stream<Integer> stream = Stream.of(1, 2, 3);
+        assertThat(stream.toMap(toStringFunc()), allOf(hasEntry(1, "1"),
+                                                       hasEntry(2, "2"),
+                                                       hasEntry(3, "3")));
+    }
+
+    @Test public void
     removes_duplicates() {
         Stream<Integer> stream = Stream.of(2, 3, 2, 1);
         assertThat(stream.toMap(add(7)), allOf(hasEntry(1, 8),
@@ -32,11 +40,20 @@ public final class ToMapTest {
                                                hasEntry(3, 10)));
     }
 
-    private Function<Integer, Integer> add(final int i) {
+    private static Function<Integer, Integer> add(final int i) {
         return new Function<Integer, Integer>() {
             @Override
             public Integer apply(Integer input) {
                 return input + i;
+            }
+        };
+    }
+
+    private static Function<Object, String> toStringFunc() {
+        return new Function<Object, String>() {
+            @Override
+            public String apply(Object input) {
+                return input.toString();
             }
         };
     }

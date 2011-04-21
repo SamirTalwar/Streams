@@ -7,9 +7,9 @@ import com.noodlesandwich.streams.Stream;
 
 public final class TakeWhile<T> extends CachedStream<T> {
     private final Stream<T> stream;
-    private final Predicate<T> predicate;
+    private final Predicate<? super T> predicate;
 
-    public TakeWhile(Predicate<T> predicate, Stream<T> stream) {
+    public TakeWhile(Predicate<? super T> predicate, Stream<T> stream) {
         this.predicate = predicate;
         this.stream = stream;
     }
