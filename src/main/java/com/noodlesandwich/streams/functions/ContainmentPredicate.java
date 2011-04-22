@@ -9,13 +9,17 @@ public abstract class ContainmentPredicate<T> implements Predicate<T> {
     private final Iterable<T> iterable;
     private Set<T> elements;
 
+    private final Object lock = new Object();
+
     public ContainmentPredicate(Iterable<T> iterable) {
         this.iterable = iterable;
     }
 
     public boolean contains(T element) {
-        if (elements == null) {
-            elements = ImmutableSet.copyOf(iterable);
+        synchronized (lock) {
+            if (elements == null) {
+                elements = ImmutableSet.copyOf(iterable);
+            }
         }
 
         return elements.contains(element);
