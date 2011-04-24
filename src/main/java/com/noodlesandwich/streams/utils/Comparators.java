@@ -52,7 +52,7 @@ public class Comparators {
 			return o1.compareTo(o2);
 		}
 	};
-	public static final Comparator<String> String = new Comparator<String>(){
+	public static final Comparator<String> STRING = new Comparator<String>(){
 		@Override
 		public int compare(String o1, String o2) {
 			return o1.compareTo(o2);

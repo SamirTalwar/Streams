@@ -1,7 +1,6 @@
 package com.noodlesandwich.streams.functions;
 
 import static org.hamcrest.Matchers.contains;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -29,6 +28,30 @@ public class PivotTest {
 		Pair<Stream<Long>, Stream<Long>> pair = stream.pivot(10L, Comparators.LONG);
 		assertTrue(pair.first().isEmpty());
 		assertTrue(pair.second().isEmpty());
+	}
+
+	@Test public void
+	pivot_not_in_stream(){
+		Stream<Double> stream = Stream.<Double>of(1.0, 2.0, 10.0, 5.0);
+		Pair<Stream<Double>, Stream<Double>>  pair = stream.pivot(4.0, Comparators.DOUBLE);
+		
+		assertTrue(pair.first().size() == 2);
+		assertThat(pair.first(), contains(1.0, 2.0));
+		
+		assertTrue(pair.second().size() == 2);
+		assertThat(pair.second(), contains(10.0, 5.0));
+	}
+	
+	@Test public void
+	pivot_on_non_primitive(){
+		Stream<String> stream = Stream.<String>of("hello", "world", "goodbye", "world", "zero");
+		Pair<Stream<String>, Stream<String>> pair = stream.pivot("world", Comparators.STRING);
+		
+		assertTrue(pair.first().size() == 2);
+		assertThat(pair.first(), contains("hello", "goodbye"));
+		
+		assertTrue(pair.second().size() == 1);
+		assertThat(pair.second(), contains("zero"));
 	}
 	
 	@Test public void 
