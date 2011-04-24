@@ -1,5 +1,6 @@
 package com.noodlesandwich.streams;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -22,6 +23,7 @@ import com.noodlesandwich.streams.functions.DropWhile;
 import com.noodlesandwich.streams.functions.Filter;
 import com.noodlesandwich.streams.functions.Fold;
 import com.noodlesandwich.streams.functions.Map;
+import com.noodlesandwich.streams.functions.Pivot;
 import com.noodlesandwich.streams.functions.Take;
 import com.noodlesandwich.streams.functions.TakeWhile;
 import com.noodlesandwich.streams.functions.Unique;
@@ -155,6 +157,10 @@ public abstract class Stream<T> implements Iterable<T> {
             }
         });
     }
+    
+    public Pair<Stream<T>, Stream<T>> pivot(T pivotVal, Comparator<T> comparator){
+    	return Pivot.<T>apply(this, pivotVal, comparator);
+    }
 
     public Stream<T> symmetricDifference(Stream<T> otherStream) {
         return filter(new ContainmentPredicate<T>(otherStream) {
@@ -188,6 +194,10 @@ public abstract class Stream<T> implements Iterable<T> {
         }, Stream.<T>nil());
     }
 
+    public boolean isEmpty(){
+    	return size() == 0;
+    }
+    
     public List<T> toList() {
         return Lists.newArrayList(this);
     }
@@ -209,7 +219,7 @@ public abstract class Stream<T> implements Iterable<T> {
     }
 
     public abstract boolean isNil();
-
+    
     public abstract T head();
 
     public abstract Stream<T> tail();
