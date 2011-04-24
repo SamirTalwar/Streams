@@ -22,6 +22,7 @@ import com.noodlesandwich.streams.functions.DropWhile;
 import com.noodlesandwich.streams.functions.Filter;
 import com.noodlesandwich.streams.functions.Fold;
 import com.noodlesandwich.streams.functions.Map;
+import com.noodlesandwich.streams.functions.Reverse;
 import com.noodlesandwich.streams.functions.Take;
 import com.noodlesandwich.streams.functions.TakeWhile;
 import com.noodlesandwich.streams.functions.Unique;
@@ -180,12 +181,7 @@ public abstract class Stream<T> implements Iterable<T> {
     }
 
     public Stream<T> reverse() {
-        return fold(new FoldFunction<T, Stream<T>>() {
-            @Override
-            public Stream<T> apply(Stream<T> accumulator, T input) {
-                return cons(input, accumulator);
-            }
-        }, Stream.<T>nil());
+        return new Reverse<T>(this);
     }
 
     public List<T> toList() {
