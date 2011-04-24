@@ -40,7 +40,8 @@ a little out of date. Then just fire up a command line and type:
 
     gradle build
 
-This will run all the tests and create a JAR in the `build/libs` directory.
+This will run all the tests and create a JAR in the `build/libs` directory. Please run this command and ensure it
+succeeds before pushing up to your public repository as it will make sure anyone downloading it can build it.
 
 To create an Eclipse project and classpath file, type:
 
