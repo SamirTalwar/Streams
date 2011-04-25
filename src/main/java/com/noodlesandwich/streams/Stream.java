@@ -158,8 +158,8 @@ public abstract class Stream<T> implements Iterable<T> {
         });
     }
     
-    public Pair<Stream<T>, Stream<T>> pivot(T pivotVal, Comparator<T> comparator){
-    	return Pivot.<T>apply(this, pivotVal, comparator);
+    public Pair<Stream<T>, Stream<T>> pivot(T pivotValue, Comparator<T> comparator){
+    	return Pivot.<T>apply(this, pivotValue, comparator);
     }
 
     public Stream<T> symmetricDifference(Stream<T> otherStream) {
