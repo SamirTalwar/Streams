@@ -22,7 +22,6 @@ import com.noodlesandwich.streams.functions.ContainmentPredicate;
 import com.noodlesandwich.streams.functions.Drop;
 import com.noodlesandwich.streams.functions.DropWhile;
 import com.noodlesandwich.streams.functions.Filter;
-import com.noodlesandwich.streams.functions.Fold;
 import com.noodlesandwich.streams.functions.Map;
 import com.noodlesandwich.streams.functions.Reverse;
 import com.noodlesandwich.streams.functions.Sort;
@@ -147,8 +146,12 @@ public abstract class Stream<T> implements Iterable<T> {
         return new Filter<T>(predicate, this);
     }
 
-    public <U> U fold(FoldFunction<? super T, U> foldFunction, U initializer) {
-        return new Fold<T, U>(foldFunction, initializer).apply(this);
+    public <A> A fold(FoldFunction<? super T, A> foldFunction, A initializer) {
+        A result = initializer;
+        for (T value : this) {
+            result = foldFunction.apply(result, value);
+        }
+        return result;
     }
 
     public Stream<T> take(int n) {
