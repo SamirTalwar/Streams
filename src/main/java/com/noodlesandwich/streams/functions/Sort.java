@@ -13,7 +13,7 @@ public class Sort<T> extends Stream<T> {
 
     private final Object lock = new Object();
 
-    public Sort(Comparator<? super T> comparator, Stream<T> stream) {
+    public Sort(Comparator<?super T> comparator, Stream<T> stream) {
         this.stream = stream;
         this.comparator = comparator;
     }

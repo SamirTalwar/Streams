@@ -37,6 +37,18 @@ public class SortTest {
         assertThat(stream.sort(evensAreOdds()), contains(1, 2, 3, 5, 4, 7, 6, 8, 9));
     }
 
+    @Test public void
+    sorts_without_a_comparator_if_the_underlying_type_implements_Comparable() {
+        Stream<Integer> stream = Stream.of(7, 5, 8, 1, 2, 9, 3, 6, 4);
+        assertThat(stream.sort(), contains(1, 2, 3, 4, 5, 6, 7, 8, 9));
+    }
+
+    @Test(expected=ClassCastException.class) public void
+    throws_a_ClassCastException_if_the_underlying_type_does_not_implement_Comparable() {
+        Stream<Object> stream = Stream.of(new Object(), new Object(), new Object());
+        stream.sort().head();
+    }
+
     private static Comparator<? super Integer> evensAreOdds() {
         return new Comparator<Integer>() {
             @Override

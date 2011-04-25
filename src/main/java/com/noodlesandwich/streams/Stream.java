@@ -13,6 +13,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
 import com.noodlesandwich.streams.functions.All;
 import com.noodlesandwich.streams.functions.Any;
@@ -183,6 +184,11 @@ public abstract class Stream<T> implements Iterable<T> {
 
     public Stream<T> reverse() {
         return new Reverse<T>(this);
+    }
+
+    @SuppressWarnings("unchecked")
+    public Stream<T> sort() {
+        return sort((Comparator<? super T>) Ordering.natural());
     }
 
     public Stream<T> sort(Comparator<? super T> comparator) {
