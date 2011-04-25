@@ -1,5 +1,6 @@
 package com.noodlesandwich.streams;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -23,6 +24,7 @@ import com.noodlesandwich.streams.functions.Filter;
 import com.noodlesandwich.streams.functions.Fold;
 import com.noodlesandwich.streams.functions.Map;
 import com.noodlesandwich.streams.functions.Reverse;
+import com.noodlesandwich.streams.functions.Sort;
 import com.noodlesandwich.streams.functions.Take;
 import com.noodlesandwich.streams.functions.TakeWhile;
 import com.noodlesandwich.streams.functions.Unique;
@@ -182,6 +184,10 @@ public abstract class Stream<T> implements Iterable<T> {
 
     public Stream<T> reverse() {
         return new Reverse<T>(this);
+    }
+
+    public Stream<T> sort(Comparator<? super T> comparator) {
+        return new Sort<T>(this, comparator);
     }
 
     public List<T> toList() {
