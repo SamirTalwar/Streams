@@ -18,7 +18,7 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 
-public final class WrapperTest {
+public final class IteratorWrapperTest {
     @Test public void
     wraps_an_iterable() {
         Iterable<Integer> iterable = Arrays.asList(1, 2, 3);

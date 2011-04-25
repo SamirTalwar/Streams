@@ -30,7 +30,7 @@ import com.noodlesandwich.streams.functions.Zip;
 import com.noodlesandwich.streams.implementations.Cons;
 import com.noodlesandwich.streams.implementations.Generator;
 import com.noodlesandwich.streams.implementations.Nil;
-import com.noodlesandwich.streams.implementations.Wrapper;
+import com.noodlesandwich.streams.implementations.IteratorWrapper;
 import com.noodlesandwich.streams.iterators.StreamIterator;
 
 public abstract class Stream<T> implements Iterable<T> {
@@ -63,7 +63,7 @@ public abstract class Stream<T> implements Iterable<T> {
     }
 
     public static <T> Stream<T> wrap(Iterator<T> iterator) {
-        return new Wrapper<T>(iterator);
+        return new IteratorWrapper<T>(iterator);
     }
 
     public static <T> Stream<T> generate(Function<? super T, ? extends T> iteratingFunction, T start) {

@@ -6,10 +6,10 @@ import com.noodlesandwich.streams.CachedStream;
 import com.noodlesandwich.streams.EndOfStreamException;
 import com.noodlesandwich.streams.Stream;
 
-public final class Wrapper<T> extends CachedStream<T> {
+public final class IteratorWrapper<T> extends CachedStream<T> {
     private final Iterator<T> iterator;
 
-    public Wrapper(Iterator<T> iterator) {
+    public IteratorWrapper(Iterator<T> iterator) {
         this.iterator = iterator;
     }
 
@@ -30,6 +30,6 @@ public final class Wrapper<T> extends CachedStream<T> {
     @Override
     public Stream<T> determineTail() {
         head();
-        return new Wrapper<T>(iterator);
+        return new IteratorWrapper<T>(iterator);
     }
 }
