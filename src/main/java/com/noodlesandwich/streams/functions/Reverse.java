@@ -13,7 +13,7 @@ public class Reverse<T> extends LazyStream<T> {
 
     @Override
     protected Stream<T> determineNewStream() {
-        return stream.fold(new FoldFunction<T, Stream<T>>() {
+        return stream.foldLeft(new FoldFunction<T, Stream<T>>() {
             @Override
             public Stream<T> apply(Stream<T> accumulator, T input) {
                 return Stream.cons(input, accumulator);

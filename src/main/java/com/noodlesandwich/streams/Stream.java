@@ -146,7 +146,7 @@ public abstract class Stream<T> implements Iterable<T> {
         return new Filter<T>(predicate, this);
     }
 
-    public <A> A fold(FoldFunction<? super T, A> foldFunction, A initializer) {
+    public <A> A foldLeft(FoldFunction<? super T, A> foldFunction, A initializer) {
         A result = initializer;
         for (T value : this) {
             result = foldFunction.apply(result, value);
