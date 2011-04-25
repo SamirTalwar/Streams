@@ -61,6 +61,17 @@ public class SortTest {
         assertThat(stream.sortBy(Functions.identity(), Ordering.usingToString()), contains(a, b, c, d));
     }
 
+    @Test public void
+    sorts_by_a_mapping_without_a_comparator_if_the_underlying_type_of_the_mapping_implements_Comparable() {
+        Thing a = new Thing("a");
+        Thing b = new Thing("b");
+        Thing c = new Thing("c");
+        Thing d = new Thing("d");
+
+        Stream<Thing> stream = Stream.of(d, a, c, b);
+        assertThat(stream.sortBy(Functions.toStringFunction()), contains(a, b, c, d));
+    }
+
     private static Comparator<? super Integer> evensAreOdds() {
         return new Comparator<Integer>() {
             @Override
