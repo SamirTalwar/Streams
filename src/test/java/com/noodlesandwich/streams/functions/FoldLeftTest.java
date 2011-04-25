@@ -30,8 +30,8 @@ public final class FoldLeftTest {
         };
     }
 
-    private static FoldLeftFunction<Object, String> joinAsString() {
-        return new FoldLeftFunction<Object, String>() {
+    private static FoldLeftFunction<String, Object> joinAsString() {
+        return new FoldLeftFunction<String, Object>() {
             @Override
             public String apply(String accumulator, Object input) {
                 return accumulator + ", " + input;
