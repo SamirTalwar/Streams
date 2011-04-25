@@ -31,8 +31,8 @@ import com.noodlesandwich.streams.functions.Unique;
 import com.noodlesandwich.streams.functions.Zip;
 import com.noodlesandwich.streams.implementations.Cons;
 import com.noodlesandwich.streams.implementations.Generator;
-import com.noodlesandwich.streams.implementations.Nil;
 import com.noodlesandwich.streams.implementations.IteratorWrapper;
+import com.noodlesandwich.streams.implementations.Nil;
 import com.noodlesandwich.streams.iterators.StreamIterator;
 
 public abstract class Stream<T> implements Iterable<T> {
@@ -174,12 +174,11 @@ public abstract class Stream<T> implements Iterable<T> {
     }
 
     public int size() {
-        return fold(new FoldFunction<T, Integer>() {
-            @Override
-            public Integer apply(Integer accumulator, T input) {
-                return accumulator + 1;
-            }
-        }, 0);
+        if (isNil()) {
+            return 0;
+        }
+
+        return 1 + tail().size();
     }
 
     public Stream<T> reverse() {
