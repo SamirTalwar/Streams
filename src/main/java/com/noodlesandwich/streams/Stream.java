@@ -186,7 +186,7 @@ public abstract class Stream<T> implements Iterable<T> {
     }
 
     public Stream<T> sort(Comparator<? super T> comparator) {
-        return new Sort<T>(this, comparator);
+        return new Sort<T>(comparator, this);
     }
 
     public List<T> toList() {
