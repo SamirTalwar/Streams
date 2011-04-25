@@ -154,6 +154,14 @@ public abstract class Stream<T> implements Iterable<T> {
         return result;
     }
 
+    public <A> A foldRight(FoldFunction<? super T, A> foldFunction, A initializer) {
+        if (isNil()) {
+            return initializer;
+        }
+
+        return foldFunction.apply(tail().foldRight(foldFunction, initializer), head());
+    }
+
     public Stream<T> take(int n) {
         return new Take<T>(n, this);
     }
