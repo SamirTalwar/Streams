@@ -4,7 +4,7 @@ import com.noodlesandwich.streams.FoldLeftFunction;
 import com.noodlesandwich.streams.LazyStream;
 import com.noodlesandwich.streams.Stream;
 
-public class Reverse<T> extends LazyStream<T> {
+public final class Reverse<T> extends LazyStream<T> {
     private final Stream<T> stream;
 
     public Reverse(Stream<T> stream) {

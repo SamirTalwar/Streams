@@ -7,7 +7,7 @@ import com.google.common.base.Functions;
 import com.noodlesandwich.streams.LazyStream;
 import com.noodlesandwich.streams.Stream;
 
-public class Sort<T, U> extends LazyStream<T> {
+public final class Sort<T, U> extends LazyStream<T> {
     private final Stream<T> stream;
     private final Function<? super T, ? extends U> function;
     private final Comparator<? super U> comparator;

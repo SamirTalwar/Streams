@@ -2,7 +2,7 @@ package com.noodlesandwich.streams.testutils;
 
 import java.util.Iterator;
 
-public class ThrowingIterator implements Iterator<Object> {
+public final class ThrowingIterator implements Iterator<Object> {
     @Override
     public boolean hasNext() {
         throw new RuntimeException("Bad things happened.");
