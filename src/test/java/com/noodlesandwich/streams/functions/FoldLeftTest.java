@@ -2,7 +2,7 @@ package com.noodlesandwich.streams.functions;
 
 import org.junit.Test;
 
-import com.noodlesandwich.streams.FoldFunction;
+import com.noodlesandwich.streams.FoldLeftFunction;
 import com.noodlesandwich.streams.Stream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -21,8 +21,8 @@ public final class FoldLeftTest {
         assertThat(stream.foldLeft(joinAsString(), ""), is(", 6, 3, 2, 7"));
     }
 
-    private static FoldFunction<Integer, Integer> summation() {
-        return new FoldFunction<Integer, Integer>() {
+    private static FoldLeftFunction<Integer, Integer> summation() {
+        return new FoldLeftFunction<Integer, Integer>() {
             @Override
             public Integer apply(Integer accumulator, Integer input) {
                 return accumulator + input;
@@ -30,8 +30,8 @@ public final class FoldLeftTest {
         };
     }
 
-    private static FoldFunction<Object, String> joinAsString() {
-        return new FoldFunction<Object, String>() {
+    private static FoldLeftFunction<Object, String> joinAsString() {
+        return new FoldLeftFunction<Object, String>() {
             @Override
             public String apply(String accumulator, Object input) {
                 return accumulator + ", " + input;

@@ -146,7 +146,7 @@ public abstract class Stream<T> implements Iterable<T> {
         return new Filter<T>(predicate, this);
     }
 
-    public <A> A foldLeft(FoldFunction<? super T, A> foldFunction, A initializer) {
+    public <A> A foldLeft(FoldLeftFunction<? super T, A> foldFunction, A initializer) {
         A result = initializer;
         for (T value : this) {
             result = foldFunction.apply(result, value);
@@ -154,12 +154,12 @@ public abstract class Stream<T> implements Iterable<T> {
         return result;
     }
 
-    public <A> A foldRight(FoldFunction<? super T, A> foldFunction, A initializer) {
+    public <A> A foldRight(FoldRightFunction<? super T, A> foldFunction, A initializer) {
         if (isNil()) {
             return initializer;
         }
 
-        return foldFunction.apply(tail().foldRight(foldFunction, initializer), head());
+        return foldFunction.apply(head(), tail().foldRight(foldFunction, initializer));
     }
 
     public Stream<T> take(int n) {
