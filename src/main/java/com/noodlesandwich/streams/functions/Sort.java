@@ -4,17 +4,13 @@ import java.util.Comparator;
 
 import com.google.common.base.Function;
 import com.google.common.base.Functions;
+import com.noodlesandwich.streams.LazyStream;
 import com.noodlesandwich.streams.Stream;
 
-public class Sort<T, U> extends Stream<T> {
+public class Sort<T, U> extends LazyStream<T> {
     private final Stream<T> stream;
     private final Function<? super T, ? extends U> function;
     private final Comparator<? super U> comparator;
-
-    private boolean determinedSortedStream = false;
-    private Stream<T> sortedStream;
-
-    private final Object lock = new Object();
 
     @SuppressWarnings("unchecked")
     public Sort(Comparator<? super U> comparator, Stream<T> stream) {
@@ -28,29 +24,8 @@ public class Sort<T, U> extends Stream<T> {
     }
 
     @Override
-    public boolean isNil() {
-        return stream.isNil();
-    }
-
-    @Override
-    public T head() {
-        return sortedStream().head();
-    }
-
-    @Override
-    public Stream<T> tail() {
-        return sortedStream().tail();
-    }
-
-    private Stream<T> sortedStream() {
-        synchronized (lock) {
-            if (!determinedSortedStream) {
-                sortedStream = mergeSort(stream);
-                determinedSortedStream = true;
-            }
-        }
-
-        return sortedStream;
+    protected Stream<T> determineNewStream() {
+        return mergeSort(stream);
     }
 
     private Stream<T> mergeSort(Stream<T> stream) {
