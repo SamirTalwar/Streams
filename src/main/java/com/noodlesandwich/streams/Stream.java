@@ -192,7 +192,11 @@ public abstract class Stream<T> implements Iterable<T> {
     }
 
     public Stream<T> sort(Comparator<? super T> comparator) {
-        return new Sort<T>(comparator, this);
+        return new Sort<T, T>(comparator, this);
+    }
+
+    public <U> Stream<T> sortBy(Function<? super T, ? extends U> function, Comparator<? super U> comparator) {
+        return new Sort<T, U>(function, comparator, this);
     }
 
     public List<T> toList() {

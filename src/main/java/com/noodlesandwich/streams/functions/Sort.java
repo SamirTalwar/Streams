@@ -2,18 +2,27 @@ package com.noodlesandwich.streams.functions;
 
 import java.util.Comparator;
 
+import com.google.common.base.Function;
+import com.google.common.base.Functions;
 import com.noodlesandwich.streams.Stream;
 
-public class Sort<T> extends Stream<T> {
+public class Sort<T, U> extends Stream<T> {
     private final Stream<T> stream;
-    private final Comparator<? super T> comparator;
+    private final Function<? super T, ? extends U> function;
+    private final Comparator<? super U> comparator;
 
     private boolean determinedSortedStream = false;
     private Stream<T> sortedStream;
 
     private final Object lock = new Object();
 
-    public Sort(Comparator<?super T> comparator, Stream<T> stream) {
+    @SuppressWarnings("unchecked")
+    public Sort(Comparator<? super U> comparator, Stream<T> stream) {
+        this((Function<? super T, ? extends U>) Functions.<T>identity(), comparator, stream);
+    }
+
+    public Sort(Function<? super T, ? extends U> function, Comparator<? super U> comparator, Stream<T> stream) {
+        this.function = function;
         this.stream = stream;
         this.comparator = comparator;
     }
@@ -63,7 +72,7 @@ public class Sort<T> extends Stream<T> {
             return left;
         }
 
-        if (comparator.compare(left.head(), right.head()) <= 0) {
+        if (comparator.compare(function.apply(left.head()), function.apply(right.head())) <= 0) {
             return Stream.cons(left.head(), merge(left.tail(), right));
         } else {
             return Stream.cons(right.head(), merge(left, right.tail()));

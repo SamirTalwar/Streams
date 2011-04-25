@@ -4,6 +4,7 @@ import java.util.Comparator;
 
 import org.junit.Test;
 
+import com.google.common.base.Functions;
 import com.google.common.collect.Ordering;
 import com.noodlesandwich.streams.Stream;
 import com.noodlesandwich.streams.testutils.ThrowingIterator;
@@ -49,6 +50,17 @@ public class SortTest {
         stream.sort().head();
     }
 
+    @Test public void
+    sorts_by_a_mapping() {
+        Thing a = new Thing("a");
+        Thing b = new Thing("b");
+        Thing c = new Thing("c");
+        Thing d = new Thing("d");
+
+        Stream<Thing> stream = Stream.of(d, a, c, b);
+        assertThat(stream.sortBy(Functions.identity(), Ordering.usingToString()), contains(a, b, c, d));
+    }
+
     private static Comparator<? super Integer> evensAreOdds() {
         return new Comparator<Integer>() {
             @Override
@@ -56,5 +68,18 @@ public class SortTest {
                 return Integer.valueOf(a - a % 2).compareTo(b - b % 2);
             }
         };
+    }
+
+    private static class Thing {
+        private final String string;
+
+        public Thing(String string) {
+            this.string = string;
+        }
+
+        @Override
+        public String toString() {
+            return string;
+        }
     }
 }
