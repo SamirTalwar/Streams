@@ -7,7 +7,7 @@ import com.noodlesandwich.streams.Stream;
 public class Reverse<T> extends CachedStream<T> {
     private final Stream<T> stream;
 
-    private final boolean determinedReversedStream = false;
+    private boolean determinedReversedStream = false;
     private Stream<T> reversedStream;
 
     private final Object lock = new Object();
@@ -40,6 +40,7 @@ public class Reverse<T> extends CachedStream<T> {
                         return Stream.cons(input, accumulator);
                     }
                 }, Stream.<T>nil());
+                determinedReversedStream = true;
             }
         }
 
