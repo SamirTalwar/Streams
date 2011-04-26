@@ -15,8 +15,6 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
-import com.noodlesandwich.streams.functions.All;
-import com.noodlesandwich.streams.functions.Any;
 import com.noodlesandwich.streams.functions.Concat;
 import com.noodlesandwich.streams.functions.ContainmentPredicate;
 import com.noodlesandwich.streams.functions.Drop;
@@ -254,7 +252,13 @@ public abstract class Stream<T> implements Iterable<T> {
      * there are no elements in the list, <code>false</code> is returned.
      */
     public boolean any(Predicate<? super T> predicate) {
-        return new Any<T>(predicate).apply(this);
+        for (T value : this) {
+            if (predicate.apply(value)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -262,7 +266,13 @@ public abstract class Stream<T> implements Iterable<T> {
      * there are no elements in the list, <code>true</code> is returned.
      */
     public boolean all(Predicate<? super T> predicate) {
-        return new All<T>(predicate).apply(this);
+        for (T value : this) {
+            if (!predicate.apply(value)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
