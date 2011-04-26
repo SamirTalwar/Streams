@@ -11,6 +11,8 @@ public final class Generator<T> extends Stream<T> {
     private boolean fetchedTail = false;
     private Stream<T> tail;
 
+    private final Object lock = new Object();
+
     public Generator(Function<? super T, ? extends T> iteratingFunction, T value) {
         this.iteratingFunction = iteratingFunction;
         this.value = value;
@@ -28,13 +30,15 @@ public final class Generator<T> extends Stream<T> {
 
     @Override
     public Stream<T> tail() {
-        if (!fetchedTail) {
-            try {
-                tail = new Generator<T>(iteratingFunction, iteratingFunction.apply(value));
-            } catch (EndOfStreamException e) {
-                tail = Stream.nil();
+        synchronized (lock) {
+            if (!fetchedTail) {
+                try {
+                    tail = new Generator<T>(iteratingFunction, iteratingFunction.apply(value));
+                } catch (EndOfStreamException e) {
+                    tail = Stream.nil();
+                }
+                fetchedTail = true;
             }
-            fetchedTail = true;
         }
 
         return tail;
