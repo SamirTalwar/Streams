@@ -1,5 +1,12 @@
 package com.noodlesandwich.streams;
 
+/**
+ * A <code>CachedStream</code> is a stream that caches the results of {@link #isNil()}, {@link #head()} and
+ * {@link #tail()} for reasons of mutability and performance. Streams that rely on external factors that can be mutable
+ * may return different results when iterated over more than once unless the original values were cached on the first
+ * iteration. In addition, storing the values, while increasing memory usage, may result in a large performance benefit
+ * if evaluating one or more of the above methods is time-consuming or heavy on the hardware.
+ */
 public abstract class CachedStream<T> extends Stream<T> {
     private boolean determinedIsNil = false;
     private boolean isNil;
@@ -48,9 +55,18 @@ public abstract class CachedStream<T> extends Stream<T> {
         return tail;
     }
 
+    /**
+     * Called once when the user calls {@link #isNil()}. The result is cached and used for future calls.
+     */
     public abstract boolean determineIsNil();
 
+    /**
+     * Called once when the user calls {@link #head()}. The result is cached and used for future calls.
+     */
     public abstract T determineHead();
 
+    /**
+     * Called once when the user calls {@link #tail()}. The result is cached and used for future calls.
+     */
     public abstract Stream<T> determineTail();
 }

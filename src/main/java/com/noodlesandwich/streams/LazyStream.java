@@ -1,5 +1,10 @@
 package com.noodlesandwich.streams;
 
+/**
+ * A <code>LazyStream</code> is a stream that must be constructed all at once, instead of simply manipulating values as
+ * necessary. It provides a mechanism for this to happen lazily, i.e. only when the stream's values are accessed and not
+ * as soon as the stream is constructed.
+ */
 public abstract class LazyStream<T> extends Stream<T> {
     private boolean determinedNewStream = false;
     private Stream<T> newStream;
@@ -32,5 +37,9 @@ public abstract class LazyStream<T> extends Stream<T> {
         return newStream;
     }
 
+    /**
+     * Called once when the user attempts to access the values contained in the stream. The result is cached and used
+     * for future operations.
+     */
     protected abstract Stream<T> determineNewStream();
 }
