@@ -77,9 +77,11 @@ public abstract class Stream<T> implements Iterable<T> {
      * <p>Creates a new stream by prepending <code>head</code> to <code>tail</code>. Can be nested to build up a large
      * stream. It is expected that the final value in the chain will be {@link #nil()}.</p>
      *
-     * <strong>Example:</strong>
+     * <p><strong>Example:</strong></p>
+     * <blockquote>
      *   <code>cons(a, cons(b, cons(c, nil())))</code> will return a stream that when iterated over, will yield
      *   <code>a</code>, then <code>b</code>, then <code>c</code>.
+     * </blockquote>
      */
     public static <T> Stream<T> cons(T head, Stream<T> tail) {
         return new Cons<T>(head, tail);
@@ -138,14 +140,27 @@ public abstract class Stream<T> implements Iterable<T> {
         return generate(Functions.<T>identity(), value);
     }
 
+    /**
+     * Transforms all the values in the stream by applying the function to each one and creating a new stream with the
+     * results of the function.
+     */
     public <U> Stream<U> map(Function<? super T, ? extends U> function) {
         return new Map<T, U>(function, this);
     }
 
+    /**
+     * Filters the stream by applying the predicate to each element and removing those for which it returns false.
+     */
     public Stream<T> filter(Predicate<? super T> predicate) {
         return new Filter<T>(predicate, this);
     }
 
+    /**
+     * <p>Reduces the stream to a single object by combining each successive element of the stream with the previous
+     * using a function. The first value is combined with the initializer provided.</p>
+     *
+     * <p><code>foldLeft</code> works over the stream from left to right.</p>
+     */
     public <A> A foldLeft(FoldLeftFunction<A, ? super T> foldFunction, A initializer) {
         A result = initializer;
         for (T value : this) {
@@ -154,6 +169,12 @@ public abstract class Stream<T> implements Iterable<T> {
         return result;
     }
 
+    /**
+     * <p>Reduces the stream to a single object by combining each successive element of the stream with the previous
+     * using a function. The first value is combined with the initializer provided.</p>
+     *
+     * <p><code>foldRight</code> works over the stream from right to left.</p>
+     */
     public <A> A foldRight(FoldRightFunction<? super T, A> foldFunction, A initializer) {
         if (isNil()) {
             return initializer;
@@ -162,26 +183,51 @@ public abstract class Stream<T> implements Iterable<T> {
         return foldFunction.apply(head(), tail().foldRight(foldFunction, initializer));
     }
 
+    /**
+     * Returns a new stream containing the first <code>n</code> elements of this stream.
+     */
     public Stream<T> take(int n) {
         return new Take<T>(n, this);
     }
 
+    /**
+     * Returns a new stream that skips the first <code>n</code> elements of this stream.
+     */
     public Stream<T> drop(int n) {
         return new Drop<T>(n, this);
     }
 
+    /**
+     * Returns a new stream containing the all the elements up to but not including the first element for which the
+     * predicate returns false.
+     */
     public Stream<T> takeWhile(Predicate<? super T> predicate) {
         return new TakeWhile<T>(predicate, this);
     }
 
+    /**
+     * Returns a new stream containing the all the elements after and including the first element for which the
+     * predicate returns false.
+     */
     public Stream<T> dropWhile(Predicate<? super T> predicate) {
         return new DropWhile<T>(predicate, this);
     }
 
+    /**
+     * Concatenates two streams.
+     */
     public Stream<T> concat(Stream<T> nextStream) {
         return new Concat<T>(this, nextStream);
     }
 
+    /**
+     * <p>Zips one stream with another stream by combining each element in one with the element in the same position of
+     * the other. Each element of the new stream will be a {@link Pair} containing the corresponding elements in the two
+     * streams.</p>
+     *
+     * <p>The stream returned will be the length of the shorter of the two streams. If one is longer than the other, any
+     * elements after this will be ignored.</p>
+     */
     public <U> Stream<Pair<T, U>> zip(Stream<U> pairedStream) {
         return zipWith(pairedStream, new ZipWithFunction<T, U, Pair<T, U>>() {
             @Override
@@ -191,30 +237,66 @@ public abstract class Stream<T> implements Iterable<T> {
         });
     }
 
+    /**
+     * <p>Zips one stream with another stream by combining each element in one with the element in the same position of
+     * the other. Each element of the new stream will be the result of applying the function to the corresponding
+     * elements in the two streams.</p>
+     *
+     * <p>The stream returned will be the length of the shorter of the two streams. If one is longer than the other, any
+     * elements after this will be ignored.</p>
+     */
     public <U, V> Stream<V> zipWith(Stream<U> pairedStream, ZipWithFunction<? super T, ? super U, ? extends V> zipWithFunction) {
         return new Zip<T, U, V>(zipWithFunction, this, pairedStream);
     }
 
+    /**
+     * Returns <code>true</code> if any element in the stream matches the predicate; <code>false</code> otherwise. If
+     * there are no elements in the list, <code>false</code> is returned.
+     */
     public boolean any(Predicate<? super T> predicate) {
         return new Any<T>(predicate).apply(this);
     }
 
+    /**
+     * Returns <code>true</code> if all elements in the stream match the predicate; <code>false</code> otherwise. If
+     * there are no elements in the list, <code>true</code> is returned.
+     */
     public boolean all(Predicate<? super T> predicate) {
         return new All<T>(predicate).apply(this);
     }
 
+    /**
+     * Returns <code>true</code> if the stream contains an element which is equal to the object; <code>false</code>
+     * otherwise.
+     */
     public boolean contains(T object) {
         return any(Predicates.equalTo(object));
     }
 
+    /**
+     * Strips all duplicate elements from the stream. <code>unique()</code> will always remove duplicate elements after
+     * the first in order to guarantee a stable result.
+     */
     public Stream<T> unique() {
         return new Unique<T>(this);
     }
 
+    /**
+     * <p>Unions this stream with another. This creates a stream which contains all entries found in either stream.</p>
+     *
+     * <p><code>union</code> is a set operation, and as such all duplicate entries will be removed in the process.</p>
+     */
     public Stream<T> union(Stream<T> unionedStream) {
         return concat(unionedStream).unique();
     }
 
+    /**
+     * <p>Intersects this stream with another. This creates a stream which contains all entries found in both
+     * streams.</p>
+     *
+     * <p><code>intersect</code> is a set operation, and as such all duplicate entries will be removed in the
+     * process.</p>
+     */
     public Stream<T> intersect(final Stream<T> intersectedStream) {
         return unique().filter(new ContainmentPredicate<T>(intersectedStream) {
             @Override
@@ -224,6 +306,9 @@ public abstract class Stream<T> implements Iterable<T> {
         });
     }
 
+    /**
+     * Removes all entries from the stream which are found in the stream provided.
+     */
     public Stream<T> except(final Stream<T> exceptedStream) {
         return filter(new ContainmentPredicate<T>(exceptedStream) {
             @Override
@@ -233,6 +318,13 @@ public abstract class Stream<T> implements Iterable<T> {
         });
     }
 
+    /**
+     * <p>Creates a new stream containing all entries found in only one of this stream and the other stream. Any entries
+     * found in both will be discarded.</p>
+     *
+     * <p><code>symmetricDifference</code> is a set operation, and as such all duplicate entries will be removed in the
+     * process.</p>
+     */
     public Stream<T> symmetricDifference(Stream<T> otherStream) {
         return filter(new ContainmentPredicate<T>(otherStream) {
             @Override
@@ -247,6 +339,12 @@ public abstract class Stream<T> implements Iterable<T> {
         }));
     }
 
+    /**
+     * <p>Calculates the size of the stream.</p>
+     *
+     * <p><strong>Warning:</strong> As the stream does not know its size, this is potentially an expensive operation, as
+     * it can only be found by traversing the entire stream. If the stream is infinite, this will never return.</p>
+     */
     public int size() {
         if (isNil()) {
             return 0;
@@ -255,45 +353,93 @@ public abstract class Stream<T> implements Iterable<T> {
         return 1 + tail().size();
     }
 
+    /**
+     * <p>Reverses the stream.</p>
+     *
+     * <p><strong>Warning:</strong> This is potentially an expensive operation, as it can only be done by traversing the
+     * entire stream. If the stream is infinite, operations that attempt to retrieve values from the reversed stream
+     * will never return.</p>
+     */
     public Stream<T> reverse() {
         return new Reverse<T>(this);
     }
 
+    /**
+     * <p>Sorts the stream using the natural ordering of the elements.</p>
+     *
+     * <p><strong>Warning:</strong> This is potentially an expensive operation, as it can only be done by traversing the
+     * entire stream. If the stream is infinite, operations that attempt to retrieve values from the sorted stream will
+     * never return.</p>
+     */
     @SuppressWarnings("unchecked")
     public Stream<T> sort() {
         return sort((Comparator<? super T>) Ordering.natural());
     }
 
+    /**
+     * <p>Sorts the stream using a comparator.</p>
+     *
+     * <p><strong>Warning:</strong> This is potentially an expensive operation, as it can only be done by traversing the
+     * entire stream. If the stream is infinite, operations that attempt to retrieve values from the sorted stream will
+     * never return.</p>
+     */
     public Stream<T> sort(Comparator<? super T> comparator) {
         return new Sort<T, T>(comparator, this);
     }
 
+    /**
+     * <p>Sorts the stream using a comparable entity which can be derived from each element.</p>
+     *
+     * <p><strong>Warning:</strong> This is potentially an expensive operation, as it can only be done by traversing the
+     * entire stream. If the stream is infinite, operations that attempt to retrieve values from the sorted stream will
+     * never return.</p>
+     */
     public <U extends Comparable<U>> Stream<T> sortBy(Function<? super T, ? extends U> function) {
         return sortBy(function, Ordering.natural());
     }
 
+    /**
+     * <p>Sorts the stream using an entity which can be derived from each element and a comparator.</p>
+     *
+     * <p><strong>Warning:</strong> This is potentially an expensive operation, as it can only be done by traversing the
+     * entire stream. If the stream is infinite, operations that attempt to retrieve values from the sorted stream will
+     * never return.</p>
+     */
     public <U> Stream<T> sortBy(Function<? super T, ? extends U> function, Comparator<? super U> comparator) {
         return new Sort<T, U>(function, comparator, this);
     }
 
+    /**
+     * Converts the stream to an array.
+     */
+    public T[] toArray(Class<T> type) {
+        return Iterables.toArray(this, type);
+    }
+
+    /**
+     * Converts the stream to a {@link List}.
+     */
     public List<T> toList() {
         return Lists.newArrayList(this);
     }
 
+    /**
+     * Converts the stream to a {@link Set}.
+     */
     public Set<T> toSet() {
         return Sets.newHashSet(this);
     }
 
+    /**
+     * Converts the stream to a {@link java.util.Map Map} using the elements as keys, and a function which derives the
+     * value.
+     */
     public <V> java.util.Map<T, V> toMap(Function<? super T, ? extends V> valueFunction) {
         java.util.Map<T, V> map = Maps.newHashMap();
         for (T key : toSet()) {
             map.put(key, valueFunction.apply(key));
         }
         return map;
-    }
-
-    public T[] toArray(Class<T> type) {
-        return Iterables.toArray(this, type);
     }
 
     public abstract boolean isNil();
