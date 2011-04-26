@@ -442,12 +442,24 @@ public abstract class Stream<T> implements Iterable<T> {
         return map;
     }
 
+    /**
+     * Returns <code>true</code> if the stream is nil (has no elements); <code>false</code> otherwise.
+     */
     public abstract boolean isNil();
 
+    /**
+     * Returns the head (the first element) of the stream.
+     */
     public abstract T head();
 
+    /**
+     * Returns the stream that contains the tail (the second element onwards) of the stream.
+     */
     public abstract Stream<T> tail();
 
+    /**
+     * Returns a one-use, forwards-only iterator which can be used to traverse the stream.
+     */
     @Override
     public Iterator<T> iterator() {
         return new StreamIterator<T>(this);
