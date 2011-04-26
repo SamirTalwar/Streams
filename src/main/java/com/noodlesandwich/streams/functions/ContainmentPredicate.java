@@ -5,7 +5,7 @@ import java.util.Set;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableSet;
 
-public abstract class ContainmentPredicate<T> implements Predicate<T> {
+public final class ContainmentPredicate<T> implements Predicate<T> {
     private final Iterable<T> iterable;
     private Set<T> elements;
 
@@ -15,13 +15,14 @@ public abstract class ContainmentPredicate<T> implements Predicate<T> {
         this.iterable = iterable;
     }
 
-    public boolean contains(T element) {
+    @Override
+    public boolean apply(T input) {
         synchronized (lock) {
             if (elements == null) {
                 elements = ImmutableSet.copyOf(iterable);
             }
         }
 
-        return elements.contains(element);
+        return elements.contains(input);
     }
 }

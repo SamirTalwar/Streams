@@ -308,24 +308,14 @@ public abstract class Stream<T> implements Iterable<T> {
      * process.</p>
      */
     public Stream<T> intersect(final Stream<T> intersectedStream) {
-        return unique().filter(new ContainmentPredicate<T>(intersectedStream) {
-            @Override
-            public boolean apply(T input) {
-                return contains(input);
-            }
-        });
+        return unique().filter(new ContainmentPredicate<T>(intersectedStream));
     }
 
     /**
      * Removes all entries from the stream which are found in the stream provided.
      */
     public Stream<T> except(final Stream<T> exceptedStream) {
-        return filter(new ContainmentPredicate<T>(exceptedStream) {
-            @Override
-            public boolean apply(T input) {
-                return !contains(input);
-            }
-        });
+        return filter(Predicates.not(new ContainmentPredicate<T>(exceptedStream)));
     }
 
     /**
@@ -336,17 +326,8 @@ public abstract class Stream<T> implements Iterable<T> {
      * process.</p>
      */
     public Stream<T> symmetricDifference(Stream<T> otherStream) {
-        return filter(new ContainmentPredicate<T>(otherStream) {
-            @Override
-            public boolean apply(T input) {
-                return !contains(input);
-            }
-        }).union(otherStream.filter(new ContainmentPredicate<T>(this) {
-            @Override
-            public boolean apply(T input) {
-                return !contains(input);
-            }
-        }));
+        return filter(Predicates.not(new ContainmentPredicate<T>(otherStream)))
+                .union(otherStream.filter(Predicates.not(new ContainmentPredicate<T>(this))));
     }
 
     /**
