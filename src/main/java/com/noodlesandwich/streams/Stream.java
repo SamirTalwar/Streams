@@ -65,7 +65,7 @@ import com.noodlesandwich.streams.iterators.StreamIterator;
 public abstract class Stream<T> implements Iterable<T> {
     /**
      * Creates an empty stream. Attempts to call {@link #head()} or {@link #tail()} on this stream will throw an
-     * {@link EndOfStreamException}
+     * {@link EndOfStreamException}.
      */
     public static <T> Stream<T> nil() {
         return new Nil<T>();
