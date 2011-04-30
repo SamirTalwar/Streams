@@ -356,7 +356,8 @@ public abstract class Stream<T> implements Iterable<T> {
     }
 
     /**
-     * <p>Sorts the stream using the natural ordering of the elements.</p>
+     * <p>Sorts the stream using the natural ordering of the elements. If the type of the stream has no natural
+     * ordering (i.e. it does not implement {@link Comparable}), this will throw a {@link ClassCastException}.</p>
      *
      * <p><strong>Warning:</strong> This is potentially an expensive operation, as it can only be done by traversing the
      * entire stream. If the stream is infinite, operations that attempt to retrieve values from the sorted stream will
