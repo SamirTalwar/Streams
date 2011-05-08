@@ -24,6 +24,21 @@ import com.google.common.base.Predicate;
  **/
 public interface Stream<T> extends Iterable<T> {
     /**
+     * Returns <code>true</code> if the stream is nil (has no elements); <code>false</code> otherwise.
+     */
+    boolean isNil();
+
+    /**
+     * Returns the head (the first element) of the stream.
+     */
+    T head();
+
+    /**
+     * Returns the stream that contains the tail (the second element onwards) of the stream.
+     */
+    Stream<T> tail();
+
+    /**
      * Transforms all the values in the stream by applying the function to each one and creating a new stream with the
      * results of the function.
      */
@@ -225,21 +240,6 @@ public interface Stream<T> extends Iterable<T> {
      * value.
      */
     <V> java.util.Map<T, V> toMap(Function<? super T, ? extends V> valueFunction);
-
-    /**
-     * Returns <code>true</code> if the stream is nil (has no elements); <code>false</code> otherwise.
-     */
-    boolean isNil();
-
-    /**
-     * Returns the head (the first element) of the stream.
-     */
-    T head();
-
-    /**
-     * Returns the stream that contains the tail (the second element onwards) of the stream.
-     */
-    Stream<T> tail();
 
     /**
      * Returns a one-use, forwards-only iterator which can be used to traverse the stream.
