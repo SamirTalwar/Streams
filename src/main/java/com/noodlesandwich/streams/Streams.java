@@ -1,5 +1,7 @@
 package com.noodlesandwich.streams;
 
+import java.util.Iterator;
+
 import com.google.common.base.Function;
 import com.google.common.base.Functions;
 import com.google.common.collect.Iterators;
@@ -8,10 +10,8 @@ import com.noodlesandwich.streams.implementations.Generator;
 import com.noodlesandwich.streams.implementations.IteratorWrapper;
 import com.noodlesandwich.streams.implementations.Nil;
 
-import java.util.Iterator;
-
 /**
- * <p>Utility constructors for streams<p>
+ * <p>Mechanisms for constructing streams.<p>
  *
  * <ul>
  *   <li>{@link #nil Streams.nil()} returns an empty stream &mdash; one with no elements.</li>
@@ -28,14 +28,12 @@ import java.util.Iterator;
  *       value.</li>
  * </ul>
  */
-
 public final class Streams {
-
-    private Streams() {}
+    private Streams() { }
 
     /**
-     * Creates an empty stream. Attempts to call {@link Stream#head()} or {@link Stream#tail()} on this stream will throw an
-     * {@link EndOfStreamException}.
+     * Creates an empty stream. Attempts to call {@link Stream#head()} or {@link Stream#tail()} on this stream will
+     * throw an {@link EndOfStreamException}.
      */
     public static <T> Stream<T> nil() {
         return new Nil<T>();

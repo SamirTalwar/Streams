@@ -32,7 +32,6 @@ import com.noodlesandwich.streams.iterators.StreamIterator;
  * <p> A base class upon which to build stream implementations.</p>
  */
 public abstract class AbstractStream<T> implements Stream<T> {
-
     @Override
     public <U> Stream<U> map(Function<? super T, ? extends U> function) {
         return new Map<T, U>(function, this);

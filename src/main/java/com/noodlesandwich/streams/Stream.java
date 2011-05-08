@@ -1,12 +1,12 @@
 package com.noodlesandwich.streams;
 
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
 
 /**
  * <p>A Stream is an immutable structure similar to a linked list in design. Once created, the stream cannot be altered,
@@ -20,10 +20,8 @@ import java.util.Set;
  * immutable types ensures no other code will alter the underlying values within the stream once it has been created,
  * ensuring thread safety.</p>
  *
- * <p>Want to construct a Stream easily? Have a look at {@link Streams}</p>
+ * <p>The {@link Streams} class provides static methods that can be used to easily construct a Stream.</p>
  **/
-
-
 public interface Stream<T> extends Iterable<T> {
     /**
      * Transforms all the values in the stream by applying the function to each one and creating a new stream with the
@@ -178,7 +176,6 @@ public interface Stream<T> extends Iterable<T> {
      * entire stream. If the stream is infinite, operations that attempt to retrieve values from the sorted stream will
      * never return.</p>
      */
-    @SuppressWarnings("unchecked")
     Stream<T> sort();
 
     /**
