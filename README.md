@@ -32,6 +32,14 @@ wherever possible.
         };
     }
 
+Using Streams
+-------------
+
+All you have to do is [download the JAR][Streams-0.1.jar], grab [Guava][] Release 09 and add them to your classpath.
+
+  [Streams-0.1.jar]: https://github.com/downloads/SamirTalwar/Streams/Streams-0.1.jar
+  [Guava]: http://code.google.com/p/guava-libraries/
+
 Building Streams
 ----------------
 
