@@ -4,7 +4,7 @@ import java.util.Set;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
-import com.noodlesandwich.streams.CachedStream;
+import com.noodlesandwich.streams.implementations.CachedStream;
 import com.noodlesandwich.streams.Stream;
 
 public final class Unique<T> extends CachedStream<T> {

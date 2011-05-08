@@ -1,5 +1,6 @@
 package com.noodlesandwich.streams.functions;
 
+import com.noodlesandwich.streams.Streams;
 import org.junit.Test;
 
 import com.google.common.base.Function;
@@ -16,37 +17,37 @@ import static org.hamcrest.Matchers.is;
 public final class TakeWhileTest {
     @Test public void
     is_lazy() {
-        Stream<Object> stream = Stream.wrap(new ThrowingIterator());
+        Stream<Object> stream = Streams.wrap(new ThrowingIterator());
         stream.takeWhile(null);
     }
 
     @Test public void
     taking_while_false_returns_nil() {
-        Stream<Object> stream = Stream.of(new Object(), new Object(), new Object());
+        Stream<Object> stream = Streams.of(new Object(), new Object(), new Object());
         assertThat(stream.takeWhile(Predicates.alwaysFalse()), is(nil()));
     }
 
     @Test public void
     takes_elements_of_a_stream_while_the_predicate_evaluates_to_true() {
-        Stream<Integer> stream = Stream.of(1, 2, 4, 3, 5);
+        Stream<Integer> stream = Streams.of(1, 2, 4, 3, 5);
         assertThat(stream.takeWhile(lessThan(4)), contains(1, 2));
     }
 
     @Test public void
     taking_while_true_does_nothing() {
-        Stream<Integer> stream = Stream.of(1, 2, 3, 4, 5);
+        Stream<Integer> stream = Streams.of(1, 2, 3, 4, 5);
         assertThat(stream.takeWhile(Predicates.<Integer>alwaysTrue()), contains(1, 2, 3, 4, 5));
     }
 
     @Test public void
     can_take_from_an_infinite_stream() {
-        Stream<Integer> stream = Stream.generate(addOne(), 1);
+        Stream<Integer> stream = Streams.generate(addOne(), 1);
         assertThat(stream.takeWhile(lessThan(10)), contains(1, 2, 3, 4, 5, 6, 7, 8, 9));
     }
 
     @Test public void
     is_repeatable() {
-        Stream<Integer> takenStream = Stream.of(1, 2, 4, 3, 5).takeWhile(mutable());
+        Stream<Integer> takenStream = Streams.of(1, 2, 4, 3, 5).takeWhile(mutable());
         assertThat(takenStream, contains(1, 2, 4));
         assertThat(takenStream, contains(1, 2, 4));
     }

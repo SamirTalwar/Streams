@@ -2,6 +2,7 @@ package com.noodlesandwich.streams.functions;
 
 import java.util.Comparator;
 
+import com.noodlesandwich.streams.Streams;
 import org.junit.Test;
 
 import com.google.common.base.Functions;
@@ -17,36 +18,36 @@ import static org.hamcrest.Matchers.is;
 public final class SortTest {
     @Test public void
     is_lazy() {
-        Stream<Object> stream = Stream.wrap(new ThrowingIterator());
+        Stream<Object> stream = Streams.wrap(new ThrowingIterator());
         stream.sort(null);
     }
 
     @Test public void
     does_nothing_to_an_empty_list() {
-        assertThat(Stream.nil().sort(Ordering.arbitrary()), is(nil()));
+        assertThat(Streams.nil().sort(Ordering.arbitrary()), is(nil()));
     }
 
     @Test public void
     sorts_objects_according_to_a_comparator() {
-        Stream<Integer> stream = Stream.of(7, 5, 8, 1, 2, 9, 3, 6, 4);
+        Stream<Integer> stream = Streams.of(7, 5, 8, 1, 2, 9, 3, 6, 4);
         assertThat(stream.sort(Ordering.natural()), contains(1, 2, 3, 4, 5, 6, 7, 8, 9));
     }
 
     @Test public void
     is_stable() {
-        Stream<Integer> stream = Stream.of(7, 5, 8, 1, 2, 9, 3, 6, 4);
+        Stream<Integer> stream = Streams.of(7, 5, 8, 1, 2, 9, 3, 6, 4);
         assertThat(stream.sort(evensAreOdds()), contains(1, 2, 3, 5, 4, 7, 6, 8, 9));
     }
 
     @Test public void
     sorts_without_a_comparator_if_the_underlying_type_implements_Comparable() {
-        Stream<Integer> stream = Stream.of(7, 5, 8, 1, 2, 9, 3, 6, 4);
+        Stream<Integer> stream = Streams.of(7, 5, 8, 1, 2, 9, 3, 6, 4);
         assertThat(stream.sort(), contains(1, 2, 3, 4, 5, 6, 7, 8, 9));
     }
 
     @Test(expected=ClassCastException.class) public void
     throws_a_ClassCastException_if_the_underlying_type_does_not_implement_Comparable() {
-        Stream<Object> stream = Stream.of(new Object(), new Object(), new Object());
+        Stream<Object> stream = Streams.of(new Object(), new Object(), new Object());
         stream.sort().head();
     }
 
@@ -57,7 +58,7 @@ public final class SortTest {
         Thing c = new Thing("c");
         Thing d = new Thing("d");
 
-        Stream<Thing> stream = Stream.of(d, a, c, b);
+        Stream<Thing> stream = Streams.of(d, a, c, b);
         assertThat(stream.sortBy(Functions.identity(), Ordering.usingToString()), contains(a, b, c, d));
     }
 
@@ -68,7 +69,7 @@ public final class SortTest {
         Thing c = new Thing("c");
         Thing d = new Thing("d");
 
-        Stream<Thing> stream = Stream.of(d, a, c, b);
+        Stream<Thing> stream = Streams.of(d, a, c, b);
         assertThat(stream.sortBy(Functions.toStringFunction()), contains(a, b, c, d));
     }
 

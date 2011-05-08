@@ -1,5 +1,6 @@
 package com.noodlesandwich.streams.functions;
 
+import com.noodlesandwich.streams.Streams;
 import org.junit.Test;
 
 import com.google.common.base.Function;
@@ -13,12 +14,12 @@ import static org.hamcrest.Matchers.is;
 public final class ToMapTest {
     @Test public void
     converts_nil_to_an_empty_map() {
-        assertThat(Stream.nil().toMap(null).isEmpty(), is(true));
+        assertThat(Streams.nil().toMap(null).isEmpty(), is(true));
     }
 
     @Test public void
     converts_a_stream_to_a_map_using_the_function_provided_to_generate_values() {
-        Stream<Integer> stream = Stream.of(1, 2, 3);
+        Stream<Integer> stream = Streams.of(1, 2, 3);
         assertThat(stream.toMap(add(7)), allOf(hasEntry(1, 8),
                                                hasEntry(2, 9),
                                                hasEntry(3, 10)));
@@ -26,7 +27,7 @@ public final class ToMapTest {
 
     @Test public void
     keys_and_values_can_be_different_types() {
-        Stream<Integer> stream = Stream.of(1, 2, 3);
+        Stream<Integer> stream = Streams.of(1, 2, 3);
         assertThat(stream.toMap(toStringFunc()), allOf(hasEntry(1, "1"),
                                                        hasEntry(2, "2"),
                                                        hasEntry(3, "3")));
@@ -34,7 +35,7 @@ public final class ToMapTest {
 
     @Test public void
     removes_duplicates() {
-        Stream<Integer> stream = Stream.of(2, 3, 2, 1);
+        Stream<Integer> stream = Streams.of(2, 3, 2, 1);
         assertThat(stream.toMap(add(7)), allOf(hasEntry(1, 8),
                                                hasEntry(2, 9),
                                                hasEntry(3, 10)));

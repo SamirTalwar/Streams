@@ -4,7 +4,8 @@ import java.util.Comparator;
 
 import com.google.common.base.Function;
 import com.google.common.base.Functions;
-import com.noodlesandwich.streams.LazyStream;
+import com.noodlesandwich.streams.Streams;
+import com.noodlesandwich.streams.implementations.LazyStream;
 import com.noodlesandwich.streams.Stream;
 
 public final class Sort<T, U> extends LazyStream<T> {
@@ -48,9 +49,9 @@ public final class Sort<T, U> extends LazyStream<T> {
         }
 
         if (comparator.compare(function.apply(left.head()), function.apply(right.head())) <= 0) {
-            return Stream.cons(left.head(), merge(left.tail(), right));
+            return Streams.cons(left.head(), merge(left.tail(), right));
         } else {
-            return Stream.cons(right.head(), merge(left, right.tail()));
+            return Streams.cons(right.head(), merge(left, right.tail()));
         }
     }
 }
