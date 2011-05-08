@@ -20,7 +20,7 @@ import java.util.Set;
  * immutable types ensures no other code will alter the underlying values within the stream once it has been created,
  * ensuring thread safety.</p>
  *
- * <p>Want to construct a Stream easily? {@link Streams}</p>
+ * <p>Want to construct a Stream easily? Have a look at {@link Streams}</p>
  **/
 
 
