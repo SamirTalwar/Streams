@@ -2,7 +2,6 @@ package com.noodlesandwich.streams.implementations;
 
 import java.util.Iterator;
 
-import com.noodlesandwich.streams.CachedStream;
 import com.noodlesandwich.streams.EndOfStreamException;
 import com.noodlesandwich.streams.Stream;
 

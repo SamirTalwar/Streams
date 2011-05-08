@@ -1,5 +1,6 @@
 package com.noodlesandwich.streams.functions;
 
+import com.noodlesandwich.streams.Streams;
 import org.junit.Test;
 
 import com.noodlesandwich.streams.Stream;
@@ -11,25 +12,25 @@ import static org.hamcrest.Matchers.contains;
 public final class UniqueTest {
     @Test public void
     is_lazy() {
-        Stream<Object> stream = Stream.wrap(new ThrowingIterator());
+        Stream<Object> stream = Streams.wrap(new ThrowingIterator());
         stream.unique();
     }
 
     @Test public void
     makes_no_changes_to_an_already_unique_stream() {
-        Stream<Integer> stream = Stream.of(7, 2, 5, 9, 4);
+        Stream<Integer> stream = Streams.of(7, 2, 5, 9, 4);
         assertThat(stream.unique(), contains(7, 2, 5, 9, 4));
     }
 
     @Test public void
     strips_duplicates_out_of_a_stream() {
-        Stream<Integer> stream = Stream.of(7, 2, 5, 7, 7, 9, 4, 5, 2);
+        Stream<Integer> stream = Streams.of(7, 2, 5, 7, 7, 9, 4, 5, 2);
         assertThat(stream.unique(), contains(7, 2, 5, 9, 4));
     }
 
     @Test public void
     is_repeatable() {
-        Stream<Integer> uniqueStream = Stream.of(7, 2, 5, 7, 7, 9, 4, 5, 2).unique();
+        Stream<Integer> uniqueStream = Streams.of(7, 2, 5, 7, 7, 9, 4, 5, 2).unique();
         assertThat(uniqueStream, contains(7, 2, 5, 9, 4));
         assertThat(uniqueStream, contains(7, 2, 5, 9, 4));
     }

@@ -1,11 +1,13 @@
-package com.noodlesandwich.streams;
+package com.noodlesandwich.streams.implementations;
+
+import com.noodlesandwich.streams.Stream;
 
 /**
  * A <code>LazyStream</code> is a stream that must be constructed all at once, instead of simply manipulating values as
  * necessary. It provides a mechanism for this to happen lazily, i.e. only when the stream's values are accessed and not
  * as soon as the stream is constructed.
  */
-public abstract class LazyStream<T> extends Stream<T> {
+public abstract class LazyStream<T> extends AbstractStream<T> {
     private boolean determinedNewStream = false;
     private Stream<T> newStream;
 

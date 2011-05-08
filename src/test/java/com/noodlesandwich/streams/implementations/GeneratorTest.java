@@ -1,5 +1,6 @@
 package com.noodlesandwich.streams.implementations;
 
+import com.noodlesandwich.streams.Streams;
 import org.junit.Test;
 
 import com.google.common.base.Function;
@@ -12,19 +13,19 @@ import static org.hamcrest.Matchers.contains;
 public final class GeneratorTest {
     @Test public void
     generates_a_stream_using_the_function() {
-        Stream<Integer> stream = Stream.generate(multiplyBy(2), 1);
+        Stream<Integer> stream = Streams.generate(multiplyBy(2), 1);
         assertThat(stream.take(10), contains(1, 2, 4, 8, 16, 32, 64, 128, 256, 512));
     }
 
     @Test public void
     stops_when_an_EndOfStreamException_is_thrown() {
-        Stream<Integer> stream = Stream.generate(addOneAndThrowAfterTen(), 1);
+        Stream<Integer> stream = Streams.generate(addOneAndThrowAfterTen(), 1);
         assertThat(stream, contains(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
     }
 
     @Test public void
     can_act_twice() {
-        Stream<Integer> stream = Stream.generate(mutableFibonacci(), 1);
+        Stream<Integer> stream = Streams.generate(mutableFibonacci(), 1);
         assertThat(stream.take(10), contains(1, 1, 2, 3, 5, 8, 13, 21, 34, 55));
         assertThat(stream.take(10), contains(1, 1, 2, 3, 5, 8, 13, 21, 34, 55));
     }

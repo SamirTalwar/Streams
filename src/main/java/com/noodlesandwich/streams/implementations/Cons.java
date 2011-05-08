@@ -2,7 +2,7 @@ package com.noodlesandwich.streams.implementations;
 
 import com.noodlesandwich.streams.Stream;
 
-public final class Cons<T> extends Stream<T> {
+public final class Cons<T> extends AbstractStream<T> {
     private final T head;
     private final Stream<T> tail;
 

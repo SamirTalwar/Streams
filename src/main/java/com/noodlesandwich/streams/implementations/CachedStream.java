@@ -1,4 +1,6 @@
-package com.noodlesandwich.streams;
+package com.noodlesandwich.streams.implementations;
+
+import com.noodlesandwich.streams.Stream;
 
 /**
  * A <code>CachedStream</code> is a stream that caches the results of {@link #isNil()}, {@link #head()} and
@@ -7,7 +9,7 @@ package com.noodlesandwich.streams;
  * iteration. In addition, storing the values, while increasing memory usage, may result in a large performance benefit
  * if evaluating one or more of the above methods is time-consuming or heavy on the hardware.
  */
-public abstract class CachedStream<T> extends Stream<T> {
+public abstract class CachedStream<T> extends AbstractStream<T> {
     private boolean determinedIsNil = false;
     private boolean isNil;
 

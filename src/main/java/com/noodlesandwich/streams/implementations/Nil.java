@@ -3,7 +3,7 @@ package com.noodlesandwich.streams.implementations;
 import com.noodlesandwich.streams.EndOfStreamException;
 import com.noodlesandwich.streams.Stream;
 
-public final class Nil<T> extends Stream<T> {
+public final class Nil<T> extends AbstractStream<T> {
     @Override
     public boolean isNil() {
         return true;

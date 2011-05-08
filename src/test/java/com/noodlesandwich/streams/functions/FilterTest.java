@@ -1,5 +1,6 @@
 package com.noodlesandwich.streams.functions;
 
+import com.noodlesandwich.streams.Streams;
 import org.junit.Test;
 
 import com.google.common.base.Predicate;
@@ -14,24 +15,24 @@ import static org.hamcrest.Matchers.is;
 public final class FilterTest {
     @Test public void
     is_lazy() {
-        Stream<Object> stream = Stream.wrap(new ThrowingIterator());
+        Stream<Object> stream = Streams.wrap(new ThrowingIterator());
         stream.filter(null);
     }
 
     @Test public void
     filters_a_stream_with_a_predicate() {
-        Stream<Integer> stream = Stream.of(1, 3, 2, 4, 7, 8, 9, 6, 5);
+        Stream<Integer> stream = Streams.of(1, 3, 2, 4, 7, 8, 9, 6, 5);
         assertThat(stream.filter(isEven()), contains(2, 4, 8, 6));
     }
 
     @Test public void
     filters_nil_to_nil() {
-        assertThat(Stream.nil().filter(null), is(nil()));
+        assertThat(Streams.nil().filter(null), is(nil()));
     }
 
     @Test public void
     is_repeatable() {
-        Stream<Integer> filteredStream = Stream.of(1, 3, 2, 4, 7, 8, 9, 6, 5).filter(everyOtherOne());
+        Stream<Integer> filteredStream = Streams.of(1, 3, 2, 4, 7, 8, 9, 6, 5).filter(everyOtherOne());
         assertThat(filteredStream, contains(1, 2, 7, 9, 5));
         assertThat(filteredStream, contains(1, 2, 7, 9, 5));
     }
