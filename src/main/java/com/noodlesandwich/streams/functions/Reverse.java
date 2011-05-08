@@ -1,7 +1,8 @@
 package com.noodlesandwich.streams.functions;
 
+import com.noodlesandwich.streams.Streams;
 import com.noodlesandwich.streams.FoldLeftFunction;
-import com.noodlesandwich.streams.LazyStream;
+import com.noodlesandwich.streams.implementations.LazyStream;
 import com.noodlesandwich.streams.Stream;
 
 public final class Reverse<T> extends LazyStream<T> {
@@ -16,8 +17,8 @@ public final class Reverse<T> extends LazyStream<T> {
         return stream.foldLeft(new FoldLeftFunction<Stream<T>, T>() {
             @Override
             public Stream<T> apply(Stream<T> accumulator, T input) {
-                return Stream.cons(input, accumulator);
+                return Streams.cons(input, accumulator);
             }
-        }, Stream.<T>nil());
+        }, Streams.<T>nil());
     }
 }

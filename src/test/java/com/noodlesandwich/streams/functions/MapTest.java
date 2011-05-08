@@ -1,5 +1,6 @@
 package com.noodlesandwich.streams.functions;
 
+import com.noodlesandwich.streams.Streams;
 import org.junit.Test;
 
 import com.google.common.base.Function;
@@ -15,24 +16,24 @@ import static org.hamcrest.Matchers.is;
 public final class MapTest {
     @Test public void
     is_lazy() {
-        Stream<Object> stream = Stream.wrap(new ThrowingIterator());
+        Stream<Object> stream = Streams.wrap(new ThrowingIterator());
         stream.map(null);
     }
 
     @Test public void
     a_mapping_of_nil_to_anything_is_nil() {
-        assertThat(Stream.nil().map(Functions.constant(new Object())), is(nil()));
+        assertThat(Streams.nil().map(Functions.constant(new Object())), is(nil()));
     }
 
     @Test public void
     a_mapping_of_a_stream_via_a_function_returns_a_new_stream() {
-        Stream<Integer> stream = Stream.of(1, 2, 3);
+        Stream<Integer> stream = Streams.of(1, 2, 3);
         assertThat(stream.map(toStringFunc()), contains("1", "2", "3"));
     }
 
     @Test public void
     is_repeatable() {
-        Stream<Integer> mappedStream = Stream.of(9, 7, 2).map(addIncrementingNumbers());
+        Stream<Integer> mappedStream = Streams.of(9, 7, 2).map(addIncrementingNumbers());
         assertThat(mappedStream, contains(10, 9, 5));
         assertThat(mappedStream, contains(10, 9, 5));
     }

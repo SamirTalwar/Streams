@@ -1,6 +1,6 @@
 package com.noodlesandwich.streams.functions;
 
-import com.noodlesandwich.streams.CachedStream;
+import com.noodlesandwich.streams.implementations.CachedStream;
 import com.noodlesandwich.streams.Stream;
 
 public final class Drop<T> extends CachedStream<T> {
@@ -37,7 +37,7 @@ public final class Drop<T> extends CachedStream<T> {
     private void removeFirstN() {
         while (n > 0 && !stream.isNil()) {
             stream = stream.tail();
-            n--;
+            --n;
         }
     }
 }

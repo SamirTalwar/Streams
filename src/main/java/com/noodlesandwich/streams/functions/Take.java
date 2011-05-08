@@ -1,6 +1,6 @@
 package com.noodlesandwich.streams.functions;
 
-import com.noodlesandwich.streams.CachedStream;
+import com.noodlesandwich.streams.implementations.CachedStream;
 import com.noodlesandwich.streams.EndOfStreamException;
 import com.noodlesandwich.streams.Stream;
 

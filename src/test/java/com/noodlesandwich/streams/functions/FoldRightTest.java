@@ -1,5 +1,6 @@
 package com.noodlesandwich.streams.functions;
 
+import com.noodlesandwich.streams.Streams;
 import org.junit.Test;
 
 import com.noodlesandwich.streams.FoldRightFunction;
@@ -11,13 +12,13 @@ import static org.hamcrest.Matchers.is;
 public final class FoldRightTest {
     @Test public void
     works_with_a_single_type() {
-        Stream<Integer> stream = Stream.of(6, 3, 2, 7);
+        Stream<Integer> stream = Streams.of(6, 3, 2, 7);
         assertThat(stream.foldRight(summation(), 0), is(18));
     }
 
     @Test public void
     works_with_multiple_types() {
-        Stream<Integer> stream = Stream.of(6, 3, 2, 7);
+        Stream<Integer> stream = Streams.of(6, 3, 2, 7);
         assertThat(stream.foldRight(joinAsString(), ""), is("6, 3, 2, 7, "));
     }
 

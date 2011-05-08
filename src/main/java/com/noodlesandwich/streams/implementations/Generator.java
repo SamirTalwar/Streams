@@ -3,8 +3,9 @@ package com.noodlesandwich.streams.implementations;
 import com.google.common.base.Function;
 import com.noodlesandwich.streams.EndOfStreamException;
 import com.noodlesandwich.streams.Stream;
+import com.noodlesandwich.streams.Streams;
 
-public final class Generator<T> extends Stream<T> {
+public final class Generator<T> extends AbstractStream<T> {
     private final Function<? super T, ? extends T> iteratingFunction;
     private final T value;
 
@@ -35,7 +36,7 @@ public final class Generator<T> extends Stream<T> {
                 try {
                     tail = new Generator<T>(iteratingFunction, iteratingFunction.apply(value));
                 } catch (EndOfStreamException e) {
-                    tail = Stream.nil();
+                    tail = Streams.nil();
                 }
                 fetchedTail = true;
             }

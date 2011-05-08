@@ -1,7 +1,7 @@
 package com.noodlesandwich.streams.functions;
 
 import com.google.common.base.Predicate;
-import com.noodlesandwich.streams.CachedStream;
+import com.noodlesandwich.streams.implementations.CachedStream;
 import com.noodlesandwich.streams.Stream;
 
 public final class Filter<T> extends CachedStream<T> {

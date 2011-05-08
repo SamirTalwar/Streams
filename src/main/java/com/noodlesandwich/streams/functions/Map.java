@@ -1,7 +1,7 @@
 package com.noodlesandwich.streams.functions;
 
 import com.google.common.base.Function;
-import com.noodlesandwich.streams.CachedStream;
+import com.noodlesandwich.streams.implementations.CachedStream;
 import com.noodlesandwich.streams.Stream;
 
 public final class Map<F, T> extends CachedStream<T> {
