@@ -4,9 +4,9 @@ import java.util.Comparator;
 
 import com.google.common.base.Function;
 import com.google.common.base.Functions;
+import com.noodlesandwich.streams.Stream;
 import com.noodlesandwich.streams.Streams;
 import com.noodlesandwich.streams.implementations.LazyStream;
-import com.noodlesandwich.streams.Stream;
 
 public final class Sort<T, U> extends LazyStream<T> {
     private final Stream<T> stream;
@@ -40,11 +40,11 @@ public final class Sort<T, U> extends LazyStream<T> {
     }
 
     private Stream<T> merge(Stream<T> left, Stream<T> right) {
-        if (left.size() == 0) {
+        if (left.isNil()) {
             return right;
         }
 
-        if (right.size() == 0) {
+        if (right.isNil()) {
             return left;
         }
 
