@@ -94,7 +94,7 @@ public interface Stream<T> extends Iterable<T> {
 
     /**
      * <p>Zips one stream with another stream by combining each element in one with the element in the same position of
-     * the other. Each element of the new stream will be a {@link com.noodlesandwich.streams.Pair} containing the corresponding elements in the two
+     * the other. Each element of the new stream will be a {@link Pair} containing the corresponding elements in the two
      * streams.</p>
      *
      * <p>The stream returned will be the length of the shorter of the two streams. If one is longer than the other, any
@@ -170,7 +170,8 @@ public interface Stream<T> extends Iterable<T> {
      * <p>Calculates the size of the stream.</p>
      *
      * <p><strong>Warning:</strong> As the stream does not know its size, this is potentially an expensive operation, as
-     * it can only be found by traversing the entire stream. If the stream is infinite, this will never return.</p>
+     * it can only be found by traversing the entire stream. If the stream is infinite, this will cause a stack
+     * overflow.</p>
      */
     int size();
 
@@ -178,8 +179,8 @@ public interface Stream<T> extends Iterable<T> {
      * <p>Reverses the stream.</p>
      *
      * <p><strong>Warning:</strong> This is potentially an expensive operation, as it can only be done by traversing the
-     * entire stream. If the stream is infinite, operations that attempt to retrieve values from the reversed stream
-     * will never return.</p>
+     * entire stream. If the stream is very large or infinite, operations that attempt to retrieve values from the
+     * reversed stream will never return.</p>
      */
     Stream<T> reverse();
 
@@ -188,8 +189,8 @@ public interface Stream<T> extends Iterable<T> {
      * ordering (i.e. it does not implement {@link Comparable}), this will throw a {@link ClassCastException}.</p>
      *
      * <p><strong>Warning:</strong> This is potentially an expensive operation, as it can only be done by traversing the
-     * entire stream. If the stream is infinite, operations that attempt to retrieve values from the sorted stream will
-     * never return.</p>
+     * entire stream. If the stream is very large or infinite, operations that attempt to retrieve values from the
+     * sorted stream will cause a stack overflow.</p>
      */
     Stream<T> sort();
 
@@ -197,8 +198,8 @@ public interface Stream<T> extends Iterable<T> {
      * <p>Sorts the stream using a comparator.</p>
      *
      * <p><strong>Warning:</strong> This is potentially an expensive operation, as it can only be done by traversing the
-     * entire stream. If the stream is infinite, operations that attempt to retrieve values from the sorted stream will
-     * never return.</p>
+     * entire stream. If the stream is very large or infinite, operations that attempt to retrieve values from the
+     * sorted stream will cause a stack overflow.</p>
      */
     Stream<T> sort(Comparator<? super T> comparator);
 
@@ -206,8 +207,8 @@ public interface Stream<T> extends Iterable<T> {
      * <p>Sorts the stream using a comparable entity which can be derived from each element.</p>
      *
      * <p><strong>Warning:</strong> This is potentially an expensive operation, as it can only be done by traversing the
-     * entire stream. If the stream is infinite, operations that attempt to retrieve values from the sorted stream will
-     * never return.</p>
+     * entire stream. If the stream is very large or infinite, operations that attempt to retrieve values from the
+     * sorted stream will cause a stack overflow.</p>
      */
     <U extends Comparable<U>> Stream<T> sortBy(Function<? super T, ? extends U> function);
 
@@ -215,8 +216,8 @@ public interface Stream<T> extends Iterable<T> {
      * <p>Sorts the stream using an entity which can be derived from each element and a comparator.</p>
      *
      * <p><strong>Warning:</strong> This is potentially an expensive operation, as it can only be done by traversing the
-     * entire stream. If the stream is infinite, operations that attempt to retrieve values from the sorted stream will
-     * never return.</p>
+     * entire stream. If the stream is very large or infinite, operations that attempt to retrieve values from the
+     * sorted stream will cause a stack overflow.</p>
      */
     <U> Stream<T> sortBy(Function<? super T, ? extends U> function, Comparator<? super U> comparator);
 
@@ -242,7 +243,7 @@ public interface Stream<T> extends Iterable<T> {
     <V> java.util.Map<T, V> toMap(Function<? super T, ? extends V> valueFunction);
 
     /**
-     * Returns a one-use, forwards-only iterator which can be used to traverse the stream.
+     * Returns a one-use, forwards-only {@link Iterator} which can be used to traverse the stream.
      */
     @Override
     Iterator<T> iterator();

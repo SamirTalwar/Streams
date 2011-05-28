@@ -1,5 +1,8 @@
 package com.noodlesandwich.streams;
 
+/**
+ * A pair of two objects. Intended as the return type for the {@link Stream#zip} method.
+ */
 public final class Pair<F, S> {
     private final F first;
     private final S second;
