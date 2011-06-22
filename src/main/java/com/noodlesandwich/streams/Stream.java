@@ -222,6 +222,16 @@ public interface Stream<T> extends Iterable<T> {
     <U> Stream<T> sortBy(Function<? super T, ? extends U> function, Comparator<? super U> comparator);
 
     /**
+     * <p>Groups the entities in the stream using a computed map, deriving the keys using the function provided.</p>
+     *
+     * <p><strong>Warning:</strong> The map returned does not fully abide by the contract. In particular, you are advised against asking it
+     * whether it contains particular keys/values or retrieving the key set, value set or entry set, as the results may not be correct
+     * and can change over the lifetime of the map. Because of this, the type of the object returned by this method will probably change
+     * in the future.</p>
+     */
+    <K> java.util.Map<K, Stream<T>> groupBy(Function<? super T, ? extends K> keyFunction);
+
+    /**
      * Converts the stream to an array.
      */
     T[] toArray(Class<T> type);

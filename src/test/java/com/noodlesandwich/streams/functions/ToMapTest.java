@@ -1,10 +1,11 @@
 package com.noodlesandwich.streams.functions;
 
-import com.noodlesandwich.streams.Streams;
 import org.junit.Test;
 
 import com.google.common.base.Function;
+import com.google.common.base.Functions;
 import com.noodlesandwich.streams.Stream;
+import com.noodlesandwich.streams.Streams;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
@@ -28,9 +29,9 @@ public final class ToMapTest {
     @Test public void
     keys_and_values_can_be_different_types() {
         Stream<Integer> stream = Streams.of(1, 2, 3);
-        assertThat(stream.toMap(toStringFunc()), allOf(hasEntry(1, "1"),
-                                                       hasEntry(2, "2"),
-                                                       hasEntry(3, "3")));
+        assertThat(stream.toMap(Functions.toStringFunction()), allOf(hasEntry(1, "1"),
+                                                                     hasEntry(2, "2"),
+                                                                     hasEntry(3, "3")));
     }
 
     @Test public void
@@ -41,20 +42,11 @@ public final class ToMapTest {
                                                hasEntry(3, 10)));
     }
 
-    private static Function<Integer, Integer> add(final int i) {
+    private static Function<Integer, Integer> add(final int n) {
         return new Function<Integer, Integer>() {
             @Override
             public Integer apply(Integer input) {
-                return input + i;
-            }
-        };
-    }
-
-    private static Function<Object, String> toStringFunc() {
-        return new Function<Object, String>() {
-            @Override
-            public String apply(Object input) {
-                return input.toString();
+                return input + n;
             }
         };
     }
