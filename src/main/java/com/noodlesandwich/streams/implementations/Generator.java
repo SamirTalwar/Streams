@@ -20,7 +20,7 @@ public final class Generator<T> extends AbstractStream<T> {
     }
 
     @Override
-    public boolean isNil() {
+    public boolean isEmpty() {
         return false;
     }
 

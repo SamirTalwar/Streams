@@ -40,11 +40,11 @@ public final class Sort<T, U> extends LazyStream<T> {
     }
 
     private Stream<T> merge(Stream<T> left, Stream<T> right) {
-        if (left.isNil()) {
+        if (left.isEmpty()) {
             return right;
         }
 
-        if (right.isNil()) {
+        if (right.isEmpty()) {
             return left;
         }
 

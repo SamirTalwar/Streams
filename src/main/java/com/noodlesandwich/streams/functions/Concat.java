@@ -13,17 +13,17 @@ public final class Concat<T> extends CachedStream<T> {
     }
 
     @Override
-    public boolean determineIsNil() {
-        return one.isNil() && two.isNil();
+    public boolean determineIsEmpty() {
+        return one.isEmpty() && two.isEmpty();
     }
 
     @Override
     public T determineHead() {
-        return !one.isNil() ? one.head() : two.head();
+        return !one.isEmpty() ? one.head() : two.head();
     }
 
     @Override
     public Stream<T> determineTail() {
-        return !one.isNil() ? new Concat<T>(one.tail(), two) : two.tail();
+        return !one.isEmpty() ? new Concat<T>(one.tail(), two) : two.tail();
     }
 }

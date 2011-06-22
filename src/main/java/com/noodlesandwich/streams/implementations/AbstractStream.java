@@ -58,7 +58,7 @@ public abstract class AbstractStream<T> implements Stream<T> {
 
     @Override
     public <A> A foldRight(FoldRightFunction<? super T, A> foldFunction, A initializer) {
-        if (isNil()) {
+        if (isEmpty()) {
             return initializer;
         }
         return foldFunction.apply(head(), tail().foldRight(foldFunction, initializer));
@@ -159,7 +159,7 @@ public abstract class AbstractStream<T> implements Stream<T> {
 
     @Override
     public int size() {
-        if (isNil()) {
+        if (isEmpty()) {
             return 0;
         }
 

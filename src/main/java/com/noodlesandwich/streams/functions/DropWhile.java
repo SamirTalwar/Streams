@@ -14,9 +14,9 @@ public final class DropWhile<T> extends CachedStream<T> {
     }
 
     @Override
-    public boolean determineIsNil() {
+    public boolean determineIsEmpty() {
         dropWhilePredicateApplies();
-        return stream.isNil();
+        return stream.isEmpty();
     }
 
     @Override
@@ -32,7 +32,7 @@ public final class DropWhile<T> extends CachedStream<T> {
     }
 
     private void dropWhilePredicateApplies() {
-        while (!stream.isNil() && predicate.apply(stream.head())) {
+        while (!stream.isEmpty() && predicate.apply(stream.head())) {
             stream = stream.tail();
         }
     }

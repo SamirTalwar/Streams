@@ -12,7 +12,7 @@ public final class Cons<T> extends AbstractStream<T> {
     }
 
     @Override
-    public boolean isNil() {
+    public boolean isEmpty() {
         return false;
     }
 

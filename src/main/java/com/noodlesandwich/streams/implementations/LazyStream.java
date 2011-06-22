@@ -14,8 +14,8 @@ public abstract class LazyStream<T> extends AbstractStream<T> {
     private final Object lock = new Object();
 
     @Override
-    public boolean isNil() {
-        return newStream().isNil();
+    public boolean isEmpty() {
+        return newStream().isEmpty();
     }
 
     @Override

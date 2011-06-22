@@ -13,13 +13,13 @@ public final class IteratorWrapper<T> extends CachedStream<T> {
     }
 
     @Override
-    public boolean determineIsNil() {
+    public boolean determineIsEmpty() {
         return !iterator.hasNext();
     }
 
     @Override
     public T determineHead() {
-        if (isNil()) {
+        if (isEmpty()) {
             throw new EndOfStreamException();
         }
 

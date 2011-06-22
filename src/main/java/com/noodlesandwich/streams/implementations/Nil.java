@@ -5,7 +5,7 @@ import com.noodlesandwich.streams.Stream;
 
 public final class Nil<T> extends AbstractStream<T> {
     @Override
-    public boolean isNil() {
+    public boolean isEmpty() {
         return true;
     }
 

@@ -17,9 +17,9 @@ public final class Drop<T> extends CachedStream<T> {
     }
 
     @Override
-    public boolean determineIsNil() {
+    public boolean determineIsEmpty() {
         removeFirstN();
-        return stream.isNil();
+        return stream.isEmpty();
     }
 
     @Override
@@ -35,7 +35,7 @@ public final class Drop<T> extends CachedStream<T> {
     }
 
     private void removeFirstN() {
-        while (n > 0 && !stream.isNil()) {
+        while (n > 0 && !stream.isEmpty()) {
             stream = stream.tail();
             --n;
         }

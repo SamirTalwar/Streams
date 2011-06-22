@@ -21,9 +21,9 @@ public final class Unique<T> extends CachedStream<T> {
     }
 
     @Override
-    public boolean determineIsNil() {
+    public boolean determineIsEmpty() {
         removeNonUniques();
-        return stream.isNil();
+        return stream.isEmpty();
     }
 
     @Override
@@ -38,7 +38,7 @@ public final class Unique<T> extends CachedStream<T> {
     }
 
     private void removeNonUniques() {
-        while (!stream.isNil() && before.contains(stream.head())) {
+        while (!stream.isEmpty() && before.contains(stream.head())) {
             stream = stream.tail();
         }
     }

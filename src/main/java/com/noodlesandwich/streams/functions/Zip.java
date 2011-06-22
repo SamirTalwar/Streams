@@ -16,8 +16,8 @@ public final class Zip<F, S, R> extends CachedStream<R> {
     }
 
     @Override
-    public boolean determineIsNil() {
-        return first.isNil() || second.isNil();
+    public boolean determineIsEmpty() {
+        return first.isEmpty() || second.isEmpty();
     }
 
     @Override

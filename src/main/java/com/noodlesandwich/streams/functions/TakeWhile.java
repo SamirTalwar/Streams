@@ -15,8 +15,8 @@ public final class TakeWhile<T> extends CachedStream<T> {
     }
 
     @Override
-    public boolean determineIsNil() {
-        return stream.isNil() || !predicate.apply(stream.head());
+    public boolean determineIsEmpty() {
+        return stream.isEmpty() || !predicate.apply(stream.head());
     }
 
     @Override
@@ -32,7 +32,7 @@ public final class TakeWhile<T> extends CachedStream<T> {
     }
 
     private void checkForNil() {
-        if (isNil()) {
+        if (isEmpty()) {
             throw new EndOfStreamException();
         }
     }

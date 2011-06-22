@@ -14,8 +14,8 @@ public final class Map<F, T> extends CachedStream<T> {
     }
 
     @Override
-    public boolean determineIsNil() {
-        return stream.isNil();
+    public boolean determineIsEmpty() {
+        return stream.isEmpty();
     }
 
     @Override

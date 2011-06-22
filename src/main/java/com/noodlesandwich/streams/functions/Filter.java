@@ -15,9 +15,9 @@ public final class Filter<T> extends CachedStream<T> {
     }
 
     @Override
-    public boolean determineIsNil() {
+    public boolean determineIsEmpty() {
         filterNext();
-        return stream.isNil();
+        return stream.isEmpty();
     }
 
     @Override
@@ -34,7 +34,7 @@ public final class Filter<T> extends CachedStream<T> {
 
     private void filterNext() {
         if (!filteredNext) {
-            while (!stream.isNil() && !predicate.apply(stream.head())) {
+            while (!stream.isEmpty() && !predicate.apply(stream.head())) {
                 stream = stream.tail();
             }
             filteredNext = true;

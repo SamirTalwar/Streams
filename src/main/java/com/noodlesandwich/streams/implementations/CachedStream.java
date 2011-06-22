@@ -3,7 +3,7 @@ package com.noodlesandwich.streams.implementations;
 import com.noodlesandwich.streams.Stream;
 
 /**
- * A <code>CachedStream</code> is a stream that caches the results of {@link #isNil()}, {@link #head()} and
+ * A <code>CachedStream</code> is a stream that caches the results of {@link #isEmpty()}, {@link #head()} and
  * {@link #tail()} for reasons of mutability and performance. Streams that rely on external factors that can be mutable
  * may return different results when iterated over more than once unless the original values were cached on the first
  * iteration. In addition, storing the values, while increasing memory usage, may result in a large performance benefit
@@ -22,10 +22,10 @@ public abstract class CachedStream<T> extends AbstractStream<T> {
     private final Object lock = new Object();
 
     @Override
-    public boolean isNil() {
+    public boolean isEmpty() {
         synchronized (lock) {
             if (!determinedIsNil) {
-                isNil = determineIsNil();
+                isNil = determineIsEmpty();
                 determinedIsNil = true;
             }
         }
@@ -58,9 +58,9 @@ public abstract class CachedStream<T> extends AbstractStream<T> {
     }
 
     /**
-     * Called once when the user calls {@link #isNil()}. The result is cached and used for future calls.
+     * Called once when the user calls {@link #isEmpty()}. The result is cached and used for future calls.
      */
-    public abstract boolean determineIsNil();
+    public abstract boolean determineIsEmpty();
 
     /**
      * Called once when the user calls {@link #head()}. The result is cached and used for future calls.

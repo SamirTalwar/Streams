@@ -18,8 +18,8 @@ public final class Take<T> extends CachedStream<T> {
     }
 
     @Override
-    public boolean determineIsNil() {
-        return n == 0 || stream.isNil();
+    public boolean determineIsEmpty() {
+        return n == 0 || stream.isEmpty();
     }
 
     @Override

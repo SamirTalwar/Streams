@@ -26,7 +26,7 @@ public interface Stream<T> extends Iterable<T> {
     /**
      * Returns <code>true</code> if the stream is nil (has no elements); <code>false</code> otherwise.
      */
-    boolean isNil();
+    boolean isEmpty();
 
     /**
      * Returns the head (the first element) of the stream.

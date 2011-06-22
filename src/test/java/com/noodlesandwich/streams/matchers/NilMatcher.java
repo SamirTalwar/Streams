@@ -20,6 +20,6 @@ public final class NilMatcher<T> extends TypeSafeDiagnosingMatcher<Stream<T>> {
     @Override
     protected boolean matchesSafely(Stream<T> stream, Description mismatchDescription) {
         mismatchDescription.appendText("the stream was not nil");
-        return stream.isNil();
+        return stream.isEmpty();
     }
 }
