@@ -229,7 +229,7 @@ public interface Stream<T> extends Iterable<T> {
      * entry set, as the results may not be correct and can change over the lifetime of the map. Because of this, the
      * type of the object returned by this method will probably change in the future.</p>
      */
-    <K> java.util.Map<K, Stream<T>> groupBy(Function<? super T, ? extends K> keyFunction);
+    <K> Lookup<K, Stream<T>> groupBy(Function<? super T, ? extends K> keyFunction);
 
     /**
      * Converts the stream to an array.

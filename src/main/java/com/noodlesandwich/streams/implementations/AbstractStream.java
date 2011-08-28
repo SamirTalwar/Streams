@@ -10,12 +10,12 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-import com.google.common.collect.MapMaker;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
 import com.noodlesandwich.streams.FoldLeftFunction;
 import com.noodlesandwich.streams.FoldRightFunction;
+import com.noodlesandwich.streams.Lookup;
 import com.noodlesandwich.streams.Pair;
 import com.noodlesandwich.streams.Stream;
 import com.noodlesandwich.streams.ZipWithFunction;
@@ -193,13 +193,8 @@ public abstract class AbstractStream<T> implements Stream<T> {
     }
 
     @Override
-    public <K> java.util.Map<K, Stream<T>> groupBy(final Function<? super T, ? extends K> keyFunction) {
-        return new MapMaker().makeComputingMap(new Function<K, Stream<T>>() {
-            @Override
-            public Stream<T> apply(final K key) {
-                return filter(Predicates.compose(Predicates.equalTo(key), keyFunction));
-            }
-        });
+    public <K> Lookup<K, Stream<T>> groupBy(final Function<? super T, ? extends K> keyFunction) {
+        return new StreamLookup<K, T>(this, keyFunction);
     }
 
     @Override
