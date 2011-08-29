@@ -8,7 +8,7 @@ import com.noodlesandwich.streams.Stream;
 public final class IteratorWrapper<T> extends CachedStream<T> {
     private final Iterator<T> iterator;
 
-    public IteratorWrapper(Iterator<T> iterator) {
+    public IteratorWrapper(final Iterator<T> iterator) {
         this.iterator = iterator;
     }
 

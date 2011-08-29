@@ -1,15 +1,18 @@
 package com.noodlesandwich.streams.functions;
 
-import com.noodlesandwich.streams.implementations.CachedStream;
 import com.noodlesandwich.streams.Stream;
 import com.noodlesandwich.streams.ZipWithFunction;
+import com.noodlesandwich.streams.implementations.CachedStream;
 
 public final class Zip<F, S, R> extends CachedStream<R> {
     private final Stream<F> first;
     private final Stream<S> second;
     private final ZipWithFunction<? super F, ? super S, ? extends R> zipWithFunction;
 
-    public Zip(ZipWithFunction<? super F, ? super S, ? extends R> zipWithFunction, Stream<F> first, Stream<S> second) {
+    public Zip(final ZipWithFunction<? super F, ? super S, ? extends R> zipWithFunction,
+               final Stream<F> first,
+               final Stream<S> second)
+    {
         this.first = first;
         this.second = second;
         this.zipWithFunction = zipWithFunction;

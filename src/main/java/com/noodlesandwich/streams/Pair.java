@@ -7,7 +7,7 @@ public final class Pair<F, S> {
     private final F first;
     private final S second;
 
-    public Pair(F first, S second) {
+    public Pair(final F first, final S second) {
         this.first = first;
         this.second = second;
     }
@@ -21,7 +21,7 @@ public final class Pair<F, S> {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -31,7 +31,7 @@ public final class Pair<F, S> {
         }
 
         @SuppressWarnings("unchecked")
-        Pair<F, S> other = (Pair<F, S>) obj;
+        final Pair<F, S> other = (Pair<F, S>) obj;
 
         if (first == null) {
             if (other.first != null) {

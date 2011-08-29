@@ -1,27 +1,28 @@
 package com.noodlesandwich.streams.functions;
 
-import com.noodlesandwich.streams.Streams;
 import org.junit.Test;
 
 import com.google.common.base.Predicate;
 import com.noodlesandwich.streams.Stream;
+import com.noodlesandwich.streams.Streams;
 import com.noodlesandwich.streams.testutils.ThrowingIterator;
 
-import static com.noodlesandwich.streams.matchers.NilMatcher.nil;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 
+import static com.noodlesandwich.streams.matchers.NilMatcher.nil;
+
 public final class FilterTest {
     @Test public void
     is_lazy() {
-        Stream<Object> stream = Streams.wrap(new ThrowingIterator());
+        final Stream<Object> stream = Streams.wrap(new ThrowingIterator());
         stream.filter(null);
     }
 
     @Test public void
     filters_a_stream_with_a_predicate() {
-        Stream<Integer> stream = Streams.of(1, 3, 2, 4, 7, 8, 9, 6, 5);
+        final Stream<Integer> stream = Streams.of(1, 3, 2, 4, 7, 8, 9, 6, 5);
         assertThat(stream.filter(isEven()), contains(2, 4, 8, 6));
     }
 
@@ -32,7 +33,7 @@ public final class FilterTest {
 
     @Test public void
     is_repeatable() {
-        Stream<Integer> filteredStream = Streams.of(1, 3, 2, 4, 7, 8, 9, 6, 5).filter(everyOtherOne());
+        final Stream<Integer> filteredStream = Streams.of(1, 3, 2, 4, 7, 8, 9, 6, 5).filter(everyOtherOne());
         assertThat(filteredStream, contains(1, 2, 7, 9, 5));
         assertThat(filteredStream, contains(1, 2, 7, 9, 5));
     }
@@ -40,7 +41,7 @@ public final class FilterTest {
     private static Predicate<Integer> isEven() {
         return new Predicate<Integer>() {
             @Override
-            public boolean apply(Integer input) {
+            public boolean apply(final Integer input) {
                 return input % 2 == 0;
             }
         };
@@ -50,7 +51,7 @@ public final class FilterTest {
         return new Predicate<Object>() {
             private boolean thisOne = false;
             @Override
-            public boolean apply(Object input) {
+            public boolean apply(final Object input) {
                 thisOne = !thisOne;
                 return thisOne;
             }

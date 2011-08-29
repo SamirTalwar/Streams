@@ -1,17 +1,18 @@
 package com.noodlesandwich.streams.implementations;
 
-import com.noodlesandwich.streams.Streams;
 import org.junit.Test;
 
 import com.noodlesandwich.streams.Stream;
+import com.noodlesandwich.streams.Streams;
 
-import static com.noodlesandwich.streams.matchers.HeadMatcher.has_a_head_of;
-import static com.noodlesandwich.streams.matchers.NilMatcher.nil;
-import static com.noodlesandwich.streams.matchers.TailMatcher.has_a_tail_of;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
+
+import static com.noodlesandwich.streams.matchers.HeadMatcher.has_a_head_of;
+import static com.noodlesandwich.streams.matchers.NilMatcher.nil;
+import static com.noodlesandwich.streams.matchers.TailMatcher.has_a_tail_of;
 
 public final class ConsTest {
     @Test public void
@@ -21,27 +22,27 @@ public final class ConsTest {
 
     @Test public void
     has_a_head_of_whatever_was_specified() {
-        Object head = new Object();
+        final Object head = new Object();
         assertThat(Streams.cons(head, Streams.nil()), has_a_head_of(head));
     }
 
     @Test public void
     has_a_tail_of_whatever_was_specified() {
-        Stream<Object> tail = Streams.cons(new Object(), Streams.nil());
+        final Stream<Object> tail = Streams.cons(new Object(), Streams.nil());
         assertThat(Streams.cons(new Object(), tail), has_a_tail_of(tail));
     }
 
     @Test public void
     the_head_does_not_change() {
-        Stream<Object> stream = Streams.cons(new Object(), Streams.nil());
-        Object head = stream.head();
+        final Stream<Object> stream = Streams.cons(new Object(), Streams.nil());
+        final Object head = stream.head();
         assertThat(stream, has_a_head_of(head));
     }
 
     @Test public void
     the_tail_does_not_change() {
-        Stream<Object> stream = Streams.cons(new Object(), Streams.nil());
-        Stream<Object> tail = stream.tail();
+        final Stream<Object> stream = Streams.cons(new Object(), Streams.nil());
+        final Stream<Object> tail = stream.tail();
         assertThat(stream, has_a_tail_of(tail));
     }
 

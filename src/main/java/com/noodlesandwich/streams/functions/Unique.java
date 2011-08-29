@@ -4,18 +4,18 @@ import java.util.Set;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
-import com.noodlesandwich.streams.implementations.CachedStream;
 import com.noodlesandwich.streams.Stream;
+import com.noodlesandwich.streams.implementations.CachedStream;
 
 public final class Unique<T> extends CachedStream<T> {
     private Stream<T> stream;
     private final Set<T> before;
 
-    public Unique(Stream<T> stream) {
+    public Unique(final Stream<T> stream) {
         this(stream, ImmutableSet.<T>of());
     }
 
-    public Unique(Stream<T> stream, Set<T> before) {
+    public Unique(final Stream<T> stream, final Set<T> before) {
         this.stream = stream;
         this.before = before;
     }

@@ -11,13 +11,13 @@ public final class StreamLookup<K, T> implements Lookup<K, Stream<T>> {
     private final Stream<T> stream;
     private final Function<? super T, ? extends K> keyFunction;
 
-    public StreamLookup(Stream<T> stream, Function<? super T, ? extends K> keyFunction) {
+    public StreamLookup(final Stream<T> stream, final Function<? super T, ? extends K> keyFunction) {
         this.stream = stream;
         this.keyFunction = keyFunction;
     }
 
     @Override
-    public Stream<T> get(K key) {
+    public Stream<T> get(final K key) {
         return stream.filter(compose(equalTo(key), keyFunction));
     }
 }

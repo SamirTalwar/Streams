@@ -1,14 +1,15 @@
 package com.noodlesandwich.streams.implementations;
 
-import com.noodlesandwich.streams.Streams;
 import org.junit.Test;
 
 import com.noodlesandwich.streams.EndOfStreamException;
+import com.noodlesandwich.streams.Streams;
 
-import static com.noodlesandwich.streams.matchers.NilMatcher.nil;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.emptyIterable;
 import static org.hamcrest.Matchers.is;
+
+import static com.noodlesandwich.streams.matchers.NilMatcher.nil;
 
 public final class NilTest {
     @Test public void

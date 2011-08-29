@@ -6,7 +6,7 @@ public final class Cons<T> extends AbstractStream<T> {
     private final T head;
     private final Stream<T> tail;
 
-    public Cons(T head, Stream<T> tail) {
+    public Cons(final T head, final Stream<T> tail) {
         this.head = head;
         this.tail = tail;
     }

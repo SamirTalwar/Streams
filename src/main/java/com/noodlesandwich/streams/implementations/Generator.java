@@ -14,7 +14,7 @@ public final class Generator<T> extends AbstractStream<T> {
 
     private final Object lock = new Object();
 
-    public Generator(Function<? super T, ? extends T> iteratingFunction, T value) {
+    public Generator(final Function<? super T, ? extends T> iteratingFunction, final T value) {
         this.iteratingFunction = iteratingFunction;
         this.value = value;
     }
@@ -35,7 +35,7 @@ public final class Generator<T> extends AbstractStream<T> {
             if (!fetchedTail) {
                 try {
                     tail = new Generator<T>(iteratingFunction, iteratingFunction.apply(value));
-                } catch (EndOfStreamException e) {
+                } catch (final EndOfStreamException e) {
                     tail = Streams.nil();
                 }
                 fetchedTail = true;

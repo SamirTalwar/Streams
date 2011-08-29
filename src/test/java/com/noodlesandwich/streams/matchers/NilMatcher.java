@@ -13,12 +13,12 @@ public final class NilMatcher<T> extends TypeSafeDiagnosingMatcher<Stream<T>> {
     }
 
     @Override
-    public void describeTo(Description description) {
+    public void describeTo(final Description description) {
         description.appendText("nil");
     }
 
     @Override
-    protected boolean matchesSafely(Stream<T> stream, Description mismatchDescription) {
+    protected boolean matchesSafely(final Stream<T> stream, final Description mismatchDescription) {
         mismatchDescription.appendText("the stream was not nil");
         return stream.isEmpty();
     }

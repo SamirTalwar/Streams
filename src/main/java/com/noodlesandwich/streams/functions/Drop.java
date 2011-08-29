@@ -1,13 +1,13 @@
 package com.noodlesandwich.streams.functions;
 
-import com.noodlesandwich.streams.implementations.CachedStream;
 import com.noodlesandwich.streams.Stream;
+import com.noodlesandwich.streams.implementations.CachedStream;
 
 public final class Drop<T> extends CachedStream<T> {
     private int n;
     private Stream<T> stream;
 
-    public Drop(int n, Stream<T> stream) {
+    public Drop(final int n, final Stream<T> stream) {
         if (n < 0) {
             throw new IllegalArgumentException("Cannot drop a negative number of elements");
         }

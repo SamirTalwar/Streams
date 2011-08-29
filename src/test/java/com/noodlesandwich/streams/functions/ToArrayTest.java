@@ -1,9 +1,9 @@
 package com.noodlesandwich.streams.functions;
 
-import com.noodlesandwich.streams.Streams;
 import org.junit.Test;
 
 import com.noodlesandwich.streams.Stream;
+import com.noodlesandwich.streams.Streams;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.arrayContaining;
@@ -18,19 +18,19 @@ public final class ToArrayTest {
 
     @Test public void
     converts_a_stream_to_an_equivalent_list() {
-        Stream<Integer> stream = Streams.of(1, 2, 3);
+        final Stream<Integer> stream = Streams.of(1, 2, 3);
         assertThat(stream.toArray(Integer.class), is(arrayContaining(1, 2, 3)));
     }
 
     @Test public void
     retains_order() {
-        Stream<Integer> stream = Streams.of(3, 2, 1);
+        final Stream<Integer> stream = Streams.of(3, 2, 1);
         assertThat(stream.toArray(Integer.class), is(arrayContaining(3, 2, 1)));
     }
 
     @Test public void
     retains_duplicates() {
-        Stream<Integer> stream = Streams.of(2, 3, 2, 1);
+        final Stream<Integer> stream = Streams.of(2, 3, 2, 1);
         assertThat(stream.toArray(Integer.class), is(arrayContaining(2, 3, 2, 1)));
     }
 }

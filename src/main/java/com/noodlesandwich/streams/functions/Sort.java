@@ -14,11 +14,14 @@ public final class Sort<T, U> extends LazyStream<T> {
     private final Comparator<? super U> comparator;
 
     @SuppressWarnings("unchecked")
-    public Sort(Comparator<? super U> comparator, Stream<T> stream) {
+    public Sort(final Comparator<? super U> comparator, final Stream<T> stream) {
         this((Function<? super T, ? extends U>) Functions.<T>identity(), comparator, stream);
     }
 
-    public Sort(Function<? super T, ? extends U> function, Comparator<? super U> comparator, Stream<T> stream) {
+    public Sort(final Function<? super T, ? extends U> function,
+                final Comparator<? super U> comparator,
+                final Stream<T> stream)
+    {
         this.function = function;
         this.stream = stream;
         this.comparator = comparator;
@@ -29,7 +32,7 @@ public final class Sort<T, U> extends LazyStream<T> {
         return mergeSort(stream);
     }
 
-    private Stream<T> mergeSort(Stream<T> stream) {
+    private Stream<T> mergeSort(final Stream<T> stream) {
         final int size = stream.size();
         if (size <= 1) {
             return stream;
@@ -39,7 +42,7 @@ public final class Sort<T, U> extends LazyStream<T> {
         return merge(mergeSort(stream.take(middle)), mergeSort(stream.drop(middle)));
     }
 
-    private Stream<T> merge(Stream<T> left, Stream<T> right) {
+    private Stream<T> merge(final Stream<T> left, final Stream<T> right) {
         if (left.isEmpty()) {
             return right;
         }

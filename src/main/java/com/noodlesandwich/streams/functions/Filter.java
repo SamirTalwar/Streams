@@ -1,15 +1,15 @@
 package com.noodlesandwich.streams.functions;
 
 import com.google.common.base.Predicate;
-import com.noodlesandwich.streams.implementations.CachedStream;
 import com.noodlesandwich.streams.Stream;
+import com.noodlesandwich.streams.implementations.CachedStream;
 
 public final class Filter<T> extends CachedStream<T> {
     private Stream<T> stream;
     private final Predicate<? super T> predicate;
     private boolean filteredNext = false;
 
-    public Filter(Predicate<? super T> predicate, Stream<T> stream) {
+    public Filter(final Predicate<? super T> predicate, final Stream<T> stream) {
         this.predicate = predicate;
         this.stream = stream;
     }

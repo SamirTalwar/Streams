@@ -43,7 +43,7 @@ public final class Streams {
      * Creates an empty stream of the type provided. Attempts to call {@link Stream#head()} or {@link Stream#tail()} on
      * this stream will throw an {@link EndOfStreamException}.
      */
-    public static <T> Stream<T> nil(Class<T> type) {
+    public static <T> Stream<T> nil(final Class<T> type) {
         return new Nil<T>();
     }
 
@@ -57,25 +57,25 @@ public final class Streams {
      *   <code>a</code>, then <code>b</code>, then <code>c</code>.
      * </blockquote>
      */
-    public static <T> Stream<T> cons(T head, Stream<T> tail) {
+    public static <T> Stream<T> cons(final T head, final Stream<T> tail) {
         return new Cons<T>(head, tail);
     }
 
     /**
      * Creates a new stream over the values provided. This is shorthand for nested calls to {@link #cons}.
      */
-    public static <T> Stream<T> of(T... items) {
+    public static <T> Stream<T> of(final T... items) {
         return clone(Iterators.forArray(items));
     }
 
     /**
      * Clones an iterable by iterating over it and building up a stream.
      */
-    public static <T> Stream<T> clone(Iterable<T> iterable) {
+    public static <T> Stream<T> clone(final Iterable<T> iterable) {
         return clone(iterable.iterator());
     }
 
-    public static <T> Stream<T> clone(Iterator<T> iterator) {
+    public static <T> Stream<T> clone(final Iterator<T> iterator) {
         if (!iterator.hasNext()) {
             return nil();
         }
@@ -86,7 +86,7 @@ public final class Streams {
     /**
      * Wraps an iterable. Delegates to {@link #wrap(java.util.Iterator) wrap(Iterator&lt;T&gt;)}.
      */
-    public static <T> Stream<T> wrap(Iterable<T> iterable) {
+    public static <T> Stream<T> wrap(final Iterable<T> iterable) {
         return wrap(iterable.iterator());
     }
 
@@ -94,7 +94,7 @@ public final class Streams {
      * Wraps an iterator with a stream that retains values as they are retrieved, ensuring the stream can be iterated
      * over multiple times.
      */
-    public static <T> Stream<T> wrap(Iterator<T> iterator) {
+    public static <T> Stream<T> wrap(final Iterator<T> iterator) {
         return new IteratorWrapper<T>(iterator);
     }
 
@@ -103,14 +103,14 @@ public final class Streams {
      * provided. This stream will normally be infinite, but the iterating function can terminate it by throwing an
      * {@link EndOfStreamException}.
      */
-    public static <T> Stream<T> generate(Function<? super T, ? extends T> iteratingFunction, T start) {
+    public static <T> Stream<T> generate(final Function<? super T, ? extends T> iteratingFunction, final T start) {
         return new Generator<T>(iteratingFunction, start);
     }
 
     /**
      * Generates an infinite stream by repeating the value provided.
      */
-    public static <T> Stream<T> repeat(T value) {
+    public static <T> Stream<T> repeat(final T value) {
         return generate(Functions.<T>identity(), value);
     }
 }

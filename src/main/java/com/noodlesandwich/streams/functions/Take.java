@@ -1,14 +1,14 @@
 package com.noodlesandwich.streams.functions;
 
-import com.noodlesandwich.streams.implementations.CachedStream;
 import com.noodlesandwich.streams.EndOfStreamException;
 import com.noodlesandwich.streams.Stream;
+import com.noodlesandwich.streams.implementations.CachedStream;
 
 public final class Take<T> extends CachedStream<T> {
     private final int n;
     private final Stream<T> stream;
 
-    public Take(int n, Stream<T> stream) {
+    public Take(final int n, final Stream<T> stream) {
         if (n < 0) {
             throw new IllegalArgumentException("Cannot take a negative number of elements");
         }

@@ -7,7 +7,7 @@ import com.noodlesandwich.streams.Stream;
 public final class StreamIterator<T> implements Iterator<T> {
     private Stream<T> stream;
 
-    public StreamIterator(Stream<T> stream) {
+    public StreamIterator(final Stream<T> stream) {
         this.stream = stream;
     }
 
@@ -18,7 +18,7 @@ public final class StreamIterator<T> implements Iterator<T> {
 
     @Override
     public T next() {
-        T head = stream.head();
+        final T head = stream.head();
         stream = stream.tail();
         return head;
     }

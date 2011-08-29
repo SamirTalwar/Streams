@@ -11,12 +11,12 @@ public final class ContainmentPredicate<T> implements Predicate<T> {
 
     private final Object lock = new Object();
 
-    public ContainmentPredicate(Iterable<T> iterable) {
+    public ContainmentPredicate(final Iterable<T> iterable) {
         this.iterable = iterable;
     }
 
     @Override
-    public boolean apply(T input) {
+    public boolean apply(final T input) {
         synchronized (lock) {
             if (elements == null) {
                 elements = ImmutableSet.copyOf(iterable);

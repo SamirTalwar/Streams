@@ -38,26 +38,26 @@ import com.noodlesandwich.streams.iterators.StreamIterator;
  */
 public abstract class AbstractStream<T> implements Stream<T> {
     @Override
-    public <U> Stream<U> map(Function<? super T, ? extends U> function) {
+    public <U> Stream<U> map(final Function<? super T, ? extends U> function) {
         return new Map<T, U>(function, this);
     }
 
     @Override
-    public Stream<T> filter(Predicate<? super T> predicate) {
+    public Stream<T> filter(final Predicate<? super T> predicate) {
         return new Filter<T>(predicate, this);
     }
 
     @Override
-    public <A> A foldLeft(FoldLeftFunction<A, ? super T> foldFunction, A initializer) {
+    public <A> A foldLeft(final FoldLeftFunction<A, ? super T> foldFunction, final A initializer) {
         A result = initializer;
-        for (T value : this) {
+        for (final T value : this) {
             result = foldFunction.apply(result, value);
         }
         return result;
     }
 
     @Override
-    public <A> A foldRight(FoldRightFunction<? super T, A> foldFunction, A initializer) {
+    public <A> A foldRight(final FoldRightFunction<? super T, A> foldFunction, final A initializer) {
         if (isEmpty()) {
             return initializer;
         }
@@ -65,48 +65,48 @@ public abstract class AbstractStream<T> implements Stream<T> {
     }
 
     @Override
-    public Stream<T> take(int n) {
+    public Stream<T> take(final int n) {
         return new Take<T>(n, this);
     }
 
     @Override
-    public Stream<T> drop(int n) {
+    public Stream<T> drop(final int n) {
         return new Drop<T>(n, this);
     }
 
     @Override
-    public Stream<T> takeWhile(Predicate<? super T> predicate) {
+    public Stream<T> takeWhile(final Predicate<? super T> predicate) {
         return new TakeWhile<T>(predicate, this);
     }
 
     @Override
-    public Stream<T> dropWhile(Predicate<? super T> predicate) {
+    public Stream<T> dropWhile(final Predicate<? super T> predicate) {
         return new DropWhile<T>(predicate, this);
     }
 
     @Override
-    public Stream<T> concat(Stream<T> nextStream) {
+    public Stream<T> concat(final Stream<T> nextStream) {
         return new Concat<T>(this, nextStream);
     }
 
     @Override
-    public <U> Stream<Pair<T, U>> zip(Stream<U> pairedStream) {
+    public <U> Stream<Pair<T, U>> zip(final Stream<U> pairedStream) {
         return zipWith(pairedStream, new ZipWithFunction<T, U, Pair<T, U>>() {
             @Override
-            public Pair<T, U> apply(T a, U b) {
+            public Pair<T, U> apply(final T a, final U b) {
                 return new Pair<T, U>(a, b);
             }
         });
     }
 
     @Override
-    public <U, V> Stream<V> zipWith(Stream<U> pairedStream, ZipWithFunction<? super T, ? super U, ? extends V> zipWithFunction) {
+    public <U, V> Stream<V> zipWith(final Stream<U> pairedStream, final ZipWithFunction<? super T, ? super U, ? extends V> zipWithFunction) {
         return new Zip<T, U, V>(zipWithFunction, this, pairedStream);
     }
 
     @Override
-    public boolean any(Predicate<? super T> predicate) {
-        for (T value : this) {
+    public boolean any(final Predicate<? super T> predicate) {
+        for (final T value : this) {
             if (predicate.apply(value)) {
                 return true;
             }
@@ -116,8 +116,8 @@ public abstract class AbstractStream<T> implements Stream<T> {
     }
 
     @Override
-    public boolean all(Predicate<? super T> predicate) {
-        for (T value : this) {
+    public boolean all(final Predicate<? super T> predicate) {
+        for (final T value : this) {
             if (!predicate.apply(value)) {
                 return false;
             }
@@ -127,7 +127,7 @@ public abstract class AbstractStream<T> implements Stream<T> {
     }
 
     @Override
-    public boolean contains(T object) {
+    public boolean contains(final T object) {
         return any(Predicates.equalTo(object));
     }
 
@@ -137,7 +137,7 @@ public abstract class AbstractStream<T> implements Stream<T> {
     }
 
     @Override
-    public Stream<T> union(Stream<T> unionedStream) {
+    public Stream<T> union(final Stream<T> unionedStream) {
         return concat(unionedStream).unique();
     }
 
@@ -152,7 +152,7 @@ public abstract class AbstractStream<T> implements Stream<T> {
     }
 
     @Override
-    public Stream<T> symmetricDifference(Stream<T> otherStream) {
+    public Stream<T> symmetricDifference(final Stream<T> otherStream) {
         return filter(Predicates.not(new ContainmentPredicate<T>(otherStream)))
                 .union(otherStream.filter(Predicates.not(new ContainmentPredicate<T>(this))));
     }
@@ -178,17 +178,17 @@ public abstract class AbstractStream<T> implements Stream<T> {
     }
 
     @Override
-    public Stream<T> sort(Comparator<? super T> comparator) {
+    public Stream<T> sort(final Comparator<? super T> comparator) {
         return new Sort<T, T>(comparator, this);
     }
 
     @Override
-    public <U extends Comparable<U>> Stream<T> sortBy(Function<? super T, ? extends U> function) {
+    public <U extends Comparable<U>> Stream<T> sortBy(final Function<? super T, ? extends U> function) {
         return sortBy(function, Ordering.natural());
     }
 
     @Override
-    public <U> Stream<T> sortBy(Function<? super T, ? extends U> function, Comparator<? super U> comparator) {
+    public <U> Stream<T> sortBy(final Function<? super T, ? extends U> function, final Comparator<? super U> comparator) {
         return new Sort<T, U>(function, comparator, this);
     }
 
@@ -198,7 +198,7 @@ public abstract class AbstractStream<T> implements Stream<T> {
     }
 
     @Override
-    public T[] toArray(Class<T> type) {
+    public T[] toArray(final Class<T> type) {
         return Iterables.toArray(this, type);
     }
 
@@ -213,9 +213,9 @@ public abstract class AbstractStream<T> implements Stream<T> {
     }
 
     @Override
-    public <V> java.util.Map<T, V> toMap(Function<? super T, ? extends V> valueFunction) {
-        java.util.Map<T, V> map = Maps.newHashMap();
-        for (T key : toSet()) {
+    public <V> java.util.Map<T, V> toMap(final Function<? super T, ? extends V> valueFunction) {
+        final java.util.Map<T, V> map = Maps.newHashMap();
+        for (final T key : toSet()) {
             map.put(key, valueFunction.apply(key));
         }
         return map;

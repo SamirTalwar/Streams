@@ -1,14 +1,14 @@
 package com.noodlesandwich.streams.functions;
 
 import com.google.common.base.Function;
-import com.noodlesandwich.streams.implementations.CachedStream;
 import com.noodlesandwich.streams.Stream;
+import com.noodlesandwich.streams.implementations.CachedStream;
 
 public final class Map<F, T> extends CachedStream<T> {
     private final Stream<F> stream;
     private final Function<? super F, ? extends T> function;
 
-    public Map(Function<? super F, ? extends T> function, Stream<F> stream) {
+    public Map(final Function<? super F, ? extends T> function, final Stream<F> stream) {
         this.function = function;
         this.stream = stream;
     }
