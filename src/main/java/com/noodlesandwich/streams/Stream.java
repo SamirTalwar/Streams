@@ -223,11 +223,6 @@ public interface Stream<T> extends Iterable<T> {
 
     /**
      * <p>Groups the entities in the stream using a computed map, deriving the keys using the function provided.</p>
-     *
-     * <p><strong>Warning:</strong> The map returned does not fully abide by the contract. In particular, you are
-     * advised against asking it whether it contains particular keys/values or retrieving the key set, value set or
-     * entry set, as the results may not be correct and can change over the lifetime of the map. Because of this, the
-     * type of the object returned by this method will probably change in the future.</p>
      */
     <K> Lookup<K, Stream<T>> groupBy(Function<? super T, ? extends K> keyFunction);
 
