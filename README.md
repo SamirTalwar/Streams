@@ -43,18 +43,9 @@ All you have to do is [download the JAR][Streams-0.2.jar], grab [Guava][] 11.0.1
 Building Streams
 ----------------
 
-Streams is built through [Gradle][]. I recommend grabbing the latest version, as the one in the Ubuntu repositories is
-a little out of date. Then just fire up a command line and type:
+Streams is built through [Maven][]. Just fire up a command line and type:
 
-    gradle build
+    mvn package
 
-This will run all the tests and create a JAR in the `build/libs` directory. Please run this command and ensure it
+This will run all the tests and create a JAR in the `target` directory. Please run this command and ensure it
 succeeds before pushing up to your public repository as it will make sure anyone downloading it can build it.
-
-To create an Eclipse project and classpath file, type:
-
-    gradle eclipse
-
-This will generate everything you need to jump in and play with the code in your IDE.
-
-  [Gradle]: http://gradle.org/
