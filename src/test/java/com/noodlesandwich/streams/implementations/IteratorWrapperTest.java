@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import com.noodlesandwich.streams.EndOfStreamException;
 import com.noodlesandwich.streams.Stream;
@@ -15,6 +16,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import static com.noodlesandwich.streams.matchers.HeadMatcher.has_a_head_of;
 import static com.noodlesandwich.streams.matchers.NilMatcher.nil;
@@ -71,17 +73,27 @@ public final class IteratorWrapperTest {
         assertThat(stream.head(), is(1));
     }
 
-    @Test(expected=EndOfStreamException.class) public void
+    @Test public void
     throws_an_exception_when_head_is_called_on_an_empty_wrapper() {
         final Iterable<Object> iterable = new ArrayList<Object>();
         final Stream<Object> stream = Streams.wrap(iterable);
-        stream.head();
+        assertThrows(EndOfStreamException.class, new Executable() {
+            @Override
+            public void execute() {
+                stream.head();
+            }
+        });
     }
 
-    @Test(expected=EndOfStreamException.class) public void
+    @Test public void
     throws_an_exception_when_tail_is_called_on_an_empty_wrapper() {
         final Iterable<Object> iterable = new ArrayList<Object>();
         final Stream<Object> stream = Streams.wrap(iterable);
-        stream.tail();
+        assertThrows(EndOfStreamException.class, new Executable() {
+            @Override
+            public void execute() {
+                stream.tail();
+            }
+        });
     }
 }

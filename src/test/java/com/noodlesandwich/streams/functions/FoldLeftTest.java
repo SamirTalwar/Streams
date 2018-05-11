@@ -1,6 +1,6 @@
 package com.noodlesandwich.streams.functions;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.noodlesandwich.streams.FoldLeftFunction;
 import com.noodlesandwich.streams.Stream;

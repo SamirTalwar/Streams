@@ -1,6 +1,6 @@
 package com.noodlesandwich.streams.implementations;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.google.common.base.Function;
 import com.noodlesandwich.streams.EndOfStreamException;

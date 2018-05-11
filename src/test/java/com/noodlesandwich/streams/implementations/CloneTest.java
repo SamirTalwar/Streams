@@ -2,7 +2,7 @@ package com.noodlesandwich.streams.implementations;
 
 import java.util.Arrays;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.noodlesandwich.streams.Streams;
 

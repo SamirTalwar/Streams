@@ -2,7 +2,8 @@ package com.noodlesandwich.streams.functions;
 
 import java.util.Comparator;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import com.google.common.base.Functions;
 import com.google.common.collect.Ordering;
@@ -13,6 +14,7 @@ import com.noodlesandwich.streams.testutils.ThrowingIterator;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import static com.noodlesandwich.streams.matchers.NilMatcher.nil;
 
@@ -46,10 +48,15 @@ public final class SortTest {
         assertThat(stream.sort(), contains(1, 2, 3, 4, 5, 6, 7, 8, 9));
     }
 
-    @Test(expected=ClassCastException.class) public void
+    @Test public void
     throws_a_ClassCastException_if_the_underlying_type_does_not_implement_Comparable() {
         final Stream<Object> stream = Streams.of(new Object(), new Object(), new Object());
-        stream.sort().head();
+        assertThrows(ClassCastException.class, new Executable() {
+            @Override
+            public void execute() {
+                stream.sort().head();
+            }
+        });
     }
 
     @Test public void

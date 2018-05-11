@@ -1,6 +1,7 @@
 package com.noodlesandwich.streams.functions;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import com.noodlesandwich.streams.Stream;
 import com.noodlesandwich.streams.Streams;
@@ -9,6 +10,7 @@ import com.noodlesandwich.streams.testutils.ThrowingIterator;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import static com.noodlesandwich.streams.matchers.NilMatcher.nil;
 
@@ -37,10 +39,15 @@ public final class DropTest {
         assertThat(stream.drop(7), is(nil()));
     }
 
-    @Test(expected=IllegalArgumentException.class) public void
+    @Test public void
     cannot_drop_a_negative_number_of_elements() {
         final Stream<Integer> stream = Streams.of(1, 2, 3, 4, 5);
-        stream.drop(-1);
+        assertThrows(IllegalArgumentException.class, new Executable() {
+            @Override
+            public void execute() {
+                stream.drop(-1);
+            }
+        });
     }
 
     @Test public void
