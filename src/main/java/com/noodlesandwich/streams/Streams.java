@@ -43,7 +43,7 @@ public final class Streams {
      * Creates an empty stream of the type provided. Attempts to call {@link Stream#head()} or {@link Stream#tail()} on
      * this stream will throw an {@link EndOfStreamException}.
      */
-    public static <T> Stream<T> nil(final Class<T> type) {
+    public static <T> Stream<T> nil(@SuppressWarnings("unused") final Class<T> type) {
         return new Nil<T>();
     }
 

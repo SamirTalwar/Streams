@@ -2,6 +2,7 @@ package com.noodlesandwich.streams.implementations;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 
 import org.junit.jupiter.api.Test;
@@ -48,7 +49,7 @@ public final class IteratorWrapperTest {
 
     @Test public void
     is_not_nil_when_the_iterable_has_items() {
-        final Iterable<Object> iterable = Arrays.asList(new Object());
+        final Iterable<Object> iterable = Collections.singletonList(new Object());
         assertThat(Streams.wrap(iterable), is(not(nil())));
     }
 
