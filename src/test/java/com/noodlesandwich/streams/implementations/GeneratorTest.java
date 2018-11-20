@@ -31,29 +31,21 @@ public final class GeneratorTest {
     }
 
     private static Function<Integer, Integer> multiplyBy(final int n) {
-        return new Function<Integer, Integer>() {
-            @Override
-            public Integer apply(final Integer input) {
-                return input * n;
-            }
-        };
+        return input -> input * n;
     }
 
     private static Function<Integer, Integer> addOneAndThrowAfterTen() {
-        return new Function<Integer, Integer>() {
-            @Override
-            public Integer apply(final Integer input) {
-                if (input >= 10) {
-                    throw new EndOfStreamException();
-                }
-
-                return input + 1;
+        return input -> {
+            if (input >= 10) {
+                throw new EndOfStreamException();
             }
+
+            return input + 1;
         };
     }
 
     private static Function<Integer, Integer> mutableFibonacci() {
-        return new Function<Integer, Integer>() {
+        return new Function<>() {
             private int first = 0;
             private int second = 1;
 

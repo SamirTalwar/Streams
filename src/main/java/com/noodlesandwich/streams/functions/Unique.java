@@ -12,7 +12,7 @@ public final class Unique<T> extends CachedStream<T> {
     private final Set<T> before;
 
     public Unique(final Stream<T> stream) {
-        this(stream, ImmutableSet.<T>of());
+        this(stream, ImmutableSet.of());
     }
 
     public Unique(final Stream<T> stream, final Set<T> before) {
@@ -34,7 +34,7 @@ public final class Unique<T> extends CachedStream<T> {
 
     @Override
     public Stream<T> determineTail() {
-        return new Unique<T>(stream.tail(), Sets.union(before, ImmutableSet.of(stream.head())));
+        return new Unique<>(stream.tail(), Sets.union(before, ImmutableSet.of(stream.head())));
     }
 
     private void removeNonUniques() {

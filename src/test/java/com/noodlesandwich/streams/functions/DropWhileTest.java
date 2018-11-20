@@ -36,7 +36,7 @@ public final class DropWhileTest {
     @Test public void
     dropping_while_false_does_nothing() {
         final Stream<Integer> stream = Streams.of(1, 2, 3, 4, 5);
-        assertThat(stream.dropWhile(Predicates.<Integer>alwaysFalse()), contains(1, 2, 3, 4, 5));
+        assertThat(stream.dropWhile(Predicates.alwaysFalse()), contains(1, 2, 3, 4, 5));
     }
 
     @Test public void
@@ -47,17 +47,13 @@ public final class DropWhileTest {
     }
 
     private static Predicate<Integer> lessThan(final int n) {
-        return new Predicate<Integer>() {
-            @Override
-            public boolean apply(final Integer input) {
-                return input < n;
-            }
-        };
+        return input -> input < n;
     }
 
     private static Predicate<Object> mutable() {
-        return new Predicate<Object>() {
+        return new Predicate<>() {
             private int i = 3;
+
             @Override
             public boolean apply(final Object input) {
                 return i-- > 0;

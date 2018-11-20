@@ -28,7 +28,7 @@ public final class TakeWhile<T> extends CachedStream<T> {
     @Override
     public Stream<T> determineTail() {
         checkForNil();
-        return new TakeWhile<T>(predicate, stream.tail());
+        return new TakeWhile<>(predicate, stream.tail());
     }
 
     private void checkForNil() {

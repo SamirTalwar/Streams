@@ -31,7 +31,7 @@ public final class Take<T> extends CachedStream<T> {
     @Override
     public Stream<T> determineTail() {
         checkForNil();
-        return new Take<T>(n - 1, stream.tail());
+        return new Take<>(n - 1, stream.tail());
     }
 
     private void checkForNil() {

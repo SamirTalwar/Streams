@@ -3,7 +3,6 @@ package com.noodlesandwich.streams.functions;
 import java.util.Comparator;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
 import com.google.common.base.Functions;
 import com.google.common.collect.Ordering;
@@ -51,12 +50,7 @@ public final class SortTest {
     @Test public void
     throws_a_ClassCastException_if_the_underlying_type_does_not_implement_Comparable() {
         final Stream<Object> stream = Streams.of(new Object(), new Object(), new Object());
-        assertThrows(ClassCastException.class, new Executable() {
-            @Override
-            public void execute() {
-                stream.sort().head();
-            }
-        });
+        assertThrows(ClassCastException.class, () -> stream.sort().head());
     }
 
     @Test public void
@@ -82,12 +76,7 @@ public final class SortTest {
     }
 
     private static Comparator<? super Integer> evensAreOdds() {
-        return new Comparator<Integer>() {
-            @Override
-            public int compare(final Integer a, final Integer b) {
-                return Integer.valueOf(a - a % 2).compareTo(b - b % 2);
-            }
-        };
+        return Comparator.comparingInt((Integer x) -> x - x % 2);
     }
 
     private static class Thing {

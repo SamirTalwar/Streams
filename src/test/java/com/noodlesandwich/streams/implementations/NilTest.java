@@ -1,7 +1,6 @@
 package com.noodlesandwich.streams.implementations;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
 import com.noodlesandwich.streams.EndOfStreamException;
 import com.noodlesandwich.streams.Streams;
@@ -21,22 +20,12 @@ public final class NilTest {
 
     @Test public void
     throws_an_exception_if_head_is_called() {
-        assertThrows(EndOfStreamException.class, new Executable() {
-            @Override
-            public void execute() {
-                Streams.nil().head();
-            }
-        });
+        assertThrows(EndOfStreamException.class, () -> Streams.nil().head());
     }
 
     @Test public void
     throws_an_exception_if_tail_is_called() {
-        assertThrows(EndOfStreamException.class, new Executable() {
-            @Override
-            public void execute() {
-                Streams.nil().tail();
-            }
-        });
+        assertThrows(EndOfStreamException.class, () -> Streams.nil().tail());
     }
 
     @Test public void

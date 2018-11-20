@@ -23,20 +23,10 @@ public final class FoldLeftTest {
     }
 
     private static FoldLeftFunction<Integer, Integer> summation() {
-        return new FoldLeftFunction<Integer, Integer>() {
-            @Override
-            public Integer apply(final Integer accumulator, final Integer input) {
-                return accumulator + input;
-            }
-        };
+        return (accumulator, input) -> accumulator + input;
     }
 
     private static FoldLeftFunction<String, Object> joinAsString() {
-        return new FoldLeftFunction<String, Object>() {
-            @Override
-            public String apply(final String accumulator, final Object input) {
-                return accumulator + ", " + input;
-            }
-        };
+        return (accumulator, input) -> accumulator + ", " + input;
     }
 }

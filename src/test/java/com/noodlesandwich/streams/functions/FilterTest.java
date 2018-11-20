@@ -39,17 +39,13 @@ public final class FilterTest {
     }
 
     private static Predicate<Integer> isEven() {
-        return new Predicate<Integer>() {
-            @Override
-            public boolean apply(final Integer input) {
-                return input % 2 == 0;
-            }
-        };
+        return input -> input % 2 == 0;
     }
 
     private static Predicate<Object> everyOtherOne() {
-        return new Predicate<Object>() {
+        return new Predicate<>() {
             private boolean thisOne = false;
+
             @Override
             public boolean apply(final Object input) {
                 thisOne = !thisOne;

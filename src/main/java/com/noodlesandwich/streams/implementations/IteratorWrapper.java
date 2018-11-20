@@ -29,6 +29,6 @@ public final class IteratorWrapper<T> extends CachedStream<T> {
     @Override
     public Stream<T> determineTail() {
         head();
-        return new IteratorWrapper<T>(iterator);
+        return new IteratorWrapper<>(iterator);
     }
 }

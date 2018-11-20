@@ -29,20 +29,10 @@ public final class GroupByTest {
     }
 
     private static Function<Integer, Integer> add(final int n) {
-        return new Function<Integer, Integer>() {
-            @Override
-            public Integer apply(final Integer input) {
-                return input + n;
-            }
-        };
+        return input -> input + n;
     }
 
     private static Function<Integer, Integer> mod(final int n) {
-        return new Function<Integer, Integer>() {
-            @Override
-            public Integer apply(final Integer input) {
-                return input % n;
-            }
-        };
+        return input -> input % n;
     }
 }

@@ -11,8 +11,7 @@ public final class Zip<F, S, R> extends CachedStream<R> {
 
     public Zip(final ZipWithFunction<? super F, ? super S, ? extends R> zipWithFunction,
                final Stream<F> first,
-               final Stream<S> second)
-    {
+               final Stream<S> second) {
         this.first = first;
         this.second = second;
         this.zipWithFunction = zipWithFunction;
@@ -30,6 +29,6 @@ public final class Zip<F, S, R> extends CachedStream<R> {
 
     @Override
     public Stream<R> determineTail() {
-        return new Zip<F, S, R>(zipWithFunction, first.tail(), second.tail());
+        return new Zip<>(zipWithFunction, first.tail(), second.tail());
     }
 }

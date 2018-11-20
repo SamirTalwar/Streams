@@ -23,20 +23,10 @@ public final class FoldRightTest {
     }
 
     private static FoldRightFunction<Integer, Integer> summation() {
-        return new FoldRightFunction<Integer, Integer>() {
-            @Override
-            public Integer apply(final Integer accumulator, final Integer input) {
-                return accumulator + input;
-            }
-        };
+        return (accumulator, input) -> accumulator + input;
     }
 
     private static FoldRightFunction<Object, String> joinAsString() {
-        return new FoldRightFunction<Object, String>() {
-            @Override
-            public String apply(final Object input, final String accumulator) {
-                return input + ", " + accumulator;
-            }
-        };
+        return (input, accumulator) -> input + ", " + accumulator;
     }
 }

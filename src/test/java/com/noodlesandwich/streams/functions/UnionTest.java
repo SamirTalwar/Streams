@@ -27,7 +27,7 @@ public final class UnionTest {
     @Test public void
     unions_a_stream_with_nil() {
         final Stream<Integer> stream = Streams.of(1, 2, 3);
-        assertThat(stream.union(Streams.<Integer>nil()), contains(1, 2, 3));
+        assertThat(stream.union(Streams.nil()), contains(1, 2, 3));
     }
 
     @Test public void

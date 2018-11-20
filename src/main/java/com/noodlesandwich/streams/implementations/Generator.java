@@ -34,7 +34,7 @@ public final class Generator<T> extends AbstractStream<T> {
         synchronized (lock) {
             if (!fetchedTail) {
                 try {
-                    tail = new Generator<T>(iteratingFunction, iteratingFunction.apply(value));
+                    tail = new Generator<>(iteratingFunction, iteratingFunction.apply(value));
                 } catch (final EndOfStreamException e) {
                     tail = Streams.nil();
                 }

@@ -39,12 +39,12 @@ import com.noodlesandwich.streams.iterators.StreamIterator;
 public abstract class AbstractStream<T> implements Stream<T> {
     @Override
     public <U> Stream<U> map(final Function<? super T, ? extends U> function) {
-        return new Map<T, U>(function, this);
+        return new Map<>(function, this);
     }
 
     @Override
     public Stream<T> filter(final Predicate<? super T> predicate) {
-        return new Filter<T>(predicate, this);
+        return new Filter<>(predicate, this);
     }
 
     @Override
@@ -66,42 +66,37 @@ public abstract class AbstractStream<T> implements Stream<T> {
 
     @Override
     public Stream<T> take(final int n) {
-        return new Take<T>(n, this);
+        return new Take<>(n, this);
     }
 
     @Override
     public Stream<T> drop(final int n) {
-        return new Drop<T>(n, this);
+        return new Drop<>(n, this);
     }
 
     @Override
     public Stream<T> takeWhile(final Predicate<? super T> predicate) {
-        return new TakeWhile<T>(predicate, this);
+        return new TakeWhile<>(predicate, this);
     }
 
     @Override
     public Stream<T> dropWhile(final Predicate<? super T> predicate) {
-        return new DropWhile<T>(predicate, this);
+        return new DropWhile<>(predicate, this);
     }
 
     @Override
     public Stream<T> concat(final Stream<T> nextStream) {
-        return new Concat<T>(this, nextStream);
+        return new Concat<>(this, nextStream);
     }
 
     @Override
     public <U> Stream<Pair<T, U>> zip(final Stream<U> pairedStream) {
-        return zipWith(pairedStream, new ZipWithFunction<T, U, Pair<T, U>>() {
-            @Override
-            public Pair<T, U> apply(final T a, final U b) {
-                return new Pair<T, U>(a, b);
-            }
-        });
+        return zipWith(pairedStream, Pair::new);
     }
 
     @Override
     public <U, V> Stream<V> zipWith(final Stream<U> pairedStream, final ZipWithFunction<? super T, ? super U, ? extends V> zipWithFunction) {
-        return new Zip<T, U, V>(zipWithFunction, this, pairedStream);
+        return new Zip<>(zipWithFunction, this, pairedStream);
     }
 
     @Override
@@ -133,7 +128,7 @@ public abstract class AbstractStream<T> implements Stream<T> {
 
     @Override
     public Stream<T> unique() {
-        return new Unique<T>(this);
+        return new Unique<>(this);
     }
 
     @Override
@@ -143,18 +138,18 @@ public abstract class AbstractStream<T> implements Stream<T> {
 
     @Override
     public Stream<T> intersect(final Stream<T> intersectedStream) {
-        return unique().filter(new ContainmentPredicate<T>(intersectedStream));
+        return unique().filter(new ContainmentPredicate<>(intersectedStream));
     }
 
     @Override
     public Stream<T> except(final Stream<T> exceptedStream) {
-        return filter(Predicates.not(new ContainmentPredicate<T>(exceptedStream)));
+        return filter(Predicates.not(new ContainmentPredicate<>(exceptedStream)));
     }
 
     @Override
     public Stream<T> symmetricDifference(final Stream<T> otherStream) {
-        return filter(Predicates.not(new ContainmentPredicate<T>(otherStream)))
-                .union(otherStream.filter(Predicates.not(new ContainmentPredicate<T>(this))));
+        return filter(Predicates.not(new ContainmentPredicate<>(otherStream)))
+                .union(otherStream.filter(Predicates.not(new ContainmentPredicate<>(this))));
     }
 
     @Override
@@ -168,7 +163,7 @@ public abstract class AbstractStream<T> implements Stream<T> {
 
     @Override
     public Stream<T> reverse() {
-        return new Reverse<T>(this);
+        return new Reverse<>(this);
     }
 
     @Override
@@ -194,7 +189,7 @@ public abstract class AbstractStream<T> implements Stream<T> {
 
     @Override
     public <K> Lookup<K, Stream<T>> groupBy(final Function<? super T, ? extends K> keyFunction) {
-        return new StreamLookup<K, T>(this, keyFunction);
+        return new StreamLookup<>(this, keyFunction);
     }
 
     @Override
@@ -223,6 +218,6 @@ public abstract class AbstractStream<T> implements Stream<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new StreamIterator<T>(this);
+        return new StreamIterator<>(this);
     }
 }

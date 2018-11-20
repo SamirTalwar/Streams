@@ -13,7 +13,7 @@ public final class HeadMatcher<T> extends TypeSafeDiagnosingMatcher<Stream<T>> {
     }
 
     public static <T> HeadMatcher<T> has_a_head_of(final T head) {
-        return new HeadMatcher<T>(head);
+        return new HeadMatcher<>(head);
     }
 
     @Override

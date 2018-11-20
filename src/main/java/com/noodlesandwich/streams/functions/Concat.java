@@ -24,6 +24,6 @@ public final class Concat<T> extends CachedStream<T> {
 
     @Override
     public Stream<T> determineTail() {
-        return !one.isEmpty() ? new Concat<T>(one.tail(), two) : two.tail();
+        return !one.isEmpty() ? new Concat<>(one.tail(), two) : two.tail();
     }
 }

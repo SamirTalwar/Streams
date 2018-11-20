@@ -21,7 +21,7 @@ public final class ExceptTest {
     @Test public void
     anything_except_nil_results_in_no_change() {
         final Stream<Integer> stream = Streams.of(1, 2, 3);
-        assertThat(stream.except(Streams.<Integer>nil()), contains(1, 2, 3));
+        assertThat(stream.except(Streams.nil()), contains(1, 2, 3));
     }
 
     @Test public void
@@ -49,7 +49,7 @@ public final class ExceptTest {
     excepting_a_superset_results_in_nil() {
         final Stream<Integer> streamOne = Streams.of(1, 2, 3);
         final Stream<Integer> streamTwo = Streams.of(4, 3, 2, 1);
-        assertThat(streamOne.except(streamTwo), is(NilMatcher.<Integer>nil()));
+        assertThat(streamOne.except(streamTwo), is(NilMatcher.nil()));
     }
 
     @Test public void

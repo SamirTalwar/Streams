@@ -37,7 +37,7 @@ public final class TakeWhileTest {
     @Test public void
     taking_while_true_does_nothing() {
         final Stream<Integer> stream = Streams.of(1, 2, 3, 4, 5);
-        assertThat(stream.takeWhile(Predicates.<Integer>alwaysTrue()), contains(1, 2, 3, 4, 5));
+        assertThat(stream.takeWhile(Predicates.alwaysTrue()), contains(1, 2, 3, 4, 5));
     }
 
     @Test public void
@@ -54,17 +54,13 @@ public final class TakeWhileTest {
     }
 
     private static Predicate<Integer> lessThan(final int n) {
-        return new Predicate<Integer>() {
-            @Override
-            public boolean apply(final Integer input) {
-                return input < n;
-            }
-        };
+        return input -> input < n;
     }
 
     private static Predicate<Object> mutable() {
-        return new Predicate<Object>() {
+        return new Predicate<>() {
             private int i = 3;
+
             @Override
             public boolean apply(final Object input) {
                 return i-- > 0;
@@ -73,11 +69,6 @@ public final class TakeWhileTest {
     }
 
     private static Function<Integer, Integer> addOne() {
-        return new Function<Integer, Integer>() {
-            @Override
-            public Integer apply(final Integer input) {
-                return input + 1;
-            }
-        };
+        return input -> input + 1;
     }
 }

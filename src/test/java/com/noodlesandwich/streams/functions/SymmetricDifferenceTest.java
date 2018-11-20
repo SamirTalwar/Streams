@@ -21,7 +21,7 @@ public final class SymmetricDifferenceTest {
     @Test public void
     a_symmetric_difference_of_anything_with_nil_results_in_the_first_stream() {
         final Stream<Integer> stream = Streams.of(1, 2, 3);
-        assertThat(stream.symmetricDifference(Streams.<Integer>nil()), contains(1, 2, 3));
+        assertThat(stream.symmetricDifference(Streams.nil()), contains(1, 2, 3));
     }
 
     @Test public void
@@ -55,14 +55,14 @@ public final class SymmetricDifferenceTest {
     the_symmetric_difference_of_two_identical_streams_is_nil() {
         final Stream<Integer> streamOne = Streams.of(1, 2, 3);
         final Stream<Integer> streamTwo = Streams.of(1, 2, 3);
-        assertThat(streamOne.symmetricDifference(streamTwo), is(NilMatcher.<Integer>nil()));
+        assertThat(streamOne.symmetricDifference(streamTwo), is(NilMatcher.nil()));
     }
 
     @Test public void
     the_symmetric_difference_of_two_streams_containing_the_same_elements_is_nil() {
         final Stream<Integer> streamOne = Streams.of(1, 2, 3);
         final Stream<Integer> streamTwo = Streams.of(2, 3, 1);
-        assertThat(streamOne.symmetricDifference(streamTwo), is(NilMatcher.<Integer>nil()));
+        assertThat(streamOne.symmetricDifference(streamTwo), is(NilMatcher.nil()));
     }
 
     @Test public void

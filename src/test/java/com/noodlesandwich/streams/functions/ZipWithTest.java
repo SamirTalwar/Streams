@@ -5,12 +5,13 @@ import org.junit.jupiter.api.Test;
 import com.noodlesandwich.streams.Stream;
 import com.noodlesandwich.streams.Streams;
 import com.noodlesandwich.streams.ZipWithFunction;
-import com.noodlesandwich.streams.matchers.NilMatcher;
 import com.noodlesandwich.streams.testutils.ThrowingIterator;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
+
+import static com.noodlesandwich.streams.matchers.NilMatcher.nil;
 
 public final class ZipWithTest {
     @Test public void
@@ -23,14 +24,14 @@ public final class ZipWithTest {
     zipping_anything_with_nil_returns_nil() {
         final Stream<Integer> streamOne = Streams.of(1, 2, 3, 4, 5);
         final Stream<Integer> streamTwo = Streams.nil();
-        assertThat(streamOne.zipWith(streamTwo, add()), is(NilMatcher.<Integer>nil()));
+        assertThat(streamOne.zipWith(streamTwo, add()), is(nil()));
     }
 
     @Test public void
     zipping_nil_with_anything_returns_nil() {
         final Stream<Integer> streamOne = Streams.nil();
         final Stream<Integer> streamTwo = Streams.of(7, 6, 5, 4, 3);
-        assertThat(streamOne.zipWith(streamTwo, add()), is(NilMatcher.<Integer>nil()));
+        assertThat(streamOne.zipWith(streamTwo, add()), is(nil()));
     }
 
     @Test public void
@@ -69,26 +70,17 @@ public final class ZipWithTest {
     }
 
     private static ZipWithFunction<Integer, Integer, Integer> add() {
-        return new ZipWithFunction<Integer, Integer, Integer>() {
-            @Override
-            public Integer apply(final Integer a, final Integer b) {
-                return a + b;
-            }
-        };
+        return (a, b) -> a + b;
     }
 
     private static ZipWithFunction<Object, Object, String> concat() {
-        return new ZipWithFunction<Object, Object, String>() {
-            @Override
-            public String apply(final Object a, final Object b) {
-                return a.toString() + b.toString();
-            }
-        };
+        return (a, b) -> a.toString() + b.toString();
     }
 
     private static ZipWithFunction<Integer, Integer, Integer> mutable() {
-        return new ZipWithFunction<Integer, Integer, Integer>() {
+        return new ZipWithFunction<>() {
             private int i = 0;
+
             @Override
             public Integer apply(final Integer a, final Integer b) {
                 return a + b + (++i);

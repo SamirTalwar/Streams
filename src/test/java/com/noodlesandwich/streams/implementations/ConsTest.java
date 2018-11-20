@@ -48,6 +48,6 @@ public final class ConsTest {
 
     @Test public void
     iterates() {
-        assertThat(Streams.cons(1, Streams.cons(2, Streams.cons(3, Streams.<Integer>nil()))), contains(1, 2, 3));
+        assertThat(Streams.cons(1, Streams.cons(2, Streams.cons(3, Streams.nil()))), contains(1, 2, 3));
     }
 }

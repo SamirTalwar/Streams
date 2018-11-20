@@ -29,14 +29,15 @@ import com.noodlesandwich.streams.implementations.Nil;
  * </ul>
  */
 public final class Streams {
-    private Streams() { }
+    private Streams() {
+    }
 
     /**
      * Creates an empty stream. Attempts to call {@link Stream#head()} or {@link Stream#tail()} on this stream will
      * throw an {@link EndOfStreamException}.
      */
     public static <T> Stream<T> nil() {
-        return new Nil<T>();
+        return new Nil<>();
     }
 
     /**
@@ -44,7 +45,7 @@ public final class Streams {
      * this stream will throw an {@link EndOfStreamException}.
      */
     public static <T> Stream<T> nil(@SuppressWarnings("unused") final Class<T> type) {
-        return new Nil<T>();
+        return new Nil<>();
     }
 
     /**
@@ -53,17 +54,18 @@ public final class Streams {
      *
      * <p><strong>Example:</strong></p>
      * <blockquote>
-     *   <code>cons(a, cons(b, cons(c, nil())))</code> will return a stream that when iterated over, will yield
-     *   <code>a</code>, then <code>b</code>, then <code>c</code>.
+     * <code>cons(a, cons(b, cons(c, nil())))</code> will return a stream that when iterated over, will yield
+     * <code>a</code>, then <code>b</code>, then <code>c</code>.
      * </blockquote>
      */
     public static <T> Stream<T> cons(final T head, final Stream<T> tail) {
-        return new Cons<T>(head, tail);
+        return new Cons<>(head, tail);
     }
 
     /**
      * Creates a new stream over the values provided. This is shorthand for nested calls to {@link #cons}.
      */
+    @SafeVarargs
     public static <T> Stream<T> of(final T... items) {
         return clone(Iterators.forArray(items));
     }
@@ -95,7 +97,7 @@ public final class Streams {
      * over multiple times.
      */
     public static <T> Stream<T> wrap(final Iterator<T> iterator) {
-        return new IteratorWrapper<T>(iterator);
+        return new IteratorWrapper<>(iterator);
     }
 
     /**
@@ -104,13 +106,13 @@ public final class Streams {
      * {@link EndOfStreamException}.
      */
     public static <T> Stream<T> generate(final Function<? super T, ? extends T> iteratingFunction, final T start) {
-        return new Generator<T>(iteratingFunction, start);
+        return new Generator<>(iteratingFunction, start);
     }
 
     /**
      * Generates an infinite stream by repeating the value provided.
      */
     public static <T> Stream<T> repeat(final T value) {
-        return generate(Functions.<T>identity(), value);
+        return generate(Functions.identity(), value);
     }
 }

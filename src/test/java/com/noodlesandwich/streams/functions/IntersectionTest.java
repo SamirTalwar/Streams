@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import com.noodlesandwich.streams.Stream;
 import com.noodlesandwich.streams.Streams;
-import com.noodlesandwich.streams.matchers.NilMatcher;
 import com.noodlesandwich.streams.testutils.ThrowingIterator;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -36,7 +35,7 @@ public final class IntersectionTest {
     the_intersection_of_two_disjunct_streams_is_nil() {
         final Stream<Integer> streamOne = Streams.of(1, 2, 3);
         final Stream<Integer> streamTwo = Streams.of(6, 5, 4);
-        assertThat(streamOne.intersect(streamTwo), is(NilMatcher.<Integer>nil()));
+        assertThat(streamOne.intersect(streamTwo), is(nil()));
     }
 
     @Test public void

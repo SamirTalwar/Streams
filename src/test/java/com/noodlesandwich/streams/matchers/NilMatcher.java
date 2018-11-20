@@ -6,10 +6,11 @@ import org.hamcrest.TypeSafeDiagnosingMatcher;
 import com.noodlesandwich.streams.Stream;
 
 public final class NilMatcher<T> extends TypeSafeDiagnosingMatcher<Stream<T>> {
-    private NilMatcher() { }
+    private NilMatcher() {
+    }
 
     public static <T> NilMatcher<T> nil() {
-        return new NilMatcher<T>();
+        return new NilMatcher<>();
     }
 
     @Override

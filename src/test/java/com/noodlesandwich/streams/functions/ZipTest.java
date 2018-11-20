@@ -5,12 +5,13 @@ import org.junit.jupiter.api.Test;
 import com.noodlesandwich.streams.Pair;
 import com.noodlesandwich.streams.Stream;
 import com.noodlesandwich.streams.Streams;
-import com.noodlesandwich.streams.matchers.NilMatcher;
 import com.noodlesandwich.streams.testutils.ThrowingIterator;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
+
+import static com.noodlesandwich.streams.matchers.NilMatcher.nil;
 
 public final class ZipTest {
     @Test public void
@@ -23,14 +24,14 @@ public final class ZipTest {
     zipping_anything_with_nil_returns_nil() {
         final Stream<Integer> streamOne = Streams.of(1, 2, 3, 4, 5);
         final Stream<Integer> streamTwo = Streams.nil();
-        assertThat(streamOne.zip(streamTwo), is(NilMatcher.<Pair<Integer, Integer>>nil()));
+        assertThat(streamOne.zip(streamTwo), is(nil()));
     }
 
     @Test public void
     zipping_nil_with_anything_returns_nil() {
         final Stream<Integer> streamOne = Streams.nil();
         final Stream<Integer> streamTwo = Streams.of(7, 6, 5, 4, 3);
-        assertThat(streamOne.zip(streamTwo), is(NilMatcher.<Pair<Integer, Integer>>nil()));
+        assertThat(streamOne.zip(streamTwo), is(nil()));
     }
 
     @SuppressWarnings("unchecked")
@@ -86,6 +87,6 @@ public final class ZipTest {
     }
 
     private static <F, S> Pair<F, S> pair(final F first, final S second) {
-        return new Pair<F, S>(first, second);
+        return new Pair<>(first, second);
     }
 }

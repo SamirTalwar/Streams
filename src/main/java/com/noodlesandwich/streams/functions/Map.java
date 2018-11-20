@@ -25,6 +25,6 @@ public final class Map<F, T> extends CachedStream<T> {
 
     @Override
     public Stream<T> determineTail() {
-        return new Map<F, T>(function, stream.tail());
+        return new Map<>(function, stream.tail());
     }
 }

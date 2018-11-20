@@ -29,7 +29,7 @@ public final class Filter<T> extends CachedStream<T> {
     @Override
     public Stream<T> determineTail() {
         filterNext();
-        return new Filter<T>(predicate, stream.tail());
+        return new Filter<>(predicate, stream.tail());
     }
 
     private void filterNext() {

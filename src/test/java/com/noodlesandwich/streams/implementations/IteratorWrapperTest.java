@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.Iterator;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
 import com.noodlesandwich.streams.EndOfStreamException;
 import com.noodlesandwich.streams.Stream;
@@ -43,7 +42,7 @@ public final class IteratorWrapperTest {
 
     @Test public void
     is_nil_when_the_iterable_is_empty() {
-        final Iterable<Object> iterable = new ArrayList<Object>();
+        final Iterable<Object> iterable = new ArrayList<>();
         assertThat(Streams.wrap(iterable), is(nil()));
     }
 
@@ -76,25 +75,15 @@ public final class IteratorWrapperTest {
 
     @Test public void
     throws_an_exception_when_head_is_called_on_an_empty_wrapper() {
-        final Iterable<Object> iterable = new ArrayList<Object>();
+        final Iterable<Object> iterable = new ArrayList<>();
         final Stream<Object> stream = Streams.wrap(iterable);
-        assertThrows(EndOfStreamException.class, new Executable() {
-            @Override
-            public void execute() {
-                stream.head();
-            }
-        });
+        assertThrows(EndOfStreamException.class, stream::head);
     }
 
     @Test public void
     throws_an_exception_when_tail_is_called_on_an_empty_wrapper() {
-        final Iterable<Object> iterable = new ArrayList<Object>();
+        final Iterable<Object> iterable = new ArrayList<>();
         final Stream<Object> stream = Streams.wrap(iterable);
-        assertThrows(EndOfStreamException.class, new Executable() {
-            @Override
-            public void execute() {
-                stream.tail();
-            }
-        });
+        assertThrows(EndOfStreamException.class, stream::tail);
     }
 }

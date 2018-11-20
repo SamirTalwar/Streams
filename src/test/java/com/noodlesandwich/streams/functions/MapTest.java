@@ -40,17 +40,13 @@ public final class MapTest {
     }
 
     private static Function<Object, String> toStringFunc() {
-        return new Function<Object, String>() {
-            @Override
-            public String apply(final Object input) {
-                return input.toString();
-            }
-        };
+        return Object::toString;
     }
 
     private static Function<Integer, Integer> addIncrementingNumbers() {
-        return new Function<Integer, Integer>() {
+        return new Function<>() {
             private int i = 0;
+
             @Override
             public Integer apply(final Integer input) {
                 return input + (++i);

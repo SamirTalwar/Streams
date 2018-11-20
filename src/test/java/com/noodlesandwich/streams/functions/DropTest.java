@@ -1,7 +1,6 @@
 package com.noodlesandwich.streams.functions;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
 import com.noodlesandwich.streams.Stream;
 import com.noodlesandwich.streams.Streams;
@@ -42,12 +41,7 @@ public final class DropTest {
     @Test public void
     cannot_drop_a_negative_number_of_elements() {
         final Stream<Integer> stream = Streams.of(1, 2, 3, 4, 5);
-        assertThrows(IllegalArgumentException.class, new Executable() {
-            @Override
-            public void execute() {
-                stream.drop(-1);
-            }
-        });
+        assertThrows(IllegalArgumentException.class, () -> stream.drop(-1));
     }
 
     @Test public void

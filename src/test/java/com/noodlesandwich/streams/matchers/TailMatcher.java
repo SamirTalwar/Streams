@@ -13,7 +13,7 @@ public final class TailMatcher<T> extends TypeSafeDiagnosingMatcher<Stream<T>> {
     }
 
     public static <T> TailMatcher<T> has_a_tail_of(final Stream<T> tail) {
-        return new TailMatcher<T>(tail);
+        return new TailMatcher<>(tail);
     }
 
     @Override
