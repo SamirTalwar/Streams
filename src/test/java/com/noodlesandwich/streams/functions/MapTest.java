@@ -1,9 +1,9 @@
 package com.noodlesandwich.streams.functions;
 
+import java.util.function.Function;
+
 import org.junit.jupiter.api.Test;
 
-import com.google.common.base.Function;
-import com.google.common.base.Functions;
 import com.noodlesandwich.streams.Stream;
 import com.noodlesandwich.streams.Streams;
 import com.noodlesandwich.streams.testutils.ThrowingIterator;
@@ -23,7 +23,7 @@ public final class MapTest {
 
     @Test public void
     a_mapping_of_nil_to_anything_is_nil() {
-        assertThat(Streams.nil().map(Functions.constant(new Object())), is(nil()));
+        assertThat(Streams.nil().map(ignored -> new Object()), is(nil()));
     }
 
     @Test public void

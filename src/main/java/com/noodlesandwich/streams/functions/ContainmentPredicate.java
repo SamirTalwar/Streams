@@ -1,8 +1,8 @@
 package com.noodlesandwich.streams.functions;
 
 import java.util.Set;
+import java.util.function.Predicate;
 
-import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableSet;
 
 public final class ContainmentPredicate<T> implements Predicate<T> {
@@ -16,7 +16,7 @@ public final class ContainmentPredicate<T> implements Predicate<T> {
     }
 
     @Override
-    public boolean apply(final T input) {
+    public boolean test(final T input) {
         synchronized (lock) {
             if (elements == null) {
                 elements = ImmutableSet.copyOf(iterable);

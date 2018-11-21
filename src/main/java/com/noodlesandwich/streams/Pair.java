@@ -1,6 +1,6 @@
 package com.noodlesandwich.streams;
 
-import com.google.common.base.Objects;
+import java.util.Objects;
 
 /**
  * A pair of two objects. Intended as the return type for the {@link Stream#zip} method.
@@ -34,13 +34,13 @@ public final class Pair<F, S> {
 
         @SuppressWarnings("unchecked")
         final Pair<F, S> other = (Pair<F, S>) obj;
-        return Objects.equal(first, other.first)
-            && Objects.equal(second, other.second);
+        return Objects.equals(first, other.first)
+            && Objects.equals(second, other.second);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(first, second);
+        return Objects.hash(first, second);
     }
 
     @Override

@@ -4,14 +4,12 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
 import com.noodlesandwich.streams.FoldLeftFunction;
 import com.noodlesandwich.streams.FoldRightFunction;
@@ -32,6 +30,10 @@ import com.noodlesandwich.streams.functions.TakeWhile;
 import com.noodlesandwich.streams.functions.Unique;
 import com.noodlesandwich.streams.functions.Zip;
 import com.noodlesandwich.streams.iterators.StreamIterator;
+
+import static java.util.Comparator.comparing;
+import static java.util.function.Predicate.isEqual;
+import static java.util.function.Predicate.not;
 
 /**
  * <p> A base class upon which to build stream implementations.</p>
@@ -102,7 +104,7 @@ public abstract class AbstractStream<T> implements Stream<T> {
     @Override
     public boolean any(final Predicate<? super T> predicate) {
         for (final T value : this) {
-            if (predicate.apply(value)) {
+            if (predicate.test(value)) {
                 return true;
             }
         }
@@ -113,7 +115,7 @@ public abstract class AbstractStream<T> implements Stream<T> {
     @Override
     public boolean all(final Predicate<? super T> predicate) {
         for (final T value : this) {
-            if (!predicate.apply(value)) {
+            if (!predicate.test(value)) {
                 return false;
             }
         }
@@ -123,7 +125,7 @@ public abstract class AbstractStream<T> implements Stream<T> {
 
     @Override
     public boolean contains(final T object) {
-        return any(Predicates.equalTo(object));
+        return any(isEqual(object));
     }
 
     @Override
@@ -143,13 +145,13 @@ public abstract class AbstractStream<T> implements Stream<T> {
 
     @Override
     public Stream<T> except(final Stream<T> exceptedStream) {
-        return filter(Predicates.not(new ContainmentPredicate<>(exceptedStream)));
+        return filter(not(new ContainmentPredicate<>(exceptedStream)));
     }
 
     @Override
     public Stream<T> symmetricDifference(final Stream<T> otherStream) {
-        return filter(Predicates.not(new ContainmentPredicate<>(otherStream)))
-                .union(otherStream.filter(Predicates.not(new ContainmentPredicate<>(this))));
+        return filter(not(new ContainmentPredicate<>(otherStream)))
+                .union(otherStream.filter(not(new ContainmentPredicate<>(this))));
     }
 
     @Override
@@ -166,10 +168,10 @@ public abstract class AbstractStream<T> implements Stream<T> {
         return new Reverse<>(this);
     }
 
-    @Override
     @SuppressWarnings("unchecked")
+    @Override
     public Stream<T> sort() {
-        return sort((Comparator<? super T>) Ordering.natural());
+        return sort(comparing(((T value) -> (Comparable) value)));
     }
 
     @Override
@@ -179,12 +181,7 @@ public abstract class AbstractStream<T> implements Stream<T> {
 
     @Override
     public <U extends Comparable<U>> Stream<T> sortBy(final Function<? super T, ? extends U> function) {
-        return sortBy(function, Ordering.natural());
-    }
-
-    @Override
-    public <U> Stream<T> sortBy(final Function<? super T, ? extends U> function, final Comparator<? super U> comparator) {
-        return new Sort<T, U>(function, comparator, this);
+        return sort(comparing(function));
     }
 
     @Override

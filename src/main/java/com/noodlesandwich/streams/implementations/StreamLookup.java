@@ -1,11 +1,9 @@
 package com.noodlesandwich.streams.implementations;
 
-import com.google.common.base.Function;
+import java.util.function.Function;
+
 import com.noodlesandwich.streams.Lookup;
 import com.noodlesandwich.streams.Stream;
-
-import static com.google.common.base.Predicates.compose;
-import static com.google.common.base.Predicates.equalTo;
 
 public final class StreamLookup<K, T> implements Lookup<K, Stream<T>> {
     private final Stream<T> stream;
@@ -18,6 +16,6 @@ public final class StreamLookup<K, T> implements Lookup<K, Stream<T>> {
 
     @Override
     public Stream<T> get(final K key) {
-        return stream.filter(compose(equalTo(key), keyFunction));
+        return stream.filter(value -> key.equals(keyFunction.apply(value)));
     }
 }

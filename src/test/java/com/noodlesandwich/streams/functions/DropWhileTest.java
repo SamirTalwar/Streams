@@ -1,9 +1,9 @@
 package com.noodlesandwich.streams.functions;
 
+import java.util.function.Predicate;
+
 import org.junit.jupiter.api.Test;
 
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
 import com.noodlesandwich.streams.Stream;
 import com.noodlesandwich.streams.Streams;
 import com.noodlesandwich.streams.testutils.ThrowingIterator;
@@ -24,7 +24,7 @@ public final class DropWhileTest {
     @Test public void
     dropping_while_true_returns_nil() {
         final Stream<Object> stream = Streams.of(new Object(), new Object(), new Object());
-        assertThat(stream.dropWhile(Predicates.alwaysTrue()), is(nil()));
+        assertThat(stream.dropWhile(ignored -> true), is(nil()));
     }
 
     @Test public void
@@ -36,7 +36,7 @@ public final class DropWhileTest {
     @Test public void
     dropping_while_false_does_nothing() {
         final Stream<Integer> stream = Streams.of(1, 2, 3, 4, 5);
-        assertThat(stream.dropWhile(Predicates.alwaysFalse()), contains(1, 2, 3, 4, 5));
+        assertThat(stream.dropWhile(ignored -> false), contains(1, 2, 3, 4, 5));
     }
 
     @Test public void
@@ -55,7 +55,7 @@ public final class DropWhileTest {
             private int i = 3;
 
             @Override
-            public boolean apply(final Object input) {
+            public boolean test(final Object input) {
                 return i-- > 0;
             }
         };

@@ -1,6 +1,7 @@
 package com.noodlesandwich.streams.functions;
 
-import com.google.common.base.Predicate;
+import java.util.function.Predicate;
+
 import com.noodlesandwich.streams.Stream;
 import com.noodlesandwich.streams.implementations.CachedStream;
 
@@ -32,7 +33,7 @@ public final class DropWhile<T> extends CachedStream<T> {
     }
 
     private void dropWhilePredicateApplies() {
-        while (!stream.isEmpty() && predicate.apply(stream.head())) {
+        while (!stream.isEmpty() && predicate.test(stream.head())) {
             stream = stream.tail();
         }
     }

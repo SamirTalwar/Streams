@@ -1,6 +1,7 @@
 package com.noodlesandwich.streams.functions;
 
-import com.google.common.base.Predicate;
+import java.util.function.Predicate;
+
 import com.noodlesandwich.streams.EndOfStreamException;
 import com.noodlesandwich.streams.Stream;
 import com.noodlesandwich.streams.implementations.CachedStream;
@@ -16,7 +17,7 @@ public final class TakeWhile<T> extends CachedStream<T> {
 
     @Override
     public boolean determineIsEmpty() {
-        return stream.isEmpty() || !predicate.apply(stream.head());
+        return stream.isEmpty() || !predicate.test(stream.head());
     }
 
     @Override

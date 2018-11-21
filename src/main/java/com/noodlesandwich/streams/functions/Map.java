@@ -1,6 +1,7 @@
 package com.noodlesandwich.streams.functions;
 
-import com.google.common.base.Function;
+import java.util.function.Function;
+
 import com.noodlesandwich.streams.Stream;
 import com.noodlesandwich.streams.implementations.CachedStream;
 

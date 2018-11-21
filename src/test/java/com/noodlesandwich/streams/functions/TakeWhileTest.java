@@ -1,10 +1,10 @@
 package com.noodlesandwich.streams.functions;
 
+import java.util.function.Function;
+import java.util.function.Predicate;
+
 import org.junit.jupiter.api.Test;
 
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
 import com.noodlesandwich.streams.Stream;
 import com.noodlesandwich.streams.Streams;
 import com.noodlesandwich.streams.testutils.ThrowingIterator;
@@ -25,7 +25,7 @@ public final class TakeWhileTest {
     @Test public void
     taking_while_false_returns_nil() {
         final Stream<Object> stream = Streams.of(new Object(), new Object(), new Object());
-        assertThat(stream.takeWhile(Predicates.alwaysFalse()), is(nil()));
+        assertThat(stream.takeWhile(ignored -> false), is(nil()));
     }
 
     @Test public void
@@ -37,7 +37,7 @@ public final class TakeWhileTest {
     @Test public void
     taking_while_true_does_nothing() {
         final Stream<Integer> stream = Streams.of(1, 2, 3, 4, 5);
-        assertThat(stream.takeWhile(Predicates.alwaysTrue()), contains(1, 2, 3, 4, 5));
+        assertThat(stream.takeWhile(ignored -> true), contains(1, 2, 3, 4, 5));
     }
 
     @Test public void
@@ -62,7 +62,7 @@ public final class TakeWhileTest {
             private int i = 3;
 
             @Override
-            public boolean apply(final Object input) {
+            public boolean test(final Object input) {
                 return i-- > 0;
             }
         };

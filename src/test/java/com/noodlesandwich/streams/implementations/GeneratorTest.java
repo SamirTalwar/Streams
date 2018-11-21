@@ -1,8 +1,9 @@
 package com.noodlesandwich.streams.implementations;
 
+import java.util.function.Function;
+
 import org.junit.jupiter.api.Test;
 
-import com.google.common.base.Function;
 import com.noodlesandwich.streams.EndOfStreamException;
 import com.noodlesandwich.streams.Stream;
 import com.noodlesandwich.streams.Streams;

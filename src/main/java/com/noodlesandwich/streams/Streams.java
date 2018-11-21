@@ -1,14 +1,15 @@
 package com.noodlesandwich.streams;
 
 import java.util.Iterator;
+import java.util.function.Function;
 
-import com.google.common.base.Function;
-import com.google.common.base.Functions;
 import com.google.common.collect.Iterators;
 import com.noodlesandwich.streams.implementations.Cons;
 import com.noodlesandwich.streams.implementations.Generator;
 import com.noodlesandwich.streams.implementations.IteratorWrapper;
 import com.noodlesandwich.streams.implementations.Nil;
+
+import static java.util.function.Function.identity;
 
 /**
  * <p>Mechanisms for constructing streams.<p>
@@ -113,6 +114,6 @@ public final class Streams {
      * Generates an infinite stream by repeating the value provided.
      */
     public static <T> Stream<T> repeat(final T value) {
-        return generate(Functions.identity(), value);
+        return generate(identity(), value);
     }
 }

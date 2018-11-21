@@ -4,9 +4,8 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * <p>A Stream is an immutable structure similar to a linked list in design. Once created, the stream cannot be altered,
@@ -211,15 +210,6 @@ public interface Stream<T> extends Iterable<T> {
      * sorted stream will cause a stack overflow.</p>
      */
     <U extends Comparable<U>> Stream<T> sortBy(Function<? super T, ? extends U> function);
-
-    /**
-     * <p>Sorts the stream using an entity which can be derived from each element and a comparator.</p>
-     *
-     * <p><strong>Warning:</strong> This is potentially an expensive operation, as it can only be done by traversing the
-     * entire stream. If the stream is very large or infinite, operations that attempt to retrieve values from the
-     * sorted stream will cause a stack overflow.</p>
-     */
-    <U> Stream<T> sortBy(Function<? super T, ? extends U> function, Comparator<? super U> comparator);
 
     /**
      * <p>Groups the entities in the stream using a computed map, deriving the keys using the function provided.</p>

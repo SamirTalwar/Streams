@@ -1,8 +1,9 @@
 package com.noodlesandwich.streams.functions;
 
+import java.util.function.Predicate;
+
 import org.junit.jupiter.api.Test;
 
-import com.google.common.base.Predicate;
 import com.noodlesandwich.streams.Stream;
 import com.noodlesandwich.streams.Streams;
 import com.noodlesandwich.streams.testutils.ThrowingIterator;
@@ -47,7 +48,7 @@ public final class FilterTest {
             private boolean thisOne = false;
 
             @Override
-            public boolean apply(final Object input) {
+            public boolean test(final Object input) {
                 thisOne = !thisOne;
                 return thisOne;
             }

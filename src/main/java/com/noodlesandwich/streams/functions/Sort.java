@@ -2,27 +2,16 @@ package com.noodlesandwich.streams.functions;
 
 import java.util.Comparator;
 
-import com.google.common.base.Function;
-import com.google.common.base.Functions;
 import com.noodlesandwich.streams.Stream;
 import com.noodlesandwich.streams.Streams;
 import com.noodlesandwich.streams.implementations.LazyStream;
 
 public final class Sort<T, U> extends LazyStream<T> {
     private final Stream<T> stream;
-    private final Function<? super T, ? extends U> function;
-    private final Comparator<? super U> comparator;
+    private final Comparator<? super T> comparator;
 
     @SuppressWarnings("unchecked")
-    public Sort(final Comparator<? super U> comparator, final Stream<T> stream) {
-        this((Function<? super T, ? extends U>) Functions.<T>identity(), comparator, stream);
-    }
-
-    public Sort(final Function<? super T, ? extends U> function,
-                final Comparator<? super U> comparator,
-                final Stream<T> stream)
-    {
-        this.function = function;
+    public Sort(final Comparator<? super T> comparator, final Stream<T> stream) {
         this.stream = stream;
         this.comparator = comparator;
     }
@@ -51,7 +40,7 @@ public final class Sort<T, U> extends LazyStream<T> {
             return left;
         }
 
-        if (comparator.compare(function.apply(left.head()), function.apply(right.head())) <= 0) {
+        if (comparator.compare(left.head(), right.head()) <= 0) {
             return Streams.cons(left.head(), merge(left.tail(), right));
         } else {
             return Streams.cons(right.head(), merge(left, right.tail()));
